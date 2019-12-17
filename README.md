@@ -1,9 +1,10 @@
 # UniShip
 ### Progetto di Ingegneria del Software @ UNISA A.A 2019/20
+### Prof.ssa Filomena Ferrucci
 
-Prof.ssa Filomena Ferrucci
+La piattaforma nasce per fornire uno strumento che possa permettere la comunicazione tra aziende e studenti di informatica dell’Università degli Studi di Salerno e per consentire all’Ufficio Carriere un processo senza perdita di informazioni ed efficiente.
 
-Membri del team:
+<h2>Membri del team:</h2>
 
 <table>
   <tbody>
