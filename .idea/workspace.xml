@@ -7,11 +7,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c9c3e06-950e-4e6d-bd91-3829cbea38c7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_java_8_0_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/RichiestaDisponibilitaManagment/RichiestaDServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/TirocinioManagment/PDFServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/TirocinioManagment/RegistroServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/TirocinioManagment/TirocinioServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/UsersManagment/HandleUserServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/UsersManagment/SessionServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Storage/Beans/Azienda.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Storage/Beans/Studente.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UniShip.iml" beforeDir="false" afterPath="$PROJECT_DIR$/UniShip.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ApplicationLogic/ProvaServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/UsersManagment/SignUpServlet.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,6 +84,14 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="configurable.group.language" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Storage" />
+      <recent name="ApplicationLogic.TirocinioManagment" />
+      <recent name="ApplicationLogic.RichiestaDisponibilitaManagment" />
+      <recent name="ApplicationLogic.UsersManagment" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -177,7 +191,8 @@
       <option name="presentableId" value="Default" />
       <updated>1577046093449</updated>
       <workItem from="1577046100199" duration="698000" />
-      <workItem from="1577047038469" duration="678000" />
+      <workItem from="1577047038469" duration="806000" />
+      <workItem from="1577090497273" duration="835000" />
     </task>
     <servers />
   </component>
@@ -189,7 +204,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
