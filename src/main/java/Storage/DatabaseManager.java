@@ -10,7 +10,7 @@ public class DatabaseManager {
 
     static {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/vinlyika");
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/uniship");
         config.setUsername("root");
         config.setPassword("root");
         config.addDataSourceProperty("cachePrepStmts", "true");
