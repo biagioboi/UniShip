@@ -7,17 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c9c3e06-950e-4e6d-bd91-3829cbea38c7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/RichiestaDisponibilitaManagment/RichiestaDServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/TirocinioManagment/PDFServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/TirocinioManagment/RegistroServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/TirocinioManagment/TirocinioServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/UsersManagment/HandleUserServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/UsersManagment/SessionServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Storage/Beans/Azienda.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Storage/Beans/Studente.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ApplicationLogic/ProvaServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ApplicationLogic/UsersManagment/SignUpServlet.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -192,7 +182,8 @@
       <updated>1577046093449</updated>
       <workItem from="1577046100199" duration="698000" />
       <workItem from="1577047038469" duration="806000" />
-      <workItem from="1577090497273" duration="835000" />
+      <workItem from="1577090497273" duration="1011000" />
+      <workItem from="1577094377812" duration="885000" />
     </task>
     <servers />
   </component>
