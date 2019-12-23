@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2c9c3e06-950e-4e6d-bd91-3829cbea38c7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -189,7 +190,7 @@
       <workItem from="1577046100199" duration="698000" />
       <workItem from="1577047038469" duration="806000" />
       <workItem from="1577090497273" duration="1011000" />
-      <workItem from="1577094377812" duration="1611000" />
+      <workItem from="1577094377812" duration="1873000" />
     </task>
     <servers />
   </component>
