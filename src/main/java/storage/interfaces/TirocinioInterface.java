@@ -11,13 +11,13 @@ l'identificativo; mentre gli aggiornamenti e inserimenti restituiscono un boolea
 
 public interface TirocinioInterface {
 
-  public boolean doChange(Tirocinio tirocinio);
+  boolean doChange(Tirocinio tirocinio);
 
-  public ArrayList<Tirocinio> doRetrieveByStudente(Studente studente);
+  ArrayList<Tirocinio> doRetrieveByStudente(Studente studente);
 
-  public ArrayList<Tirocinio> doRetrieveByAzienda(Azienda azienda);
+  ArrayList<Tirocinio> doRetrieveByAzienda(Azienda azienda);
 
-  public Tirocinio doRetrieveByKey(int id);
+  Tirocinio doRetrieveByKey(int id);
 
-  public boolean doSave(Tirocinio tirocinio);
+  boolean doSave(Tirocinio tirocinio);
 }

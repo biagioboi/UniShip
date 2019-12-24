@@ -8,13 +8,13 @@ import storage.beans.Utente;
 
 public interface UtenteInterface {
 
-  public boolean doCheckLogin(String email, String password);
+  boolean doCheckLogin(String email, String password);
 
-  public boolean doCheckRegister(String email);
+  boolean doCheckRegister(String email);
 
-  public ArrayList<Utente> doRetrieveAll();
+  ArrayList<Utente> doRetrieveAll();
 
-  public Utente doRetrieveByKey(String email);
+  Utente doRetrieveByKey(String email);
 
-  public boolean doSave(Utente utente);
+  boolean doSave(Utente utente);
 }

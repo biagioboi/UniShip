@@ -9,11 +9,11 @@ import storage.beans.Studente;
 
 public interface StudenteInterface {
 
-  public boolean doChangeAzienda(String email, Studente studente);
+  boolean doChangeAzienda(String email, Studente studente);
 
-  public ArrayList<Studente> doRetrieveAll();
+  ArrayList<Studente> doRetrieveAll();
 
-  public Studente doRetrieveByKey(String email);
+  Studente doRetrieveByKey(String email);
 
-  public boolean doSave(Studente studente);
+  boolean doSave(Studente studente);
 }

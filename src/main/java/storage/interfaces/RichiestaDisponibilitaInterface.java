@@ -10,11 +10,11 @@ l'identificativo; mentre gli aggiornamenti e inserimenti restituiscono un boolea
 
 public interface RichiestaDisponibilitaInterface {
 
-  public ArrayList<RichiestaDisponibilita> doRetrieveByAzienda(Azienda azienda);
+  ArrayList<RichiestaDisponibilita> doRetrieveByAzienda(Azienda azienda);
 
-  public ArrayList<RichiestaDisponibilita> doRetrieveByStudente(Studente studente);
+  ArrayList<RichiestaDisponibilita> doRetrieveByStudente(Studente studente);
 
-  public boolean doChange(RichiestaDisponibilita richiesta);
+  boolean doChange(RichiestaDisponibilita richiesta);
 
-  public boolean doSave(RichiestaDisponibilita richiesta);
+  boolean doSave(RichiestaDisponibilita richiesta);
 }
