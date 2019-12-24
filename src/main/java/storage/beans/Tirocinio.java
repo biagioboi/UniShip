@@ -16,7 +16,7 @@ public class Tirocinio {
    * @param oreSvolte le ore già svolte
    * @param path la path del PDF del Progetto Formativo
    */
-  public Tirocinio(String id, String stato, Time oreTotali, String turorEsterno, Time oreSvolte,
+  public Tirocinio(int id, String stato, Time oreTotali, String turorEsterno, Time oreSvolte,
       String path, Studente studente, Azienda azienda) {
     this.id = id;
     this.stato = stato;
@@ -28,11 +28,11 @@ public class Tirocinio {
     this.azienda = azienda;
   }
 
-  public String getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(int id) {
     this.id = id;
   }
 
@@ -92,7 +92,7 @@ public class Tirocinio {
     this.azienda = azienda;
   }
 
-  private String id;
+  private int id;
   private String stato;
   private Time oreTotali;
   private String turorEsterno;
@@ -101,11 +101,11 @@ public class Tirocinio {
   private Studente studente;
   private Azienda azienda;
 
-  public static final String NON_COMPLETO = "non_completo";
-  public static final String DA_VALUTARE = "da_valutare";
-  public static final String DA_CONVALIDARE = "da_convalidare";
-  public static final String RIFIUTATA = "rifiutata";
-  public static final String ACCETTATA = "accettata";
+  public static final String NON_COMPLETO = "Non completo";
+  public static final String DA_VALUTARE = "Da valutare";
+  public static final String DA_CONVALIDARE = "Da Convalidare";
+  public static final String RIFIUTATA = "Rifiutata";
+  public static final String ACCETTATA = "Accettata";
 
 
 }

@@ -56,4 +56,8 @@ public class RichiestaDisponibilita {
   private Studente studente;
   private Azienda azienda;
 
+  public static final String VALUTAZIONE = "Valutazione";
+  public static final String RIFIUTATA = "Rifiutata";
+  public static final String ACCETTATA = "Accettata";
+
 }
