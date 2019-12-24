@@ -1,4 +1,4 @@
-package Storage;
+package storage;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

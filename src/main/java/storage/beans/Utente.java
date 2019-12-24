@@ -1,4 +1,4 @@
-package Storage.Beans;
+package storage.beans;
 
 public class Utente {
 

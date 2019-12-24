@@ -1,4 +1,4 @@
-package ApplicationLogic.TirocinioManagment;
+package application_logic.tirocinio_managment;
 
 
 import javax.servlet.ServletException;
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/TirocinioServlet")
-public class TirocinioServlet extends HttpServlet {
+@WebServlet("/RegistroServlet")
+public class RegistroServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

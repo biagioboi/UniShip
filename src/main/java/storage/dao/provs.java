@@ -1,4 +1,4 @@
-package Storage.DAO;
+package storage.dao;
 
 public class provs {
 }

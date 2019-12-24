@@ -1,4 +1,4 @@
-package ApplicationLogic.TirocinioManagment;
+package application_logic.users_managment;
 
 
 import javax.servlet.ServletException;
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/PDFServlet")
-public class PDFServlet extends HttpServlet {
+@WebServlet("/HandleUserServlet")
+public class HandleUserServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

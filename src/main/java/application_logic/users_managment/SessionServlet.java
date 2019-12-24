@@ -1,4 +1,4 @@
-package ApplicationLogic.UsersManagment;
+package application_logic.users_managment;
 
 
 import javax.servlet.ServletException;

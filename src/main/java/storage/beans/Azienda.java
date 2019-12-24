@@ -1,4 +1,4 @@
-package Storage.Beans;
+package storage.beans;
 
 public class Azienda extends Utente {
 
@@ -6,6 +6,7 @@ public class Azienda extends Utente {
   }
 
   /**
+   * Rappresentazione dell'azienda.
    * @param email l'email dell'azienda
    * @param nome il nome dell'azienda
    * @param password la password per accedere al sistema dell'azienda
