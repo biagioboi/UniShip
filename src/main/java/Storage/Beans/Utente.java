@@ -6,6 +6,12 @@ public class Utente {
   public Utente() {
   }
 
+  /**
+   * @param email l'email dell'utente
+   * @param nome il nome dell'utente
+   * @param password la password di accesso dell'utente
+   * @param tipo il tipo di utente (ADMIN, UFFICIO_CARRIERE, AZIENDA, STUDENTE)
+   */
   public Utente(String email, String nome, String password, String tipo) {
     this.email = email;
     this.nome = nome;
@@ -50,8 +56,8 @@ public class Utente {
   private String password;
   private String tipo;
 
-  public static final String ADMIN = "Admin";
-  public static final String UFFICIO_CARRIERE = "UfficioCarriere";
+  public static final String ADMIN = "admin";
+  public static final String UFFICIO_CARRIERE = "ufficio_carriere";
   public static final String AZIENDA = "azienda";
   public static final String STUDENTE = "studente";
 

@@ -21,9 +21,7 @@ public class DatabaseManager {
     config.addDataSourceProperty("serverTimezone", "UTC");
     config.addDataSourceProperty("allowPublicKeyRetrieval", "true");
     config.addDataSourceProperty("leakDetectionThreshold", "6000");
-
     ds = new HikariDataSource(config);
-
   }
 
 

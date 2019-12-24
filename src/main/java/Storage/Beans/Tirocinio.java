@@ -1,71 +1,66 @@
 package Storage.Beans;
 
-import java.time.LocalDate;
+import java.sql.Time;
 
 public class Tirocinio {
 
   public Tirocinio() {
   }
 
-  public Tirocinio(String id, LocalDate oreTotali, String turorEsterno, LocalDate oreSvolte,
+  /**
+   * @param id l'id del tirocinio
+   * @param stato lo stato attuale del tirocinio
+   * @param oreTotali le ore totali del tirocinio
+   * @param turorEsterno il nome del tutor esterno del tirocinio
+   * @param oreSvolte le ore già svolte
+   * @param path la path del PDF del Progetto Formativo
+   */
+  public Tirocinio(String id, String stato, Time oreTotali, String turorEsterno, Time oreSvolte,
       String path) {
     this.id = id;
+    this.stato = stato;
     this.oreTotali = oreTotali;
-    turorEsterno = turorEsterno;
+    this.turorEsterno = turorEsterno;
     this.oreSvolte = oreSvolte;
     this.path = path;
   }
 
-  public String getId() {
-    return id;
-  }
+  public String getId() { return id; }
 
-  public void setId(String id) {
-    id = id;
-  }
+  public void setId(String id) { this.id = id; }
 
-  public LocalDate getOreTotali() {
-    return oreTotali;
-  }
+  public String getStato() { return stato; }
 
-  public void setOreTotali(LocalDate oreTotali) {
-    this.oreTotali = oreTotali;
-  }
+  public void setStato(String stato) { this.stato = stato; }
 
-  public String getTurorEsterno() {
-    return turorEsterno;
-  }
+  public Time getOreTotali() { return oreTotali; }
 
-  public void setTurorEsterno(String turorEsterno) {
-    turorEsterno = turorEsterno;
-  }
+  public void setOreTotali(Time oreTotali) { this.oreTotali = oreTotali; }
 
-  public LocalDate getOreSvolte() {
-    return oreSvolte;
-  }
+  public String getTurorEsterno() { return turorEsterno; }
 
-  public void setOreSvolte(LocalDate oreSvolte) {
-    this.oreSvolte = oreSvolte;
-  }
+  public void setTurorEsterno(String turorEsterno) { this.turorEsterno = turorEsterno; }
 
-  public String getPath() {
-    return path;
-  }
+  public Time getOreSvolte() { return oreSvolte; }
 
-  public void setPath(String path) {
-    this.path = path;
-  }
+  public void setOreSvolte(Time oreSvolte) { this.oreSvolte = oreSvolte; }
+
+  public String getPath() { return path; }
+
+  public void setPath(String path) { this.path = path; }
 
   private String id;
-  private LocalDate oreTotali;
+  private String stato;
+  private Time oreTotali;
   private String turorEsterno;
-  private LocalDate oreSvolte;
+  private Time oreSvolte;
   private String path;
 
-  public static final String NON_COMPLETO = "Non Completo";
-  public static final String DA_VALUTARE = "Da Valutare";
-  public static final String DA_CONVALIDARE = "Da Convalidare";
-  public static final String RIFIUTATA = "Rifiutata";
-  public static final String ACCETTATA = "Accettata";
+  public final static String NON_COMPLETO = "non_completo";
+  public final static String DA_VALUTARE = "da_valutare";
+  public final static String DA_CONVALIDARE = "da_convalidare";
+  public final static String RIFIUTATA = "rifiutata";
+  public final static String ACCETTATA = "accettata";
+
 
 }

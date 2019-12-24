@@ -5,9 +5,19 @@ public class Azienda extends Utente {
   public Azienda() {
   }
 
-  public Azienda(String email, String nome, String password, String tipo, String partitaIva,
+  /**
+   * @param email l'email dell'azienda
+   * @param nome il nome dell'azienda
+   * @param password la password per accedere al sistema dell'azienda
+   * @param partitaIva la partita iva dell'azienda
+   * @param indirizzo l'indirizzo dell'azienda
+   * @param rappresentante il rappresentate dell'azienda
+   * @param codAteco il codice ATECO dell'azienda
+   * @param numeroDipendenti il numero di dipendenti dell'azienda
+   */
+  public Azienda(String email, String nome, String password, String partitaIva,
       String indirizzo, String rappresentante, String codAteco, int numeroDipendenti) {
-    super(email, nome, password, tipo);
+    super(email, nome, password, AZIENDA);
     this.partitaIva = partitaIva;
     this.indirizzo = indirizzo;
     this.rappresentante = rappresentante;
