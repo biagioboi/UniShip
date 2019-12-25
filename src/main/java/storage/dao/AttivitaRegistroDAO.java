@@ -2,6 +2,7 @@ package storage.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import storage.DatabaseManager;
@@ -22,7 +23,42 @@ public class AttivitaRegistroDAO implements AttivitaRegistroInterface {
   @Override
   public synchronized ArrayList<AttivitaRegistro> doRetrieveByTirocinio(Tirocinio tirocinio)
       throws SQLException {
-    return null;
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ArrayList<AttivitaRegistro> list = new ArrayList<AttivitaRegistro>();
+
+
+    String selectSQL = "SELECT * FROM attivita_registro WHERE tirocinio = ?";
+
+    try {
+      connection = DatabaseManager.getConnection();
+      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement.setInt(1, tirocinio.getId());
+
+      ResultSet rs = preparedStatement.executeQuery();
+
+      while (rs.next()) {
+        AttivitaRegistro bean = new AttivitaRegistro();
+        bean.setId(rs.getInt("id"));
+        bean.setAttivita(rs.getString("attivita"));
+        bean.setData(rs.getDate("data"));
+        bean.setOreSvolte(rs.getTime("ore_svolte"));
+        bean.setTirocinio(tirocinio);
+
+        list.add(bean);
+
+      }
+
+    } finally {
+      try {
+        if (preparedStatement != null)
+          preparedStatement.close();
+      } finally {
+        if (connection != null)
+          connection.close();
+      }
+    }
+    return list;
   }
 
   /**
