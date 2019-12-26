@@ -9,39 +9,36 @@ import storage.beans.Azienda;
 public interface AziendaInterface {
 
   /**
-   * Questo metodo si occupa di modificare gli attributi di un entry nella tabella azienda.
-   * @param azienda un oggetto di tipo azienda
-   * @return true se la modifica avviene con successo , false altrimenti
-   * @throws SQLException
-   *
+   * Questo metodo si occupa di modificare un'azienda presente nel Database.
+   * @param azienda l'Azienda che si vuole aggiornare.
+   * @return true se la modifica avviene con successo, false altrimenti
+   * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    * @precodition azienda != null
    */
   public boolean doChange(Azienda azienda) throws SQLException;
 
   /**
    * Questo metodo si occupa di prelevare tutti gli oggetti Azienda dal Database.
-   * @return ArrayList di oggetti di tipo  Azienda.
-   * @throws SQLException
+   * @return ArrayList di oggetti di tipo Azienda.
+   * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    */
   public ArrayList<Azienda> doRetrieveAll() throws SQLException;
 
   /**
-   * @param email un ogggetto di dito String che rapprensenta Email di una determinata azienda.
-   * @return Oggetto di tipo Azienda
-   * @throws SQLException
-   *
-   * @precondiction email != null e deve esitere nel Database
+   * Questo metodo si occupa di trovare l'azienda che ha associata l'email passata come parametro.
+   * @param email l'email di una determinata azinda.
+   * @return l'Azienda che ha come email quella specificata nel parametro.
+   * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
+   * @precondiction email != null e che è associata ad un'Azienda nel Database.
    */
   public Azienda doRetrieveByKey(String email) throws SQLException;
 
   /**
-   * Questo metodo si occupa di inserire nel Database una entry nella tabella azienda.
-   *
-   * @param azienda un oggetto di tipo Azienda
-   * @return true se l'inserimento avviene con successo , false altrimenti
-   * @throws SQLException
-   *
-   * @precondition azienda != null
+   * Questo metodo si occupa di inserire nel Database una nuova azienda.
+   * @param azienda l'Azienda da inserire nel Database.
+   * @return true se l'inserimento avviene con successo, false altrimenti
+   * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
+   * @precondition azienda != null e che non esiste già nel Database.
    */
   public boolean doSave(Azienda azienda) throws SQLException;
 }
