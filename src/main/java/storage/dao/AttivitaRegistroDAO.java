@@ -14,19 +14,21 @@ public class AttivitaRegistroDAO implements AttivitaRegistroInterface {
 
 
   /**
-   * Questo metodo si occupa di prelevare tutte le attivita svolte in un detirminato tirocinio.
+   * Questo metodo si occupa di prelevare tutte le attività svolte in un detirminato tirocinio.
    *
-   * @param tirocinio un oggetto di tipo Tirocinio.
-   * @return ArrayList di oggetti di tipo  AttivitaTirocinio.
-   * @precondition tirocinio != null e corrisponde ad un tirocinio presente nel database.
+   * @param tirocinio il Tirocinio di cui si vogliono sapere le attività.
+   * @return ritorna un ArrayList di oggetti di tipo AttivitaTirocinio contenente tutte le attività di un tirocinio.
+   * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
+   * @throws IllegalArgumentException nel caso in cui si passa un tirocinio == null.
    */
   @Override
   public synchronized ArrayList<AttivitaRegistro> doRetrieveByTirocinio(Tirocinio tirocinio)
-      throws SQLException {
+      throws SQLException,IllegalArgumentException {
+    if(tirocinio == null)
+      throw new IllegalArgumentException();
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-    ArrayList<AttivitaRegistro> list = new ArrayList<AttivitaRegistro>();
-
+    ArrayList<AttivitaRegistro> list = null;
 
     String selectSQL = "SELECT * FROM attivita_registro WHERE tirocinio = ?";
 
@@ -51,25 +53,32 @@ public class AttivitaRegistroDAO implements AttivitaRegistroInterface {
 
     } finally {
       try {
-        if (preparedStatement != null)
+        if (preparedStatement != null) {
           preparedStatement.close();
+        }
       } finally {
-        if (connection != null)
+        if (connection != null) {
           connection.close();
+        }
       }
     }
     return list;
   }
 
   /**
-   * Questo metodo si occupa di inserire nel Database una entry nella tabella attivita_registro.
+   * Questo metodo si occupa di salvare un'AttivitaRegistro nel Database.
    *
-   * @param attivita un oggetto di tipo AttivitaRegistro
-   * @return true se l'inserimento avviene con successo , false altrimenti
-   * @precondition attivita != null
+   * @param attivita l'AttivitaRegistro da inserire nel Database
+   * @return true se l'inserimento avviene con successo, false altrimenti.
+   * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
+   * @throws IllegalArgumentException nel caso in cui si passa un attivita == null.
    */
   @Override
-  public synchronized boolean doSave(AttivitaRegistro attivita) throws SQLException {
+  public synchronized boolean doSave(AttivitaRegistro attivita) throws SQLException,IllegalArgumentException {
+
+    if(attivita == null)
+      throw new IllegalArgumentException();
+
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     int rs = 0;
