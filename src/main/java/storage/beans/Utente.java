@@ -8,7 +8,7 @@ public class Utente {
   }
 
   /**
-   * Rapresentazione dell'Utente
+   * Rapresentazione dell'Utente.
    *
    * @param email l'email dell'utente
    * @param nome il nome dell'utente

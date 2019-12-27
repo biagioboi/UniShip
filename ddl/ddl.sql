@@ -5,12 +5,12 @@ USE uniship;
 CREATE TABLE utente(
     email varchar(50) primary key,
     nome varchar(30) NOT NULL,
-    password varchar(60) NOT NULL, # modificata la lunghezza della password, nel caso in cui vogliamo usare algoritmo di hash
+    password varchar(60) NOT NULL,
     tipo enum(
         'admin',
         'ufficio_carriere',
         'azienda',
-        'studente') NOT NULL # modificato l'enum, così combacia con le classi
+        'studente') NOT NULL
 );
 
 CREATE TABLE studente(
@@ -50,7 +50,7 @@ CREATE TABLE tirocinio(
         'Da Valutare',
         'Da Convalidare',
         'Rifiutata',
-        'Accettata') NOT NULL # modificato l'enum, così combacia con le classi
+        'Accettata') NOT NULL
 );
 
 create table richiestadisponibilita(
@@ -72,7 +72,7 @@ create table richiestadisponibilita(
 
 create table attivitaregistro(
     id int auto_increment,
-    tirocinio int, # cambiando l'identificativo di tirocinio, cambio anche questo
+    tirocinio int,
     data date NOT NULL,
     attivita varchar(50) NOT NULL,
     ore_svolte time NOT NULL,
