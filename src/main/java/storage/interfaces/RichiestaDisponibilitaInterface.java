@@ -51,4 +51,12 @@ public interface RichiestaDisponibilitaInterface {
    * @throws IllegalArgumentException nel caso in cui si passa richiesta == null.
    */
   boolean doSave(RichiestaDisponibilita richiesta) throws SQLException;
+
+  /**
+   * Questo metodo si occupa di prelevare tutti gli oggetti RichiestaDisponibilita dal Database.
+   *
+   * @return ArrayList di oggetti di tipo RichiestaDisponibilita.
+   * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
+   */
+  ArrayList<RichiestaDisponibilita> doRetrieveAll() throws SQLException;
 }

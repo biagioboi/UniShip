@@ -17,7 +17,7 @@ public interface TirocinioInterface {
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    * @throws IllegalArgumentException nel caso in cui si passa tirocinio == null.
    */
-  boolean doChange(Tirocinio tirocinio);
+  boolean doChange(Tirocinio tirocinio) throws SQLException;
 
   /**
    * Questo metodo si occupa di trovare i tirocini associate allo studente passata come parametro.
@@ -28,7 +28,7 @@ public interface TirocinioInterface {
    * @throws IllegalArgumentException nel caso in cui si passa studente == null.
    */
 
-  ArrayList<Tirocinio> doRetrieveByStudente(Studente studente);
+  ArrayList<Tirocinio> doRetrieveByStudente(Studente studente) throws SQLException;
 
   /**
    * Questo metodo si occupa di trovare i tirocini associate all'azienda passata come parametro.
@@ -38,7 +38,7 @@ public interface TirocinioInterface {
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    * @throws IllegalArgumentException nel caso in cui si passa azienda == null.
    */
-  ArrayList<Tirocinio> doRetrieveByAzienda(Azienda azienda);
+  ArrayList<Tirocinio> doRetrieveByAzienda(Azienda azienda) throws SQLException;
 
   /**
    * Questo metodo si occupa di trovare il tirocinio che ha associata id passato per parametro.
@@ -46,9 +46,8 @@ public interface TirocinioInterface {
    * @param id un valore di tipo intero
    * @return il tirocinio che ha come id quello specificato nel parametro.
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
-   * @throws IllegalArgumentException nel caso in cui si passa tirocinio == null
    */
-  Tirocinio doRetrieveByKey(int id);
+  Tirocinio doRetrieveByKey(int id) throws SQLException;
 
   /**
    * Questo metodo si occupa di inserire nel Database una oggetto di tipo Tirocinio.
@@ -59,4 +58,12 @@ public interface TirocinioInterface {
    * @throws IllegalArgumentException nel caso in cui si passa tirocinio == null
    */
   boolean doSave(Tirocinio tirocinio) throws SQLException;
+
+  /**
+   * Questo metodo si occupa di prelevare tutti gli oggetti Tirocinio dal Database.
+   *
+   * @return ArrayList di oggetti di tipo Tirocinio.
+   * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
+   */
+  ArrayList<Tirocinio> doRetrieveAll() throws SQLException;
 }

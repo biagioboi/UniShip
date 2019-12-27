@@ -16,7 +16,7 @@ CREATE TABLE utente(
 CREATE TABLE studente(
     email varchar(50) primary key,
     cognome varchar(30) NOT NULL,
-    codiceFiscale char(11) NOT NULL,
+    codice_fiscale char(11) NOT NULL,
     matricola varchar(30) NOT NULL,
     data_di_nascita date NOT NULL,
     cittadinanza varchar(30) NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE studente(
     numero varchar(30) NOT NULL,
     foreign key (email) references utente(email)
         ON DELETE cascade
-        ON UPDATE no action
+        ON UPDATE cascade
 );
 
 CREATE TABLE azienda(
@@ -36,7 +36,7 @@ CREATE TABLE azienda(
     numero_dipendenti int NOT NULL,
     foreign key (email) references utente(email)
         ON DELETE cascade
-        ON UPDATE no action
+        ON UPDATE cascade
 );
 
 CREATE TABLE tirocinio(
@@ -50,7 +50,16 @@ CREATE TABLE tirocinio(
         'Da Valutare',
         'Da Convalidare',
         'Rifiutata',
-        'Accettata') NOT NULL
+        'Accettata') NOT NULL,
+	studente varchar(50) NOT NULL,
+    azienda varchar(50) NOT NULL,
+	foreign key (studente) references studente(email)
+        ON DELETE cascade
+        ON UPDATE cascade,
+	foreign key (azienda) references azienda(email)
+        ON DELETE cascade
+        ON UPDATE cascade
+    
 );
 
 create table richiestadisponibilita(
@@ -64,10 +73,10 @@ create table richiestadisponibilita(
     primary key(studente,azienda),
     foreign key (studente) references studente(email)
         ON DELETE cascade
-        ON UPDATE no action,
+        ON UPDATE cascade,
     foreign key (azienda) references azienda(email)
         ON DELETE cascade
-        ON UPDATE no action
+        ON UPDATE cascade
 );
 
 create table attivitaregistro(
@@ -79,8 +88,5 @@ create table attivitaregistro(
     primary key(id,tirocinio),
     foreign key (tirocinio) references tirocinio(id)
         ON DELETE cascade
-        ON UPDATE no action
+        ON UPDATE cascade
 );
-
-
-# TODO: rimaniamo tutti gli ON UPDATE con no action o forse è meglio metterli cascade?
