@@ -2,6 +2,8 @@ package storage.beans;
 
 import java.sql.Time;
 
+/*CAMBIAMENTO: INSERITE STRINGHE FINAL PER LO STATO*/
+
 public class Tirocinio {
 
   public Tirocinio() {
@@ -9,6 +11,7 @@ public class Tirocinio {
 
   /**
    * Rappresentazione del tirocinio.
+   *
    * @param id l'id del tirocinio
    * @param stato lo stato attuale del tirocinio
    * @param oreTotali le ore totali del tirocinio

@@ -1,6 +1,8 @@
 package storage.beans;
 
 
+/*CAMBIAMENTO: INSERITE STRINGHE FINAL PER LO STATO*/
+
 public class RichiestaDisponibilita {
 
   public RichiestaDisponibilita() {
@@ -8,6 +10,7 @@ public class RichiestaDisponibilita {
 
   /**
    * Rappresentazione della richiesta di disponibilita' presso l'azienda.
+   *
    * @param motivazioni le motivazioni della richiesta di disponibilità
    * @param stato lo stato attuale della richiesta
    */

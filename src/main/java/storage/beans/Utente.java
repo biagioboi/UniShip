@@ -1,5 +1,6 @@
 package storage.beans;
 
+/*CAMBIAMENTO: INSERITE STRINGHE FINAL PER LO STATO*/
 public class Utente {
 
 
@@ -7,6 +8,8 @@ public class Utente {
   }
 
   /**
+   * Rapresentazione dell'Utente
+   *
    * @param email l'email dell'utente
    * @param nome il nome dell'utente
    * @param password la password di accesso dell'utente

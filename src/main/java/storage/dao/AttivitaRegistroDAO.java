@@ -17,24 +17,26 @@ public class AttivitaRegistroDAO implements AttivitaRegistroInterface {
    * Questo metodo si occupa di prelevare tutte le attività svolte in un detirminato tirocinio.
    *
    * @param tirocinio il Tirocinio di cui si vogliono sapere le attività.
-   * @return ritorna un ArrayList di oggetti di tipo AttivitaTirocinio contenente tutte le attività di un tirocinio.
+   * @return ritorna un ArrayList di oggetti di tipo AttivitaTirocinio contenente tutte le attività
+   * di un tirocinio.
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    * @throws IllegalArgumentException nel caso in cui si passa un tirocinio == null.
    */
   @Override
   public synchronized ArrayList<AttivitaRegistro> doRetrieveByTirocinio(Tirocinio tirocinio)
-      throws SQLException,IllegalArgumentException {
-    if(tirocinio == null)
+      throws SQLException, IllegalArgumentException {
+    if (tirocinio == null) {
       throw new IllegalArgumentException();
+    }
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ArrayList<AttivitaRegistro> list = null;
 
-    String selectSQL = "SELECT * FROM attivita_registro WHERE tirocinio = ?";
+    String selectSql = "SELECT * FROM attivita_registro WHERE tirocinio = ?";
 
     try {
       connection = DatabaseManager.getConnection();
-      preparedStatement = connection.prepareStatement(selectSQL);
+      preparedStatement = connection.prepareStatement(selectSql);
       preparedStatement.setInt(1, tirocinio.getId());
 
       ResultSet rs = preparedStatement.executeQuery();
@@ -74,10 +76,12 @@ public class AttivitaRegistroDAO implements AttivitaRegistroInterface {
    * @throws IllegalArgumentException nel caso in cui si passa un attivita == null.
    */
   @Override
-  public synchronized boolean doSave(AttivitaRegistro attivita) throws SQLException,IllegalArgumentException {
+  public synchronized boolean doSave(AttivitaRegistro attivita)
+      throws SQLException, IllegalArgumentException {
 
-    if(attivita == null)
+    if (attivita == null) {
       throw new IllegalArgumentException();
+    }
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;

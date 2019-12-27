@@ -10,6 +10,7 @@ public class AttivitaRegistro {
 
   /**
    * Rappresentazione delle attività del registro di tirocinio.
+   *
    * @param id l'id dell'attività del registro
    * @param tirocinio il tirocinio a cui è associata l'attività
    * @param data la data in cui si svolge l'attività

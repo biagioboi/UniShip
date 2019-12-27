@@ -9,6 +9,7 @@ public class Studente extends Utente {
 
   /**
    * Rappresentazione dello studente.
+   *
    * @param email l'email dello studente
    * @param nome il nome dello studente
    * @param password la password di accesso dello studente
