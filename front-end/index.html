@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous">
+  <title>UniShip</title>
+</head>
+<body>
+<div class="page-wrapper default-theme sidebar-bg bg1">
+  <nav id="sidebar" class="sidebar-wrapper overflow-auto custom-scrollbar">
+    <div class="overlay-slider"></div>
+
+    <div class="card info-card rounded-lg m-3 p-2">
+
+      <!-- Background color -->
+      <div class="card-up pr-1">
+        <img src="images/uniLogo.png" alt="logo">
+      </div>
+
+      <!-- Content -->
+      <div class="card-body">
+        <!-- Name -->
+        <h4 class="card-title text-center font-weight-bold">Mario Rossi</h4>
+        <p class="card-text text-center font-italic">0512106666</p>
+        <hr>
+        <!-- Some Text -->
+        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos,
+          adipisci</p>
+      </div>
+
+    </div>
+
+    <div id="progress-cicle" class="bg-white rounded-lg p-5 shadow m-3">
+      <h2 class="h6 font-weight-bold text-center mb-4">Total overdue</h2>
+      <!-- Progress bar 4 -->
+      <div class="progress mx-auto" data-value='100'>
+                <span class="progress-left">
+                      <span class="progress-bar border-warning"></span>
+                </span>
+        <span class="progress-right">
+                      <span class="progress-bar border-warning"></span>
+                </span>
+
+        <div
+            class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
+          <div class="h2 font-weight-bold">12<sup class="small">%</sup></div>
+        </div>
+      </div>
+      <!-- END -->
+
+      <!-- Demo info -->
+      <div class="row text-center mt-4">
+        <div class="col-6 border-right">
+          <div class="h4 font-weight-bold mb-0">28%</div>
+          <span class="small text-gray">Last week</span>
+        </div>
+        <div class="col-6">
+          <div class="h4 font-weight-bold mb-0">60%</div>
+          <span class="small text-gray">Last month</span>
+        </div>
+      </div>
+      <!-- END -->
+    </div>
+
+    <div class="card info-card rounded-lg m-3 p-2">
+
+      <!-- Background color -->
+      <div class="card-up pr-1">
+        <img src="images/uniLogo.png" alt="logo">
+      </div>
+
+      <!-- Content -->
+      <div class="card-body">
+        <!-- Name -->
+        <h4 class="card-title text-center font-weight-bold">Mario Rossi</h4>
+        <p class="card-text text-center font-italic">0512106666</p>
+        <hr>
+        <!-- Some Text -->
+        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos,
+          adipisci</p>
+      </div>
+
+    </div>
+
+
+  </nav>
+  <!-- page-content  -->
+  <main class="page-content">
+    <div id="overlay" class="overlay"></div>
+
+
+    <nav id="navbar" class="navbar navbar-expand-md navbar-light bg-white">
+      <button id="toggle-sidebar" class="toggle-btn" type="button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a class="navbar-brand px-3 font-weight-bold primary-color h4" href="#">UniShip</a>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link primary-color" href="#">Logout <i class="fas fa-sign-out-alt"></i></a>
+        </li>
+      </ul>
+    </nav>
+
+
+    <div class="container-fluid ">
+      <div class="table-pills m-3 p-3 rounded-lg">
+        <ul class="nav nav-tabs nav-pills" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="pills-orders-tab" data-toggle="pill" href="#pills-orders"
+               role="tab" aria-controls="pills-home" aria-selected="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                   stroke-linejoin="round" class="feather feather-shopping-bag">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
+              &nbsp;My orders
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                   stroke-linejoin="round" class="feather feather-settings">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              &nbsp;Account settings
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" id="pills-profile-tab" data-toggle="pill"
+                 href="#pills-profile" role="tab" aria-controls="pills-profile"
+                 aria-selected="false">Profile info</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="pills-addresses-tab" data-toggle="pill"
+                 href="#pills-addresses" role="tab" aria-controls="pills-addresses"
+                 aria-selected="false">Addresses</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="pills-cards-tab" data-toggle="pill" href="#pills-cards"
+                 role="tab" aria-controls="pills-cards" aria-selected="false">Payment methods</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                   stroke-linejoin="round" class="feather feather-settings">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              &nbsp;Manager settings
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" id="pills-add-item-tab" data-toggle="pill"
+                 href="#pills-add-item" role="tab" aria-controls="pills-add-item"
+                 aria-selected="false">Inserisci prodotto</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="pills-view-orders-tab" data-toggle="pill"
+                 href="#pills-view-orders" role="tab" aria-controls="pills-view-orders"
+                 aria-selected="false">Visualizza ordini</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="pills-change-item-tab" data-toggle="pill"
+                 href="#pills-change-item" role="tab" aria-controls="pills-change-item"
+                 aria-selected="false">Modifica prodotto</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="pills-view-users-tab" data-toggle="pill"
+                 href="#pills-view-users" role="tab" aria-controls="pills-view-users"
+                 aria-selected="false">Lista utenti</a>
+            </div>
+          </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-orders" role="tabpanel"
+               aria-labelledby="pills-orders-tab">
+            <div class="table-responsive font-size-sm">
+              <table class="table table-hover mb-0">
+                <thead>
+                <tr>
+                  <th>Ordine #</th>
+                  <th>Data</th>
+                  <th>Stato Spedizione</th>
+                  <th>Totale</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><a class="nav-link-inline" href="#order-details" data-toggle="modal">34VB5540K83</a>
+                  </td>
+                  <td>May 21, 2019</td>
+                  <td><span class="badge badge-info m-0">In Progress</span></td>
+                  <td>$358.75</td>
+                </tr>
+                <tr>
+                  <td><a class="nav-link-inline" href="#order-details" data-toggle="modal">78A643CD409</a>
+                  </td>
+                  <td>December 09, 2018</td>
+                  <td><span class="badge badge-danger m-0">Canceled</span></td>
+                  <td><span>$760.50</span></td>
+                </tr>
+                <tr>
+                  <td><a class="nav-link-inline" href="#order-details" data-toggle="modal">112P45A90V2</a>
+                  </td>
+                  <td>October 15, 2018</td>
+                  <td><span class="badge badge-warning m-0">Delayed</span></td>
+                  <td>$1,264.00</td>
+                </tr>
+                <tr>
+                  <td><a class="nav-link-inline" href="#order-details" data-toggle="modal">28BA67U0981</a>
+                  </td>
+                  <td>July 19, 2018</td>
+                  <td><span class="badge badge-success m-0">Delivered</span></td>
+                  <td>$198.35</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="pills-add-item" role="tabpanel"
+               aria-labelledby="pills-add-item-tab">
+            <form class="needs-validation py-5" novalidate="">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="name">Nome Articolo <strong class="text-danger">*</strong></label>
+                    <input class="form-control" type="text" id="name">
+                    <div class="invalid-feedback">Inserisci un nome valido</div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="price">Prezzo <strong class="text-danger">*</strong></label>
+                    <input class="form-control" type="text" id="price">
+                    <div class="invalid-feedback">Inserisci un prezzo valido</div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="description">Descrizione</label>
+                <textarea class="form-control" rows="6" id="description"></textarea>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="kind">Genere<strong class="text-danger">*</strong></label>
+                    <input class="form-control" type="text" required="" id="kind">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="quantity">Quantit&agrave;<strong
+                        class="text-danger">*</strong></label>
+                    <input class="form-control" type="number" required="" id="quantity">
+                    <div class="invalid-feedback">Inserisci una quantit&agrave; corretta</div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="discount">Percentuale sconto<strong
+                        class="text-danger">*</strong></label>
+                    <input class="form-control" type="number" required="" id="discount">
+                    <div class="invalid-feedback">Inserisci una percentuale corretta</div>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="iva">IVA<strong class="text-danger">*</strong></label>
+                    <input class="form-control" type="number" required="" id="iva">
+                    <div class="invalid-feedback">Inserisci una percentuale iva corretta</div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="file">Immagini</label><br>
+                    <input type="file" class="form-control-file" id="file">
+                  </div>
+                </div>
+              </div>
+              <input class="btn btn-primary mr-4 my-3" type="submit">
+            </form>
+          </div>
+          <div class="tab-pane fade" id="pills-view-orders" role="tabpanel"
+               aria-labelledby="pills-view-orders-tab">
+            <div class="d-flex justify-content-end pb-3">
+              <div class="form-inline my-2">
+                <label class="mr-3" for="order-sort">Sort Orders</label>
+                <select class="form-control custom-select mr-3" id="order-sort">
+                  <option>All</option>
+                  <option>Delivered</option>
+                  <option>In Progress</option>
+                  <option>Delayed</option>
+                  <option>Canceled</option>
+                </select>
+                <label class="mr-3" for="example-date-input"> Da: </label>
+                <input class="form-control mr-3" type="date" value="2011-08-19"
+                       id="example-date-input">
+                <label class="mr-3" for="example-date-input"> Fino ad: </label>
+                <input class="form-control mr-3" type="date" value="2011-08-19"
+                       id="example-date-input">
+                <input type="submit" value="filtra" class="btn">
+              </div>
+            </div>
+            <div class="table-responsive font-size-sm">
+              <table class="table table-hover mb-0 ">
+                <thead>
+                <tr>
+                  <th>Ordine #</th>
+                  <th>Utente</th>
+                  <th>Data</th>
+                  <th>Stato Spedizione</th>
+                  <th>Totale</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td><a class="nav-link-inline" href="#order-details" data-toggle="modal">34VB5540K83</a>
+                  </td>
+                  <td>Mario Rossi</td>
+                  <td>May 21, 2019</td>
+                  <td><span class="badge badge-info m-0">In Progress</span></td>
+                  <td>$358.75</td>
+                  <td class="align-middle">
+                    <a class="nav-link-inline mr-2" href="#change-state" data-toggle="modal"
+                       data-toggle="tooltip" data-placement="top" title="Modifica stato">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                           stroke-linecap="round" stroke-linejoin="round"
+                           class="feather feather-edit-2" style="width: 1rem; height: 1rem;">
+                        <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                      </svg>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tab-pane fade" id="pills-view-users" role="tabpanel"
+               aria-labelledby="pills-view-users-tab">
+            <div class="d-flex justify-content-end pb-3">
+              <div class="form-inline my-2">
+                <label class="mr-3" for="order-sort">Sort Orders</label>
+                <select class="form-control custom-select mr-3" id="order-sort">
+                  <option>All</option>
+                  <option>Delivered</option>
+                  <option>In Progress</option>
+                  <option>Delayed</option>
+                  <option>Canceled</option>
+                </select>
+                <label class="mr-3" for="example-date-input"> Da: </label>
+                <input class="form-control mr-3" type="date" value="2011-08-19"
+                       id="example-date-input">
+                <label class="mr-3" for="example-date-input"> Fino ad: </label>
+                <input class="form-control mr-3" type="date" value="2011-08-19"
+                       id="example-date-input">
+                <input type="submit" value="filtra" class="btn">
+              </div>
+            </div>
+            <div class="table-responsive font-size-sm">
+              <table class="table table-hover mb-0 ">
+                <thead>
+                <tr>
+                  <th>ID #</th>
+                  <th>Nome</th>
+                  <th>Cognome</th>
+                  <th>Email</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Mario</td>
+                  <td>rossi</td>
+                  <td>mariorossi@email.it</td>
+                  <td class="align-middle">
+                    <a class="nav-link-inline mr-2" href="#submit-confirmation" data-toggle="modal"
+                       data-toggle="tooltip" data-placement="top" title="redi amministratore">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                           stroke-linecap="round" stroke-linejoin="round"
+                           class="feather feather-edit-2" style="width: 1rem; height: 1rem;">
+                        <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                      </svg>
+                    </a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast-area" aria-live="polite" aria-atomic="true">
+  <!-- Position it -->
+  <div class="toast-box">
+
+    <!-- Then put toasts within -->
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true"
+         data-delay="5000">
+      <div class="toast-header">
+        <span class="circle bg-success"></span>
+        <strong class="mr-auto">UniShip</strong>
+        <small class="text-muted">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body">
+        Ciao, sono un messaggio di successo e scompariro' tra 5 secondi
+      </div>
+    </div>
+
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true"
+         data-delay="5000">
+      <div class="toast-header">
+        <span class="circle bg-danger"></span>
+        <strong class="mr-auto">UniShip</strong>
+        <small class="text-muted">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body">
+        Ciao, sono un messaggio di errore e scompariro' tra 5 secondi
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script src="script.js"></script>
+</body>
+</html>
