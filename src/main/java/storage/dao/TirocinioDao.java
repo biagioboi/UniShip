@@ -1,5 +1,4 @@
 package storage.dao;
-/* nome classe cambiato */
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,9 +11,6 @@ import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.interfaces.TirocinioInterface;
 
-/* nome classe cambiato, aggiunte constanti e
- * aggiunte dipendenze con  AziendaDao , StudenteDao, studente e azienda
- * da aggoungere doRetriveAll alla specifica*/
 
 public class TirocinioDao implements TirocinioInterface {
 
@@ -69,7 +65,7 @@ public class TirocinioDao implements TirocinioInterface {
   /**
    * Questo metodo si occupa di trovare i tirocini associate allo studente passata come parametro.
    *
-   * @param studente l'Azienda di cui si vogliono sapere le richieste di disponibilità.
+   * @param studente lo Studente di cui si vogliono sapere i Tirocini associati.
    * @return ArrayList di oggetti di tipo Tirocinio
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    * @throws IllegalArgumentException nel caso in cui si passa studente == null.

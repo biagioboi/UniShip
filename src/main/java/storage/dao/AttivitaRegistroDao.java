@@ -10,8 +10,6 @@ import storage.beans.AttivitaRegistro;
 import storage.beans.Tirocinio;
 import storage.interfaces.AttivitaRegistroInterface;
 
-/* nome classe cambiato aggiunde costanti alla classe , verificare dipendenza con Tirocinio
-*  ATTENZIONE questa classe NON dipende da TirocinioDao */
 
 public class AttivitaRegistroDao implements AttivitaRegistroInterface {
 

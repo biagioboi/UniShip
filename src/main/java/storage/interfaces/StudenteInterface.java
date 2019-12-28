@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import storage.beans.Studente;
 
-/* rimosso metodo doChange */
 
 public interface StudenteInterface {
 

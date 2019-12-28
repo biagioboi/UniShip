@@ -1,7 +1,5 @@
 package storage.dao;
 
-/* nome classe cambiato */
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,11 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import storage.DatabaseManager;
 import storage.beans.Studente;
-import storage.beans.Utente;
 import storage.interfaces.StudenteInterface;
-
-/*nome classe cambiato,aggiunte constanti, verifiacare che StudenteDao sia dipendete con UtenteDao
-* e da Utente*/
 
 public class StudenteDao implements StudenteInterface {
 

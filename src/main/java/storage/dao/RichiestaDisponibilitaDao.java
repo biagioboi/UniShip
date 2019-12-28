@@ -1,7 +1,5 @@
 package storage.dao;
 
-/* nome classe cambiato */
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,10 +11,7 @@ import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
 import storage.interfaces.RichiestaDisponibilitaInterface;
 
-/*nome classe cambiato, aggiunte costanti, verificare dipenza da azienda e studente e
- * i rispettivi DAO , aggiunto doRetriveAll*/
-
-public class RichiestaDisponibilitaDao implements RichiestaDisponibilitaInterface {
+public class  RichiestaDisponibilitaDao implements RichiestaDisponibilitaInterface {
 
   /**
    * Questo metodo si occupa di trovare le richieste di disponibilità associate all'azienda passata

@@ -1,6 +1,5 @@
 package storage.dao;
 
-/* nome classe cambiato, verificare che aziendaDao sia dipendente da UtenteDao  */
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
