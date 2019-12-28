@@ -20,11 +20,18 @@
   </properties>
 
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/hikari-cp/hikari-cp -->
+
     <dependency>
       <groupId>com.zaxxer</groupId>
       <artifactId>HikariCP</artifactId>
-      <version>3.2.0</version>
+      <version>3.4.1</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.5</version>
     </dependency>
 
     <dependency>
