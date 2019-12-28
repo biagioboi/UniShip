@@ -40,7 +40,7 @@ CREATE TABLE azienda(
 );
 
 CREATE TABLE tirocinio(
-    id int primary key AUTO_INCREMENT, # modificato il tipo in int e autoincrement
+    id int primary key AUTO_INCREMENT,
     ore_totali time NOT NULL, # modificato da date a time in quanto tiene traccia solo delle ore
     tutor_esterno varchar(50) NOT NULL,
     ore_svolte time NOT NULL, # modificato da date a time in quanto tiene traccia solo delle ore
