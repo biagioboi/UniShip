@@ -149,55 +149,34 @@
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade show active" id="pills-aziende" role="tabpanel"
                aria-labelledby="pills-view-aziende">
-            <div class="d-flex justify-content-end pb-3">
-              <div class="form-inline my-2">
-                <label class="mr-3" for="order-sort">Sort Orders</label>
-                <select class="form-control custom-select mr-3" id="order-sort">
-                  <option>All</option>
-                  <option>Delivered</option>
-                  <option>In Progress</option>
-                  <option>Delayed</option>
-                  <option>Canceled</option>
-                </select>
-                <label class="mr-3" for="example-date-input"> Da: </label>
-                <input class="form-control mr-3" type="date" value="2011-08-19"
-                       id="example-date-input">
-                <label class="mr-3" for="example-date-input"> Fino ad: </label>
-                <input class="form-control mr-3" type="date" value="2011-08-19"
-                       id="example-date-input">
-                <input type="submit" value="filtra" class="btn">
-              </div>
-            </div>
             <div class="table-responsive font-size-sm">
               <table class="table table-hover mb-0 ">
                 <thead>
                 <tr>
-                  <th>Ordine #</th>
-                  <th>Utente</th>
-                  <th>Data</th>
-                  <th>Stato Spedizione</th>
-                  <th>Totale</th>
-                  <th></th>
+                  <th>Nome</th>
+                  <th>Codice Ateco</th>
+                  <th>Indirizzo</th>
+                  <th>Numero dipendenti</th>
+                  <th class="text-center">Richiesta Disponibilit&agrave;</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                  <td><a class="nav-link-inline" href="#order-details" data-toggle="modal">34VB5540K83</a>
+                  <td>AZIENDA 1</td>
+                  <td>0515252</td>
+                  <td>Via roma,199 Salerno</td>
+                  <td>1000</td>
+                  <td class="text-center">
+                    <button class="btn btn-success">Richiedi</button>
                   </td>
-                  <td>Mario Rossi</td>
-                  <td>May 21, 2019</td>
-                  <td><span class="badge badge-info m-0">In Progress</span></td>
-                  <td>$358.75</td>
-                  <td class="align-middle">
-                    <a class="nav-link-inline mr-2" href="#change-state" data-toggle="modal"
-                       data-toggle="tooltip" data-placement="top" title="Modifica stato">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                           stroke-linecap="round" stroke-linejoin="round"
-                           class="feather feather-edit-2" style="width: 1rem; height: 1rem;">
-                        <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                      </svg>
-                    </a>
+                </tr>
+                <tr>
+                  <td>AZIENDA 2</td>
+                  <td>56613</td>
+                  <td>Via tevere,199 Nola</td>
+                  <td>22</td>
+                  <td class="text-center">
+                    <button class="btn btn-success">Richiedi</button>
                   </td>
                 </tr>
                 </tbody>
