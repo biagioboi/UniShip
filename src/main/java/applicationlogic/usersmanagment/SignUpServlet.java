@@ -32,11 +32,11 @@ public class SignUpServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     HttpSession ses = request.getSession(true);
-    Utente rUser;
+    Utente user;
     PrintWriter out = response.getWriter();
 
-    rUser = (Utente) request.getSession().getAttribute("utente");
-    if (rUser == null) {
+    user = (Utente) request.getSession().getAttribute("utente");
+    if (user == null) {
       registrazione(request, response);
     } else {
       response.setContentType("application/json");
@@ -101,15 +101,15 @@ public class SignUpServlet extends HttpServlet {
             out.println(obj.toJson());
           }
 
-          if(jsonRequest.containsKey("nome")) {
+          if (jsonRequest.containsKey("nome")) {
             String nome = (String) jsonRequest.get("nome");
-            if (nome.length()==0) {
+            if (nome.length() == 0) {
               JsonObject obj = new JsonObject();
               obj.put("status", "422");
               obj.put("description", "Nome too short");
               out.println(obj.toJson());
               return;
-            } else if(nome.length()>30) {
+            } else if (nome.length() > 30) {
               JsonObject obj = new JsonObject();
               obj.put("status", "422");
               obj.put("description", "Nome too long");
@@ -123,13 +123,13 @@ public class SignUpServlet extends HttpServlet {
             }
 
             String cognome = (String) jsonRequest.get("cognome");
-            if (cognome.length()==0) {
+            if (cognome.length() == 0) {
               JsonObject obj = new JsonObject();
               obj.put("status", "422");
               obj.put("description", "Cognome too short");
               out.println(obj.toJson());
               return;
-            } else if(cognome.length()>30) {
+            } else if (cognome.length() > 30) {
               JsonObject obj = new JsonObject();
               obj.put("status", "422");
               obj.put("description", "Cognome too long");
@@ -142,15 +142,15 @@ public class SignUpServlet extends HttpServlet {
               out.println(obj.toJson());
             }
 
-
             String codiceFiscale = (String) jsonRequest.get("codiceFiscale");
-            if (codiceFiscale.length()!=11) {
+            if (codiceFiscale.length() != 11) {
               JsonObject obj = new JsonObject();
               obj.put("status", "422");
               obj.put("description", "codiceFiscale too short");
               out.println(obj.toJson());
               return;
-            } else if (!codiceFiscale.matches("^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$")) {
+            } else if (!codiceFiscale
+                .matches("^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$")) {
               JsonObject obj = new JsonObject();
               obj.put("status", "422");
               obj.put("description", "codiceFiscale invalid");
@@ -158,7 +158,7 @@ public class SignUpServlet extends HttpServlet {
             }
 
             String matricola = (String) jsonRequest.get("matricola");
-            if (matricola.length()!=10) {
+            if (matricola.length() != 10) {
               JsonObject obj = new JsonObject();
               obj.put("status", "422");
               obj.put("description", "Matricola too short");
@@ -171,15 +171,15 @@ public class SignUpServlet extends HttpServlet {
               out.println(obj.toJson());
             }
 
-
             String dataDiNascita = (String) jsonRequest.get("dataDiNascita");
-            if (dataDiNascita.length()!=9) {
+            if (dataDiNascita.length() != 9) {
               JsonObject obj = new JsonObject();
               obj.put("status", "422");
               obj.put("description", "dataDiNascita too short");
               out.println(obj.toJson());
               return;
-            } else if (!dataDiNascita.matches("^([0-20-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)[0-9]{4}$")) {
+            } else if (!dataDiNascita
+                .matches("^([0-20-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)[0-9]{4}$")) {
               JsonObject obj = new JsonObject();
               obj.put("status", "422");
               obj.put("description", "dataDiNascita invalid");
@@ -187,7 +187,7 @@ public class SignUpServlet extends HttpServlet {
             }
 
             String cittadinanza = (String) jsonRequest.get("cittadinanza");
-            if (cittadinanza.length()==0) {
+            if (cittadinanza.length() == 0) {
               JsonObject obj = new JsonObject();
               obj.put("status", "422");
               obj.put("description", "cittadinanza too short");
@@ -201,7 +201,7 @@ public class SignUpServlet extends HttpServlet {
             }
 
             String residenza = (String) jsonRequest.get("residenza");
-            if (residenza.length()==0) {
+            if (residenza.length() == 0) {
               JsonObject obj = new JsonObject();
               obj.put("status", "422");
               obj.put("description", "residenza too short");
@@ -214,7 +214,6 @@ public class SignUpServlet extends HttpServlet {
               out.println(obj.toJson());
             }
 
-
             String numero = (String) jsonRequest.get("numero");
             if (!numero.matches("[0-9]{9,12}")) {
               JsonObject obj = new JsonObject();
@@ -223,8 +222,9 @@ public class SignUpServlet extends HttpServlet {
               out.println(obj.toJson());
             }
 
-            Studente utente= new Studente(email,nome,password,codiceFiscale,matricola,Date.valueOf(dataDiNascita),cittadinanza,residenza,numero,cognome);
-            if((new StudenteDao()).doSave(utente)) {
+            Studente utente = new Studente(email, nome, password, codiceFiscale, matricola,
+                Date.valueOf(dataDiNascita), cittadinanza, residenza, numero, cognome);
+            if ((new StudenteDao()).doSave(utente)) {
               JsonObject obj = new JsonObject();
               obj.put("status", "200");
               obj.put("description", "ok");
