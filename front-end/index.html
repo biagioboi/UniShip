@@ -12,7 +12,9 @@
         crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css" integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"
+        integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M"
+        crossorigin="anonymous">
   <title>UniShip</title>
 </head>
 <body>
@@ -117,74 +119,93 @@
     <div class="container-fluid ">
       <div class="table-pills m-3 p-3 rounded-lg">
         <ul class="nav nav-tabs nav-pills" role="tablist">
-          <li class="nav-item">
-            <a id="registro" class="nav-link active" id="pills-orders-tab" data-toggle="pill" href="#pills-orders"
-               role="tab" aria-controls="pills-home" aria-selected="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                   stroke-linejoin="round" class="feather feather-shopping-bag">
-                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <path d="M16 10a4 4 0 0 1-8 0"></path>
-              </svg>
-              &nbsp;Registro
-            </a>
-          </li>
-          <li class="nav-item">
-            <a id="listaAziende" class="nav-link" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20"
-                   fill="none" stroke="currentColor" class="feather feather-settings">
-                <path d="M18.092,5.137l-3.977-1.466h-0.006c0.084,0.042-0.123-0.08-0.283,0H13.82L10,5.079L6.178,3.671H6.172c0.076,0.038-0.114-0.076-0.285,0H5.884L1.908,5.137c-0.151,0.062-0.25,0.207-0.25,0.369v10.451c0,0.691,0.879,0.244,0.545,0.369l3.829-1.406l3.821,1.406c0.186,0.062,0.385-0.029,0.294,0l3.822-1.406l3.83,1.406c0.26,0.1,0.543-0.08,0.543-0.369V5.506C18.342,5.344,18.242,5.199,18.092,5.137 M5.633,14.221l-3.181,1.15V5.776l3.181-1.15V14.221z M9.602,15.371l-3.173-1.15V4.626l3.173,1.15V15.371z M13.57,14.221l-3.173,1.15V5.776l3.173-1.15V14.221z M17.547,15.371l-3.182-1.15V4.626l3.182,1.15V15.371z"></path>
 
-              </svg>
+          <li class="nav-item">
+            <a id="pills-view-aziende" class="nav-link active" data-toggle="pill"
+               href="#pills-aziende" role="tab" aria-controls="pills-aziende" aria-selected="true">
+              <i class="far fa-building"></i>
               Lista Aziende
             </a>
 
           </li>
           <li class="nav-item">
-            <a id="richieste" class="nav-link" href="#">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20"
-                   fill="none" stroke="currentColor" class="feather feather-settings">
-                  <path d="M14.999,8.543c0,0.229-0.188,0.417-0.416,0.417H5.417C5.187,8.959,5,8.772,5,8.543s0.188-0.417,0.417-0.417h9.167C14.812,8.126,14.999,8.314,14.999,8.543 M12.037,10.213H5.417C5.187,10.213,5,10.4,5,10.63c0,0.229,0.188,0.416,0.417,0.416h6.621c0.229,0,0.416-0.188,0.416-0.416C12.453,10.4,12.266,10.213,12.037,10.213 M14.583,6.046H5.417C5.187,6.046,5,6.233,5,6.463c0,0.229,0.188,0.417,0.417,0.417h9.167c0.229,0,0.416-0.188,0.416-0.417C14.999,6.233,14.812,6.046,14.583,6.046 M17.916,3.542v10c0,0.229-0.188,0.417-0.417,0.417H9.373l-2.829,2.796c-0.117,0.116-0.71,0.297-0.71-0.296v-2.5H2.5c-0.229,0-0.417-0.188-0.417-0.417v-10c0-0.229,0.188-0.417,0.417-0.417h15C17.729,3.126,17.916,3.313,17.916,3.542 M17.083,3.959H2.917v9.167H6.25c0.229,0,0.417,0.187,0.417,0.416v1.919l2.242-2.215c0.079-0.077,0.184-0.12,0.294-0.12h7.881V3.959z"></path>
+            <a id="pills-view-registro" class="nav-link" data-toggle="pill"
+               href="#pills-registro"
+               role="tab" aria-controls="pills-registro" aria-selected="false">
+              <i class="fas fa-business-time"></i>
+              &nbsp;Registro
+            </a>
+          </li>
 
-              </svg>
+          <li class="nav-item">
+            <a id="pills-view-richieste" class="nav-link" data-toggle="pill"
+               href="#pills-richieste"
+               role="tab" aria-controls="pills-richieste" aria-selected="false">
+              <i class="fas fa-tasks"></i>
               &nbsp;Richieste
             </a>
           </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
-          <div class="tab-pane fade show active" id="pills-orders" role="tabpanel"
-               aria-labelledby="pills-orders-tab">
-            <div class="table-responsive font-size-sm">
-              <!-- in base se è presente un tirocinio in corso andiamo a mettere fadeIn o sulla
-              classe yes-activity o su no-activity, inizialmente entrambe saranno su display none  -->
-              <div class="mt-4 mb-2 text-center no-activity">
-                Non &egrave; stata ancora iniziata alcuna attivit&agrave; di tirocinio.
+          <div class="tab-pane fade show active" id="pills-aziende" role="tabpanel"
+               aria-labelledby="pills-view-aziende">
+            <div class="d-flex justify-content-end pb-3">
+              <div class="form-inline my-2">
+                <label class="mr-3" for="order-sort">Sort Orders</label>
+                <select class="form-control custom-select mr-3" id="order-sort">
+                  <option>All</option>
+                  <option>Delivered</option>
+                  <option>In Progress</option>
+                  <option>Delayed</option>
+                  <option>Canceled</option>
+                </select>
+                <label class="mr-3" for="example-date-input"> Da: </label>
+                <input class="form-control mr-3" type="date" value="2011-08-19"
+                       id="example-date-input">
+                <label class="mr-3" for="example-date-input"> Fino ad: </label>
+                <input class="form-control mr-3" type="date" value="2011-08-19"
+                       id="example-date-input">
+                <input type="submit" value="filtra" class="btn">
               </div>
-              <!-- tabella attualmente la rimango perchè ci servira in javascript da riempire
-              con i dati del registro se ha già iniziato un tirocinio
-              <table class="table table-hover mb-0 yes-activity">
+            </div>
+            <div class="table-responsive font-size-sm">
+              <table class="table table-hover mb-0 ">
                 <thead>
-                  <tr>
-                    <th>Descrizione</th>
-                    <th>Data</th>
-                    <th># Ore</th>
-                  </tr>
+                <tr>
+                  <th>Ordine #</th>
+                  <th>Utente</th>
+                  <th>Data</th>
+                  <th>Stato Spedizione</th>
+                  <th>Totale</th>
+                  <th></th>
+                </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><a class="nav-link-inline" href="#order-details" data-toggle="modal">34VB5540K83</a>
-                    </td>
-                    <td>May 21, 2019</td>
-                    <td><span class="badge badge-info m-0">In Progress</span></td>
-                  </tr>
+                <tr>
+                  <td><a class="nav-link-inline" href="#order-details" data-toggle="modal">34VB5540K83</a>
+                  </td>
+                  <td>Mario Rossi</td>
+                  <td>May 21, 2019</td>
+                  <td><span class="badge badge-info m-0">In Progress</span></td>
+                  <td>$358.75</td>
+                  <td class="align-middle">
+                    <a class="nav-link-inline mr-2" href="#change-state" data-toggle="modal"
+                       data-toggle="tooltip" data-placement="top" title="Modifica stato">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                           stroke-linecap="round" stroke-linejoin="round"
+                           class="feather feather-edit-2" style="width: 1rem; height: 1rem;">
+                        <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
+                      </svg>
+                    </a>
+                  </td>
+                </tr>
                 </tbody>
-              </table>-->
+              </table>
             </div>
           </div>
-
-          <div class="tab-pane fade" id="pills-add-item" role="tabpanel"
-               aria-labelledby="pills-add-item-tab">
+          <div class="tab-pane fade" id="pills-registro" role="tabpanel"
+               aria-labelledby="pills-view-registro">
             <form class="needs-validation py-5" novalidate="">
               <div class="row">
                 <div class="col-sm-6">
@@ -248,66 +269,8 @@
               <input class="btn btn-primary mr-4 my-3" type="submit">
             </form>
           </div>
-          <div class="tab-pane fade" id="pills-view-orders" role="tabpanel"
-               aria-labelledby="pills-view-orders-tab">
-            <div class="d-flex justify-content-end pb-3">
-              <div class="form-inline my-2">
-                <label class="mr-3" for="order-sort">Sort Orders</label>
-                <select class="form-control custom-select mr-3" id="order-sort">
-                  <option>All</option>
-                  <option>Delivered</option>
-                  <option>In Progress</option>
-                  <option>Delayed</option>
-                  <option>Canceled</option>
-                </select>
-                <label class="mr-3" for="example-date-input"> Da: </label>
-                <input class="form-control mr-3" type="date" value="2011-08-19"
-                       id="example-date-input">
-                <label class="mr-3" for="example-date-input"> Fino ad: </label>
-                <input class="form-control mr-3" type="date" value="2011-08-19"
-                       id="example-date-input">
-                <input type="submit" value="filtra" class="btn">
-              </div>
-            </div>
-            <div class="table-responsive font-size-sm">
-              <table class="table table-hover mb-0 ">
-                <thead>
-                <tr>
-                  <th>Ordine #</th>
-                  <th>Utente</th>
-                  <th>Data</th>
-                  <th>Stato Spedizione</th>
-                  <th>Totale</th>
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td><a class="nav-link-inline" href="#order-details" data-toggle="modal">34VB5540K83</a>
-                  </td>
-                  <td>Mario Rossi</td>
-                  <td>May 21, 2019</td>
-                  <td><span class="badge badge-info m-0">In Progress</span></td>
-                  <td>$358.75</td>
-                  <td class="align-middle">
-                    <a class="nav-link-inline mr-2" href="#change-state" data-toggle="modal"
-                       data-toggle="tooltip" data-placement="top" title="Modifica stato">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                           stroke-linecap="round" stroke-linejoin="round"
-                           class="feather feather-edit-2" style="width: 1rem; height: 1rem;">
-                        <polygon points="16 3 21 8 8 21 3 21 3 16 16 3"></polygon>
-                      </svg>
-                    </a>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="tab-pane fade" id="pills-view-users" role="tabpanel"
-               aria-labelledby="pills-view-users-tab">
+          <div class="tab-pane fade" id="pills-richieste" role="tabpanel"
+               aria-labelledby="pills-view-richieste">
             <div class="d-flex justify-content-end pb-3">
               <div class="form-inline my-2">
                 <label class="mr-3" for="order-sort">Sort Orders</label>

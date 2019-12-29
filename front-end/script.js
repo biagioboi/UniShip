@@ -42,12 +42,3 @@ $(function () {
 
   $('.toast').toast('show')
 });
-
-$(".nav-link").click(function() {
-  if (!$(this).hasClass("active")) {
-    $(".nav-link.active").removeClass("active");
-    $(this).addClass("active");
-    var request = $(this).attr("id");
-
-  }
-});
