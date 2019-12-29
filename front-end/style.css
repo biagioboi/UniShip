@@ -335,6 +335,11 @@ background-color: transparent;
 	background-color: #fff;
 }
 
+#pills-registro td {
+	min-width: 250px;
+}
+
+
 /*SignIn and SignUp css*/
 .overlay-login{
     background: url(images/unisa.jpg);
@@ -353,3 +358,4 @@ background-color: transparent;
 .login-form form button{
     width:100%;
 }
+
