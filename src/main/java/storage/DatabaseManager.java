@@ -17,7 +17,7 @@ public class DatabaseManager {
     config.addDataSourceProperty("prepStmtCacheSize", "250");
     config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
     config.addDataSourceProperty("useSSL", "false");
-    config.addDataSourceProperty("outoReconnect", "true");
+    config.addDataSourceProperty("autoReconnect", "true");
     config.addDataSourceProperty("serverTimezone", "UTC");
     config.addDataSourceProperty("allowPublicKeyRetrieval", "true");
     config.addDataSourceProperty("leakDetectionThreshold", "6000");
