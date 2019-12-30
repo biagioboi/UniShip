@@ -343,7 +343,7 @@ html {
   background-color: #fff;
 }
 
-#pills-registro td, #pills-richieste td {
+.min-size-td td{
   min-width: 250px;
 }
 
