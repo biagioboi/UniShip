@@ -67,7 +67,7 @@ public class StudenteDao implements StudenteInterface {
    *
    * @param email un ogggetto di dito String che rapprensenta Email di una determinato
    *     studente.
-   * @return Oggetto di tipo Studente
+   * @return Oggetto di tipo Studente se esite nel Database, null altrimenti
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    * @throws IllegalArgumentException nel caso in cui si passa email == null
    */
@@ -86,17 +86,22 @@ public class StudenteDao implements StudenteInterface {
       preparedStatement.setString(1, email);
 
       ResultSet rs = preparedStatement.executeQuery();
-      rs.next();
-      studente.setEmail(rs.getString("email"));
-      studente.setNome(rs.getString("nome"));
-      studente.setCognome(rs.getString("cognome"));
-      studente.setCodiceFiscale(rs.getString("codice_fiscale"));
-      studente.setMatricola(rs.getString("matricola"));
-      studente.setDataDiNascita(rs.getDate("data_di_nascita"));
-      studente.setCittadinanza(rs.getString("cittadinanza"));
-      studente.setResidenza(rs.getString("residenza"));
-      studente.setNumero(rs.getString("numero"));
-      studente.setTipo(rs.getString("tipo"));
+
+      if (rs.next() == false) {
+        return null;
+      } else {
+        studente.setEmail(rs.getString("email"));
+        studente.setNome(rs.getString("nome"));
+        studente.setCognome(rs.getString("cognome"));
+        studente.setCodiceFiscale(rs.getString("codice_fiscale"));
+        studente.setMatricola(rs.getString("matricola"));
+        studente.setDataDiNascita(rs.getDate("data_di_nascita"));
+        studente.setCittadinanza(rs.getString("cittadinanza"));
+        studente.setResidenza(rs.getString("residenza"));
+        studente.setNumero(rs.getString("numero"));
+        studente.setTipo(rs.getString("tipo"));
+      }
+
 
     } finally {
       try {

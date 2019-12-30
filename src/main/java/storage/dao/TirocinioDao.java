@@ -178,7 +178,8 @@ public class TirocinioDao implements TirocinioInterface {
    * Questo metodo si occupa di trovare il tirocinio che ha associata id passato per parametro.
    *
    * @param id un valore di tipo intero
-   * @return il tirocinio che ha come id quello specificato nel parametro.
+   * @return il tirocinio che ha come id quello specificato nel parametro se esite nel Database,
+   *     null altrimenti.
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    */
   @Override
@@ -194,17 +195,19 @@ public class TirocinioDao implements TirocinioInterface {
       preparedStatement.setInt(1, id);
 
       ResultSet rs = preparedStatement.executeQuery();
-      rs.next();
 
-      tirocinio.setId(rs.getInt("id"));
-      tirocinio.setOreTotali(rs.getTime("ore_totali"));
-      tirocinio.setTurorEsterno(rs.getString("tutor_esterno"));
-      tirocinio.setOreSvolte(rs.getTime("ore_svolte"));
-      tirocinio.setPath(rs.getString("path"));
-      tirocinio.setStato(rs.getString("stato"));
-      tirocinio.setAzienda(aziendaDao.doRetrieveByKey(rs.getString("azienda")));
-      tirocinio.setStudente(studenteDao.doRetrieveByKey(rs.getString("studente")));
-
+      if (rs.next() == false) {
+        return null;
+      } else {
+        tirocinio.setId(rs.getInt("id"));
+        tirocinio.setOreTotali(rs.getTime("ore_totali"));
+        tirocinio.setTurorEsterno(rs.getString("tutor_esterno"));
+        tirocinio.setOreSvolte(rs.getTime("ore_svolte"));
+        tirocinio.setPath(rs.getString("path"));
+        tirocinio.setStato(rs.getString("stato"));
+        tirocinio.setAzienda(aziendaDao.doRetrieveByKey(rs.getString("azienda")));
+        tirocinio.setStudente(studenteDao.doRetrieveByKey(rs.getString("studente")));
+      }
 
     } finally {
       try {
