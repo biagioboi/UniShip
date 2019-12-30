@@ -40,5 +40,17 @@ $(function () {
     $("#toggle-sidebar").toggleClass("toggled");
   });
 
-  $('.toast').toast('show')
+ /*disabilito perchè volevo provare il toast della registrazione fallita*/
+  //$('.toast').toast('show')
+});
+
+$("#formSingUp").submit(function(e) {
+  var password = $("#password").val();
+  var confPassword = $("#rePassword").val();
+  if (password.localeCompare(confPassword) == -1) {
+    $("#toastRegistrazioneFallitaBody").html("Controlla che le due password corrispondano");
+    $("#toastRegistrazioneFallita").toast('show');
+    e.preventDefault();
+  }
+
 });
