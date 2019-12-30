@@ -148,12 +148,12 @@ public class SignUpServlet extends HttpServlet {
         }
 
         String dataDiNascita = request.getParameter("dataDiNascita");
-        if (dataDiNascita.length() != 9) {
+        if (dataDiNascita.length() != 10) {
           result.put("status", "422");
           result.put("description", "dataDiNascita too short");
         } else if (!dataDiNascita
             .matches(
-                "^([0-20-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)[0-9]{4}$")) {
+                "([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))")) {
           result.put("status", "422");
           result.put("description", "dataDiNascita invalid");
         }
@@ -184,7 +184,7 @@ public class SignUpServlet extends HttpServlet {
           return;
         }
 
-        String numero = request.getParameter("numero");
+        String numero = request.getParameter("telefono");
         if (!numero.matches("[0-9]{9,12}")) {
           result.put("status", "422");
           result.put("description", "numero invalid");
