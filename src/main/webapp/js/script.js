@@ -74,7 +74,7 @@ $("#formSingUp").submit(function(e) {
         cittadinanza: cittadinanza,
         residenza: residenza,
         dataDiNascita: dataDiNascita
-      },
+      },,
       success: function(response) {
         alert(response);
       }
