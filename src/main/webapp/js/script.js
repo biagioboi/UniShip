@@ -52,7 +52,7 @@ $("#formSingUp").submit(function(e) {
     $("#toastRegistrazioneFallitaBody").html("Controlla che le due password corrispondano");
     $("#toastRegistrazioneFallita").toast('show');
   } else {
-    var data = JSON.stringify($("#formSingUp").serializeArray());
+    var data = JSON.parse($("#formSingUp").serializeArray());
     $.ajax({
       url: 'SignUpServlet',
       method: 'POST',
