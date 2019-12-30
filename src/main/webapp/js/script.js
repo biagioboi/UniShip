@@ -42,6 +42,18 @@ $(function () {
 
  /*disabilito perchè volevo provare il toast della registrazione fallita*/
   $('.toast').toast('show')
+
+
+  $(".addbadge").each(function() {
+    let html = $(this).html();
+
+    if(html == "Accettata")
+      $(this).addClass("badge-success");
+    else if(html == "Valutazione")
+      $(this).addClass("badge-warning");
+    else
+      $(this).addClass("badge-danger");
+  });
 });
 
 $("#formSingUp").submit(function(e) {
@@ -83,4 +95,6 @@ $("#formSingUp").submit(function(e) {
     })
   }
 
+
 });
+
