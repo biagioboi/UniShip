@@ -22,6 +22,11 @@ class UtenteDaoTest {
 
   @Test
   void doCheckLogin() {
+    try {
+      assertTrue(utenteDao.doCheckLogin("g.gullo@studenti.unisa.it","password"));
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   @Test
