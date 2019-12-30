@@ -342,7 +342,7 @@ background-color: transparent;
 
 /*SignIn and SignUp css*/
 .overlay-login{
-    background: url(images/unisa.jpg);
+    background: url(../images/unisa.jpg);
     background-size: cover;
     -webkit-filter: blur(7px);
     filter: blur(7px);
