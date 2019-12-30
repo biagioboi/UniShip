@@ -41,7 +41,7 @@ $(function () {
   });
 
  /*disabilito perchè volevo provare il toast della registrazione fallita*/
-  //$('.toast').toast('show')
+  $('.toast').toast('show')
 });
 
 $("#formSingUp").submit(function(e) {
