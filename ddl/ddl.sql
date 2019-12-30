@@ -16,7 +16,7 @@ CREATE TABLE utente(
 CREATE TABLE studente(
     email varchar(50) primary key,
     cognome varchar(30) NOT NULL,
-    codice_fiscale char(11) NOT NULL,
+    codice_fiscale char(16) NOT NULL,
     matricola varchar(30) NOT NULL,
     data_di_nascita date NOT NULL,
     cittadinanza varchar(30) NOT NULL,
