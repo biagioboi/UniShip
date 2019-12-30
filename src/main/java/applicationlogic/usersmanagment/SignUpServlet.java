@@ -1,11 +1,11 @@
 package applicationlogic.usersmanagment;
 
-import com.github.cliftonlabs.json_simple.JsonObject;
-import com.github.cliftonlabs.json_simple.Jsoner;
-import java.io.BufferedReader;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,15 +36,15 @@ public class SignUpServlet extends HttpServlet {
       String action = request.getParameter("action");
       if (action != null && action.equals("signup")) {
         registrazione(request, response);
-        return;
       }
     } else {
-      response.setContentType("application/json");
-      JsonObject obj = new JsonObject();
-      obj.put("status", "409");
-      obj.put("description", "User already logged in");
+      Gson obj = new Gson();
+      Map<String, String> result = new HashMap<>();
+      result.put("status", "409");
+      result.put("description", "utente gia' registrato.");
       PrintWriter out = response.getWriter();
-      out.println(obj.toJson());
+      response.setContentType("application/json");
+      out.println(obj.toJson(result));
     }
   }
 
@@ -52,190 +52,164 @@ public class SignUpServlet extends HttpServlet {
       throws ServletException, IOException {
     response.setContentType("application/json");
     PrintWriter out = response.getWriter();
-
+    Gson obj = new Gson();
+    HashMap<String, String> result = new HashMap<>();
     try {
       String email = request.getParameter("email");
       if (email.length() < 1) {
-        JsonObject obj = new JsonObject();
-        obj.put("status", "422");
-        obj.put("description", "Email too short");
-        out.println(obj.toJson());
-        return;
+        result.put("status", "422");
+        result.put("description", "Email too short");
       } else if (email.length() > 50) {
-        JsonObject obj = new JsonObject();
-        obj.put("status", "422");
-        obj.put("description", "Email too long");
-        out.println(obj.toJson());
+        result.put("status", "422");
+        result.put("description", "Email too long");
       } else if (!email.matches("[0-9a-zA-Z.]+@studenti.unisa.it")) {
-        JsonObject obj = new JsonObject();
-        obj.put("status", "422");
-        obj.put("description", "Email not valid");
-        out.println(obj.toJson());
+        result.put("status", "422");
+        result.put("description", "Email not valid");
       } else if (new UtenteDao().doCheckRegister(email)) {
-        JsonObject obj = new JsonObject();
-        obj.put("status", "422");
-        obj.put("description", "Email already registered");
-        out.println(obj.toJson());
+        result.put("status", "422");
+        result.put("description", "Email already registered");
+      }
+      if (!result.isEmpty()) {
+        out.println(obj.toJson(result));
+        return;
       }
 
       String password = request.getParameter("password");
 
       if (password.length() < 8) {
-        JsonObject obj = new JsonObject();
-        obj.put("status", "422");
-        obj.put("description", "Password too short");
-        out.println(obj.toJson());
-        return;
+        result.put("status", "422");
+        result.put("description", "Password too short");
       } else if (!password.matches("[0-9a-zA-Z]{8,}")) {
-        JsonObject obj = new JsonObject();
-        obj.put("status", "422");
-        obj.put("description", "Password invalid");
-        out.println(obj.toJson());
+        result.put("status", "422");
+        result.put("description", "Password invalid");
+      }
+      if (!result.isEmpty()) {
+        out.println(obj.toJson(result));
+        return;
       }
 
       String nome = request.getParameter("nome");
 
       if (nome.length() == 0) {
-        JsonObject obj = new JsonObject();
-        obj.put("status", "422");
-        obj.put("description", "Nome too short");
-        out.println(obj.toJson());
-        return;
+        result.put("status", "422");
+        result.put("description", "Nome too short");
       } else if (nome.length() > 30) {
-        JsonObject obj = new JsonObject();
-        obj.put("status", "422");
-        obj.put("description", "Nome too long");
-        out.println(obj.toJson());
-        return;
+        result.put("status", "422");
+        result.put("description", "Nome too long");
       } else if (!nome.matches("[0-9a-zA-Z]+")) {
-        JsonObject obj = new JsonObject();
-        obj.put("status", "422");
-        obj.put("description", "Nome invalid");
-        out.println(obj.toJson());
+        result.put("status", "422");
+        result.put("description", "Nome invalid");
+
+      }
+      if (!result.isEmpty()) {
+        out.println(obj.toJson(result));
+        return;
       }
 
       String cognome = request.getParameter("cognome");
       if (cognome.length() == 0) {
-        JsonObject obj = new JsonObject();
-        obj.put("status", "422");
-        obj.put("description", "Cognome too short");
-        out.println(obj.toJson());
-        return;
+        result.put("status", "422");
+        result.put("description", "Cognome too short");
       } else if (cognome.length() > 30) {
-        JsonObject obj = new JsonObject();
-        obj.put("status", "422");
-        obj.put("description", "Cognome too long");
-        out.println(obj.toJson());
-        return;
+        result.put("status", "422");
+        result.put("description", "Cognome too long");
       } else if (!cognome.matches("[0-9a-zA-Z]+")) {
-        JsonObject obj = new JsonObject();
-        obj.put("status", "422");
-        obj.put("description", "Cognome invalid");
-        out.println(obj.toJson());
+        result.put("status", "422");
+        result.put("description", "Cognome invalid");
       }
 
       String codiceFiscale = request.getParameter("codiceFiscale");
       if (codiceFiscale != null) {
         if (codiceFiscale.length() != 11) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "codiceFiscale too short");
-          out.println(obj.toJson());
-          return;
+          result.put("status", "422");
+          result.put("description", "codiceFiscale too short");
         } else if (!codiceFiscale
             .matches("^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$")) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "codiceFiscale invalid");
-          out.println(obj.toJson());
+          result.put("status", "422");
+          result.put("description", "codiceFiscale invalid");
+        }
+        if (!result.isEmpty()) {
+          out.println(obj.toJson(result));
+          return;
         }
 
         String matricola = request.getParameter("matricola");
         if (matricola.length() != 10) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "Matricola too short");
-          out.println(obj.toJson());
-          return;
+          result.put("status", "422");
+          result.put("description", "Matricola too short");
         } else if (!matricola.matches("[0-9]{10}")) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "Matricola invalid");
-          out.println(obj.toJson());
+          result.put("status", "422");
+          result.put("description", "Matricola invalid");
+        }
+        if (!result.isEmpty()) {
+          out.println(obj.toJson(result));
+          return;
         }
 
         String dataDiNascita = request.getParameter("dataDiNascita");
         if (dataDiNascita.length() != 9) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "dataDiNascita too short");
-          out.println(obj.toJson());
-          return;
+          result.put("status", "422");
+          result.put("description", "dataDiNascita too short");
         } else if (!dataDiNascita
             .matches(
                 "^([0-20-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)[0-9]{4}$")) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "dataDiNascita invalid");
-          out.println(obj.toJson());
+          result.put("status", "422");
+          result.put("description", "dataDiNascita invalid");
+        }
+        if (!result.isEmpty()) {
+          out.println(obj.toJson(result));
+          return;
         }
 
         String cittadinanza = request.getParameter("cittadinanza");
         if (cittadinanza.length() == 0) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "cittadinanza too short");
-          out.println(obj.toJson());
-          return;
+          result.put("status", "422");
+          result.put("description", "cittadinanza too short");
         } else if (!cittadinanza.matches("[a-zA-Z]+")) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "cittadinanza invalid");
-          out.println(obj.toJson());
+          result.put("status", "422");
+          result.put("description", "cittadinanza invalid");
         }
 
         String residenza = request.getParameter("residenza");
         if (residenza.length() == 0) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "residenza too short");
-          out.println(obj.toJson());
-          return;
+          result.put("status", "422");
+          result.put("description", "residenza too short");
         } else if (!residenza.matches("[A-z0-9,]+")) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "residenza invalid");
-          out.println(obj.toJson());
+          result.put("status", "422");
+          result.put("description", "residenza invalid");
+        }
+        if (!result.isEmpty()) {
+          out.println(obj.toJson(result));
+          return;
         }
 
         String numero = request.getParameter("numero");
         if (!numero.matches("[0-9]{9,12}")) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "numero invalid");
-          out.println(obj.toJson());
+          result.put("status", "422");
+          result.put("description", "numero invalid");
+        }
+        if (!result.isEmpty()) {
+          out.println(obj.toJson(result));
+          return;
         }
 
         Studente utente = new Studente(email, nome, password, codiceFiscale, matricola,
             Date.valueOf(dataDiNascita), cittadinanza, residenza, numero, cognome);
         if ((new StudenteDao()).doSave(utente)) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "200");
-          obj.put("description", "ok");
-          out.println(obj.toJson());
+          result.put("status", "200");
+          result.put("description", "ok");
         } else {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "400");
-          obj.put("description", "unknown error");
-          out.println(obj.toJson());
+          result.put("status", "400");
+          result.put("description", "unknown error");
         }
-
+        if (!result.isEmpty()) {
+          out.println(obj.toJson(result));
+          return;
+        }
       }
     } catch (Exception ex) {
-      JsonObject obj = new JsonObject();
-      obj.put("status", "500");
-      obj.put("description", "Internal Error");
-      out.println(obj.toJson());
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
     }
   }
 }
