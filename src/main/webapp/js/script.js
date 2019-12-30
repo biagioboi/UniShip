@@ -64,6 +64,7 @@ $("#formSingUp").submit(function(e) {
       url: 'SignUpServlet',
       method: 'POST',
       data: {
+        action: "signup",
         nome : nome,
         cognome: cognome,
         codiceFiscale: codiceFiscale,
