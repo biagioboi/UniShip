@@ -38,6 +38,20 @@ $(function () {
   /*disabilito perchè volevo provare il toast della registrazione fallita*/
   $('.toast').toast('show');
 
+  $(".addbadge").each(function () {
+    var html = $(this).html();
+
+    if (html == "Non completo") {
+      $(this).addClass("badge-info");
+    } else if (html == "Accettata") {
+      $(this).addClass("badge-success");
+    } else if (html =="Rifiutata"){
+      $(this).addClass("badge-danger");
+    } else {
+      $(this).addClass("badge-warning");
+    }
+  });
+
   checkForLogin();
 
 });
@@ -47,6 +61,7 @@ function percentageToDegrees(percentage) {
   return percentage / 100 * 360
 
 }
+
 
 function checkForLogin() {
   $.ajax({
