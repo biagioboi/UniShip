@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -63,10 +62,7 @@ public class SignUpServlet extends HttpServlet {
 
   private Studente registrazione(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException, IllegalArgumentException {
-    response.setContentType("application/json");
-    PrintWriter out = response.getWriter();
-    Gson obj = new Gson();
-    HashMap<String, String> result = new HashMap<>();
+
     try {
 
       String email = request.getParameter("email");
@@ -92,7 +88,7 @@ public class SignUpServlet extends HttpServlet {
         throw new IllegalArgumentException("Nome too short.");
       } else if (nome.length() > 30) {
         throw new IllegalArgumentException("Nome too long.");
-      } else if (!nome.matches("[0-9a-zA-Z]+")) {
+      } else if (!nome.matches("[a-zA-Z ]+")) {
         throw new IllegalArgumentException("Nome invalid.");
 
       }
@@ -102,7 +98,7 @@ public class SignUpServlet extends HttpServlet {
         throw new IllegalArgumentException("Cognome too short.");
       } else if (cognome.length() > 30) {
         throw new IllegalArgumentException("Cognome too long.");
-      } else if (!cognome.matches("[0-9a-zA-Z]+")) {
+      } else if (!cognome.matches("[a-zA-Z ]+")) {
         throw new IllegalArgumentException("Cognome invalid.");
       }
 
@@ -145,13 +141,14 @@ public class SignUpServlet extends HttpServlet {
         throw new IllegalArgumentException("Residenza invalid.");
       }
 
-      String numero = request.getParameter("telefono");
+      String numero = request.getParameter("numero");
       if (!numero.matches("[0-9]{9,12}")) {
         throw new IllegalArgumentException("Numero invalid.");
       }
 
-      Studente utente = new Studente(email, nome, password, codiceFiscale, matricola,
-          Date.valueOf(dataDiNascita), cittadinanza, residenza, numero, cognome);
+      Studente utente = new Studente(email, nome, password, codiceFiscale,
+          matricola,Date.valueOf(dataDiNascita), cittadinanza, residenza,
+          numero, cognome);
       if (!(new StudenteDao()).doSave(utente)) {
         throw new RuntimeException("Errore sconosciuto.");
       }

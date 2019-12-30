@@ -2,6 +2,7 @@ package applicationlogic.usersmanagment;
 
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import storage.beans.Utente;
 import storage.dao.UtenteDao;
 
 @WebServlet("/SessionServlet")
@@ -24,7 +26,19 @@ public class SessionServlet extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+
+    Gson obj = new Gson();
+
+    String action = request.getParameter("action");
+    if (action != null && action.equals("retrieveUserLogged")) {
+      Utente user = (Utente) request.getSession().getAttribute("utente");
+      if (user != null) {
+        response.getWriter().println(obj.toJson(user));
+      } else {
+        response.getWriter().println(obj.toJson(null));
+      }
+    }
+    /*PrintWriter out = response.getWriter();
     StringBuilder sb = new StringBuilder();
     BufferedReader br = request.getReader();
     String str;
@@ -36,7 +50,7 @@ public class SessionServlet extends HttpServlet {
       login(request, response);
     } else {
       logout(request, response);
-    }
+    }*/
   }
 
   private void login(HttpServletRequest request, HttpServletResponse response)
