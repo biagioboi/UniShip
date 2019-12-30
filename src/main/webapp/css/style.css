@@ -335,7 +335,7 @@ background-color: transparent;
 	background-color: #fff;
 }
 
-#pills-registro td {
+#pills-registro td,#pills-richieste td {
 	min-width: 250px;
 }
 

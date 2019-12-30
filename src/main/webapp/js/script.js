@@ -1,5 +1,16 @@
 $(function () {
 
+  $(".table-pills .addbadge").each(function() {
+    var html = $(this).html();
+
+    if(html == "Accettata")
+      $(this).addClass("badge-success");
+    else if(html == "Valutazione")
+      $(this).addClass("badge-warning");
+    else
+      $(this).addClass("badge-danger");
+  });
+
   $(".progress").each(function () {
 
     var value = $(this).attr('data-value');
@@ -62,7 +73,7 @@ $("#formSingUp").submit(function(e) {
   } else {
     $.ajax({
       url: 'SignUpServlet',
-      method: 'POST',
+      type: 'POST',
       data: {
         action: "signup",
         nome : nome,
