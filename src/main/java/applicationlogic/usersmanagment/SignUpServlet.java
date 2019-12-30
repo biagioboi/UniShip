@@ -39,7 +39,10 @@ public class SignUpServlet extends HttpServlet {
       String action = request.getParameter("action");
       if (action != null && action.equals("signup")) {
         try {
-          registrazione(request, response);
+          Studente studente = registrazione(request, response);
+          ses.setAttribute("utente", studente);
+          result.put("status", "302");
+          result.put("redirect", "index.html");
         } catch (IllegalArgumentException e) {
           result.put("status", "422");
           result.put("description", e.getMessage());
@@ -49,15 +52,16 @@ public class SignUpServlet extends HttpServlet {
         }
       }
     } else {
-      result.put("status", "409");
-      result.put("description", "utente gia' loggato.");
+      result.put("status", "302");
+      result.put("redirect", "index.html");
     }
+
     PrintWriter out = response.getWriter();
     response.setContentType("application/json");
     out.println(obj.toJson(result));
   }
 
-  private void registrazione(HttpServletRequest request, HttpServletResponse response)
+  private Studente registrazione(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException, IllegalArgumentException {
     response.setContentType("application/json");
     PrintWriter out = response.getWriter();
@@ -103,62 +107,58 @@ public class SignUpServlet extends HttpServlet {
       }
 
       String codiceFiscale = request.getParameter("codiceFiscale");
-      if (codiceFiscale != null) {
+      if (codiceFiscale.compareTo("") != 0) {
         if (codiceFiscale.length() != 16) {
           throw new IllegalArgumentException("Codice Fiscale too short.");
         } else if (!codiceFiscale
             .matches("^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$")) {
           throw new IllegalArgumentException("Codice Fiscale invalid.");
         }
-        if (!result.isEmpty()) {
-          out.println(obj.toJson(result));
-          return;
-        }
-
-        String matricola = request.getParameter("matricola");
-        if (matricola.length() != 10) {
-          throw new IllegalArgumentException("Matricola too short.");
-        } else if (!matricola.matches("[0-9]{10}")) {
-          throw new IllegalArgumentException("Matricola invalid.");
-        }
-
-        String dataDiNascita = request.getParameter("dataDiNascita");
-        if (dataDiNascita.length() != 10) {
-          throw new IllegalArgumentException("Data di nascita too short.");
-        } else if (!dataDiNascita
-            .matches(
-                "([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))")) {
-          throw new IllegalArgumentException("Data di nascita invalid.");
-        }
-
-        String cittadinanza = request.getParameter("cittadinanza");
-        if (cittadinanza.length() == 0) {
-          throw new IllegalArgumentException("Cittadinanza too short.");
-        } else if (!cittadinanza.matches("[a-zA-Z]+")) {
-          throw new IllegalArgumentException("Cittadinanza invalid.");
-        }
-
-        String residenza = request.getParameter("residenza");
-        if (residenza.length() == 0) {
-          throw new IllegalArgumentException("Residenza too short.");
-        } else if (!residenza.matches("[A-z0-9,]+")) {
-          throw new IllegalArgumentException("Residenza invalid.");
-        }
-
-        String numero = request.getParameter("telefono");
-        if (!numero.matches("[0-9]{9,12}")) {
-          throw new IllegalArgumentException("Numero invalid.");
-        }
-
-        Studente utente = new Studente(email, nome, password, codiceFiscale, matricola,
-            Date.valueOf(dataDiNascita), cittadinanza, residenza, numero, cognome);
-        if (!(new StudenteDao()).doSave(utente)) {
-          throw new RuntimeException("Errore sconosciuto.");
-        }
       }
+
+      String matricola = request.getParameter("matricola");
+      if (matricola.length() != 10) {
+        throw new IllegalArgumentException("Matricola too short.");
+      } else if (!matricola.matches("[0-9]{10}")) {
+        throw new IllegalArgumentException("Matricola invalid.");
+      }
+
+      String dataDiNascita = request.getParameter("dataDiNascita");
+      if (dataDiNascita.length() != 10) {
+        throw new IllegalArgumentException("Data di nascita too short.");
+      } else if (!dataDiNascita.matches(
+          "([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))")) {
+        throw new IllegalArgumentException("Data di nascita invalid.");
+      }
+
+      String cittadinanza = request.getParameter("cittadinanza");
+      if (cittadinanza.length() == 0) {
+        throw new IllegalArgumentException("Cittadinanza too short.");
+      } else if (!cittadinanza.matches("[a-zA-Z]+")) {
+        throw new IllegalArgumentException("Cittadinanza invalid.");
+      }
+
+      String residenza = request.getParameter("residenza");
+      if (residenza.length() == 0) {
+        throw new IllegalArgumentException("Residenza too short.");
+      } else if (!residenza.matches("[A-z0-9, ']+")) {
+        throw new IllegalArgumentException("Residenza invalid.");
+      }
+
+      String numero = request.getParameter("telefono");
+      if (!numero.matches("[0-9]{9,12}")) {
+        throw new IllegalArgumentException("Numero invalid.");
+      }
+
+      Studente utente = new Studente(email, nome, password, codiceFiscale, matricola,
+          Date.valueOf(dataDiNascita), cittadinanza, residenza, numero, cognome);
+      if (!(new StudenteDao()).doSave(utente)) {
+        throw new RuntimeException("Errore sconosciuto.");
+      }
+      return utente;
     } catch (SQLException ex) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-      return;
+      return null;
     }
   }
 }

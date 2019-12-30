@@ -78,12 +78,11 @@ $("#formSingUp").submit(function(e) {
         telefono: telefono
       },
       success: (response) => {
-        if (response.status != 200) {
-          //si e' verificato un erorre
+        if (response.status != 302) {
           $("#toastRegistrazioneFallitaBody").html(response.description);
           $("#toastRegistrazioneFallita").toast('show');
         } else {
-          //effettuare redirect
+          location.href = response.redirect;
         }
       }
     });
