@@ -40,7 +40,7 @@ $(function () {
     $("#toggle-sidebar").toggleClass("toggled");
   });
 
- /*disabilito perchè volevo provare il toast della registrazione fallita*/
+  /*disabilito perchè volevo provare il toast della registrazione fallita*/
   $('.toast').toast('show')
 });
 
@@ -56,13 +56,15 @@ $("#formSingUp").submit(function(e) {
   var dataDiNascita = $("#dataDiNascita").val();
   var password = $("#password").val();
   var confPassword = $("#rePassword").val();
+  var telefono = $("#numeroTelefono").val();
   if (password.localeCompare(confPassword) == -1) {
     $("#toastRegistrazioneFallitaBody").html("Controlla che le due password corrispondano");
     $("#toastRegistrazioneFallita").toast('show');
   } else {
     $.ajax({
       url: 'SignUpServlet',
-      method: 'POST',
+      type: 'POST',
+      contentType: 'application/json',
       data: {
         action: "signup",
         nome : nome,
@@ -73,14 +75,18 @@ $("#formSingUp").submit(function(e) {
         password: password,
         cittadinanza: cittadinanza,
         residenza: residenza,
-        dataDiNascita: dataDiNascita
-      },,
-      success: function(response) {
-        alert(response);
+        dataDiNascita: dataDiNascita,
+        telefono: telefono
+      },
+      success: (response) => {
+        if (response.status != 200) {
+          //si e' verificato un erorre
+          $("#toastRegistrazioneFallitaBody").html(response.description);
+          $("#toastRegistrazioneFallita").toast('show');
+        } else {
+          //effettuare redirect
+        }
       }
-
-
-    })
+    });
   }
-
 });
