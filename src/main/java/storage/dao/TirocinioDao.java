@@ -178,7 +178,8 @@ public class TirocinioDao implements TirocinioInterface {
    * Questo metodo si occupa di trovare il tirocinio che ha associata id passato per parametro.
    *
    * @param id un valore di tipo intero
-   * @return il tirocinio che ha come id quello specificato nel parametro.
+   * @return il tirocinio che ha come id quello specificato nel parametro se esite nel Database,
+   *     null altrimenti.
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    */
   @Override

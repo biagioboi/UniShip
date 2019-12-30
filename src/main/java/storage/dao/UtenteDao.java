@@ -166,7 +166,7 @@ public class UtenteDao implements UtenteInterface {
    * Questo metodo si occupa di prelevare tutti gli oggetti Utente dal Database.
    *
    * @param email un ogggetto di dito String che rapprensenta Email di una determinato utente.
-   * @return Oggetto di tipo Utente
+   * @return Oggetto di tipo Utente se esite nel Database, null altrimenti
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    * @throws IllegalArgumentException nel caso in cui si passa email == null
    */
@@ -183,13 +183,16 @@ public class UtenteDao implements UtenteInterface {
       connection = DatabaseManager.getConnection();
       preparedStatement = connection.prepareStatement(RETRIVE_BY_KEY);
       preparedStatement.setString(1, email);
-
       ResultSet rs = preparedStatement.executeQuery();
-      rs.next();
-      utente.setTipo(rs.getString("tipo"));
-      utente.setEmail(rs.getString("email"));
-      utente.setNome(rs.getString("nome"));
-      utente.setPassword(rs.getString("password"));
+
+      if (rs.next() == false) {
+        return null;
+      } else {
+        utente.setTipo(rs.getString("tipo"));
+        utente.setEmail(rs.getString("email"));
+        utente.setNome(rs.getString("nome"));
+        utente.setPassword(rs.getString("password"));
+      }
 
     } finally {
       try {

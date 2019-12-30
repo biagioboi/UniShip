@@ -1,6 +1,5 @@
 package storage.dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -113,7 +112,8 @@ public class AziendaDao implements AziendaInterface {
    * Questo metodo si occupa di trovare l'azienda che ha associata l'email passata come parametro.
    *
    * @param email l'email di una determinata azinda.
-   * @return l'Azienda che ha come email quella specificata nel parametro.
+   * @return l'Azienda che ha come email quella specificata nel parametro se esite nel Database,
+   *     null altrimenti.
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    * @throws IllegalArgumentException nel caso in cui si passa email == null.
    */
