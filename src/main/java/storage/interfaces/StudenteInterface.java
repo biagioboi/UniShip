@@ -20,7 +20,7 @@ public interface StudenteInterface {
    *
    * @param email un ogggetto di dito String che rapprensenta Email di una determinato
    *     studente.
-   * @return Oggetto di tipo Studente
+   * @return Oggetto di tipo Studente se esite nel Database, null altrimenti.
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    * @throws IllegalArgumentException nel caso in cui si passa email == null
    */

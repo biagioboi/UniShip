@@ -45,7 +45,7 @@ public interface UtenteInterface {
    * Questo metodo si occupa di prelevare tutti gli oggetti Utente dal Database.
    *
    * @param email un ogggetto di dito String che rapprensenta Email di una determinato utente.
-   * @return Oggetto di tipo Utente
+   * @return Oggetto di tipo Utente se esite nel Database, null altrimenti
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    * @throws IllegalArgumentException nel caso in cui si passa email == null
    */
