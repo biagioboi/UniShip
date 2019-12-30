@@ -2,125 +2,139 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- css -->
-    <link rel="stylesheet" href="css/style.css" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+  <!-- css -->
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 
-    <title>UniShip</title>
+  <title>UniShip</title>
 </head>
 
 <body>
 
-    <div class="login-page">
-        <div class="overlay-login"></div>
-        <div class="container d-flex align-items-center">
-            <div class="container-fluid p-4">
-                <div class="row">
+<div class="login-page">
+  <div class="overlay-login"></div>
+  <div class="container d-flex align-items-center">
+    <div class="container-fluid p-4">
+      <div class="row">
 
-                    <div class="col-12 align-items-center text-center">
-                        <div class="row login-form ">
-                            <div class="col-lg-7 mx-auto bg-white rounded-lg shadow  p-3">
-            
-                                <div class="card ">
-                                    <div class="card-body">
-                                        <div class="text-center"><img src="images/logo.png" style="width:100%;max-width:240px" alt="logo"></div>
-                                        <hr>
+        <div class="col-12 align-items-center text-center">
+          <div class="row login-form ">
+            <div class="col-lg-7 mx-auto bg-white rounded-lg shadow  p-3">
 
-                                        <form id="formSingUp" action="SignUpServlet" method="POST">
-                                            <div class="form-row">
-                                              <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome" required>
-                                              </div>
-                                              <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="cognome" id="cognome" placeholder="Cognome" required>
-                                              </div>
-                                            </div>
-                                            <div class="form-row">
-                                              <div class="form-group col-md-6">
-                                                <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
-                                              </div>
-                                              <div class="form-group col-md-6">
-                                                <input type="text" class="form-control" name="matricola" id="matricola" placeholder="Matricola" required>
-                                              </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" class="form-control" name="rePassword" id="rePassword" placeholder="Conferma password" required>
-                                            </div>
-                                            <div class="form-group">
-                                              <input type="text" class="form-control" name="codiceFiscale" id="codiceFiscale" placeholder="Codice Fiscale" required>
-                                            </div>
-                                            <div class="form-group">
-                                              <input type="text" class="form-control" name="cittadinanza" id="cittadinanza" placeholder="Cittadinanza" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" name="residenza" id="residenza" placeholder="residenza" required>
-                                              </div>
-                                              <div class="form-group">
-                                                <input type="tel" class="form-control" name="numTelefono" id="numeroTelefono" placeholder="Numero Telefono" required>
-                                              </div>
-                                              <div class="form-group row">
-                                                <label for="dataDiNascita" class="col-md-3 col-sm-12 col-form-label">Data Di Nascita</label>
-                                                <div class="col-md-9 col-sm-12">
-                                                  <input class="form-control" type="date" value="" id="dataDiNascita" name="dataDiNascita" required>
-                                                </div>
-                                              </div>
-                                            <button type="submit" class="btn btn-success btn-md">Registrati</button>
-                                          </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+              <div class="card ">
+                <div class="card-body">
+                  <div class="text-center"><img src="images/logo.png"
+                                                style="width:100%;max-width:240px" alt="logo"></div>
+                  <hr>
+
+                  <form id="formSingUp" action="SignUpServlet" method="POST">
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="nome" id="nome"
+                               placeholder="Nome" required>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="cognome" id="cognome"
+                               placeholder="Cognome" required>
+                      </div>
                     </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <input type="email" class="form-control" name="email" id="email"
+                               placeholder="Email" required>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <input type="text" class="form-control" name="matricola" id="matricola"
+                               placeholder="Matricola" required>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input type="password" class="form-control" name="password" id="password"
+                             placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                      <input type="password" class="form-control" name="rePassword" id="rePassword"
+                             placeholder="Conferma password" required>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="codiceFiscale"
+                             id="codiceFiscale" placeholder="Codice Fiscale" required>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="cittadinanza" id="cittadinanza"
+                             placeholder="Cittadinanza" required>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="residenza" id="residenza"
+                             placeholder="residenza" required>
+                    </div>
+                    <div class="form-group">
+                      <input type="tel" class="form-control" name="numTelefono" id="numeroTelefono"
+                             placeholder="Numero Telefono" required>
+                    </div>
+                    <div class="form-group row">
+                      <label for="dataDiNascita" class="col-md-3 col-sm-12 col-form-label">Data Di
+                        Nascita</label>
+                      <div class="col-md-9 col-sm-12">
+                        <input class="form-control" type="date" value="" id="dataDiNascita"
+                               name="dataDiNascita" required>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-md">Registrati</button>
+                  </form>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="toast-area" aria-live="polite" aria-atomic="true" style="position: fixed;">
-        <!-- Position it -->
-        <div class="toast-box" style="position: fixed; bottom: 15px; right: 15px;">
-      
-          <div class="toast" id="toastRegistrazioneFallita" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-delay="5000">
-            <div class="toast-header">
-              <span class="circle bg-danger"></span>
-              <strong class="mr-auto">UniShip</strong>
-              <small class="text-muted">just now</small>
-              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div id="toastRegistrazioneFallitaBody" class="toast-body">
-              Ciao, sono un messaggio di errore e scompariro' tra 5 secondi
+              </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
+  </div>
+</div>
+
+<div class="toast-area" aria-live="polite" aria-atomic="true" style="position: fixed;">
+  <!-- Position it -->
+  <div class="toast-box" style="position: fixed; bottom: 15px; right: 15px;">
+
+    <div class="toast" id="toastRegistrazioneFallita" role="alert" aria-live="assertive"
+         aria-atomic="true" data-animation="true" data-delay="5000">
+      <div class="toast-header">
+        <span class="circle bg-danger"></span>
+        <strong class="mr-auto">UniShip</strong>
+        <small class="text-muted">just now</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="toastRegistrazioneFallitaBody" class="toast-body">
+        Ciao, sono un messaggio di errore e scompariro' tra 5 secondi
+      </div>
+    </div>
+  </div>
+</div>
 
 
-
-
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-            crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script src="js/script.js"></script>
 </body>
 
 </html>
