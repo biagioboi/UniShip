@@ -40,20 +40,8 @@ $(function () {
     $("#toggle-sidebar").toggleClass("toggled");
   });
 
- /*disabilito perchè volevo provare il toast della registrazione fallita*/
+  /*disabilito perchè volevo provare il toast della registrazione fallita*/
   $('.toast').toast('show')
-
-
-  $(".addbadge").each(function() {
-    let html = $(this).html();
-
-    if(html == "Accettata")
-      $(this).addClass("badge-success");
-    else if(html == "Valutazione")
-      $(this).addClass("badge-warning");
-    else
-      $(this).addClass("badge-danger");
-  });
 });
 
 $("#formSingUp").submit(function(e) {
@@ -68,15 +56,16 @@ $("#formSingUp").submit(function(e) {
   var dataDiNascita = $("#dataDiNascita").val();
   var password = $("#password").val();
   var confPassword = $("#rePassword").val();
+  var telefono = $("#numeroTelefono").val();
   if (password.localeCompare(confPassword) == -1) {
     $("#toastRegistrazioneFallitaBody").html("Controlla che le due password corrispondano");
     $("#toastRegistrazioneFallita").toast('show');
   } else {
     $.ajax({
       url: 'SignUpServlet',
-      method: 'POST',
+      type: 'POST',
       data: {
-        action: "signup",
+        action: 'signup',
         nome : nome,
         cognome: cognome,
         codiceFiscale: codiceFiscale,
@@ -85,16 +74,18 @@ $("#formSingUp").submit(function(e) {
         password: password,
         cittadinanza: cittadinanza,
         residenza: residenza,
-        dataDiNascita: dataDiNascita
+        dataDiNascita: dataDiNascita,
+        telefono: telefono
       },
-      success: function(response) {
-        alert(response);
+      success: (response) => {
+        if (response.status != 200) {
+          //si e' verificato un erorre
+          $("#toastRegistrazioneFallitaBody").html(response.description);
+          $("#toastRegistrazioneFallita").toast('show');
+        } else {
+          //effettuare redirect
+        }
       }
-
-
-    })
+    });
   }
-
-
 });
-

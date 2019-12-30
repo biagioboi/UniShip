@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -120,7 +121,7 @@ public class SignUpServlet extends HttpServlet {
 
       String codiceFiscale = request.getParameter("codiceFiscale");
       if (codiceFiscale != null) {
-        if (codiceFiscale.length() != 11) {
+        if (codiceFiscale.length() != 16) {
           result.put("status", "422");
           result.put("description", "codiceFiscale too short");
         } else if (!codiceFiscale
