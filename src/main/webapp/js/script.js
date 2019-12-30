@@ -41,10 +41,25 @@ $(function () {
   });
 
   /*disabilito perchè volevo provare il toast della registrazione fallita*/
-  $('.toast').toast('show')
+  $('.toast').toast('show');
+
+  $(".addbadge").each(function () {
+    var html = $(this).html();
+
+    if (html == "Non completo") {
+      $(this).addClass("badge-info");
+    } else if (html == "Accettata") {
+      $(this).addClass("badge-success");
+    } else if (html =="Rifiutata"){
+      $(this).addClass("badge-danger");
+    } else {
+      $(this).addClass("badge-warning");
+    }
+  });
+
 });
 
-$("#formSingUp").submit(function(e) {
+$("#formSingUp").submit(function (e) {
   e.preventDefault();
   var nome = $("#nome").val();
   var cognome = $("#cognome").val();
@@ -58,7 +73,8 @@ $("#formSingUp").submit(function(e) {
   var confPassword = $("#rePassword").val();
   var telefono = $("#numeroTelefono").val();
   if (password.localeCompare(confPassword) == -1) {
-    $("#toastRegistrazioneFallitaBody").html("Controlla che le due password corrispondano");
+    $("#toastRegistrazioneFallitaBody").html(
+        "Controlla che le due password corrispondano");
     $("#toastRegistrazioneFallita").toast('show');
   } else {
     $.ajax({
@@ -66,7 +82,7 @@ $("#formSingUp").submit(function(e) {
       type: 'POST',
       data: {
         action: 'signup',
-        nome : nome,
+        nome: nome,
         cognome: cognome,
         codiceFiscale: codiceFiscale,
         email: email,
