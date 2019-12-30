@@ -107,7 +107,7 @@ public class HandleUserServlet extends HttpServlet {
           obj.put("description", "Email already registered");
           out.println(obj.toJson());
         }
-        Azienda azienda= new Azienda();
+        Azienda azienda = new Azienda();
         if ((new AziendaDao()).doSave(azienda)) {
           JsonObject obj = new JsonObject();
           obj.put("status", "200");

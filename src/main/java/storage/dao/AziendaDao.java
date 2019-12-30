@@ -132,15 +132,18 @@ public class AziendaDao implements AziendaInterface {
       preparedStatement.setString(1, email);
 
       ResultSet rs = preparedStatement.executeQuery();
-      rs.next();
-      azienda.setEmail(rs.getString("email"));
-      azienda.setNome(rs.getString("nome"));
-      azienda.setPartitaIva(rs.getString("partita_iva"));
-      azienda.setIndirizzo(rs.getString("indirizzo"));
-      azienda.setRappresentante(rs.getString("rappresentante"));
-      azienda.setCodAteco(rs.getString("codice_ateco"));
-      azienda.setNumeroDipendenti(rs.getInt("numero_dipendenti"));
-      azienda.setTipo(rs.getString("tipo"));
+      if (rs.next() == false) {
+        return null;
+      } else {
+        azienda.setEmail(rs.getString("email"));
+        azienda.setNome(rs.getString("nome"));
+        azienda.setPartitaIva(rs.getString("partita_iva"));
+        azienda.setIndirizzo(rs.getString("indirizzo"));
+        azienda.setRappresentante(rs.getString("rappresentante"));
+        azienda.setCodAteco(rs.getString("codice_ateco"));
+        azienda.setNumeroDipendenti(rs.getInt("numero_dipendenti"));
+        azienda.setTipo(rs.getString("tipo"));
+      }
 
     } finally {
       try {

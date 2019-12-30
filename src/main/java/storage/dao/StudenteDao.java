@@ -86,17 +86,22 @@ public class StudenteDao implements StudenteInterface {
       preparedStatement.setString(1, email);
 
       ResultSet rs = preparedStatement.executeQuery();
-      rs.next();
-      studente.setEmail(rs.getString("email"));
-      studente.setNome(rs.getString("nome"));
-      studente.setCognome(rs.getString("cognome"));
-      studente.setCodiceFiscale(rs.getString("codice_fiscale"));
-      studente.setMatricola(rs.getString("matricola"));
-      studente.setDataDiNascita(rs.getDate("data_di_nascita"));
-      studente.setCittadinanza(rs.getString("cittadinanza"));
-      studente.setResidenza(rs.getString("residenza"));
-      studente.setNumero(rs.getString("numero"));
-      studente.setTipo(rs.getString("tipo"));
+
+      if (rs.next() == false) {
+        return null;
+      } else {
+        studente.setEmail(rs.getString("email"));
+        studente.setNome(rs.getString("nome"));
+        studente.setCognome(rs.getString("cognome"));
+        studente.setCodiceFiscale(rs.getString("codice_fiscale"));
+        studente.setMatricola(rs.getString("matricola"));
+        studente.setDataDiNascita(rs.getDate("data_di_nascita"));
+        studente.setCittadinanza(rs.getString("cittadinanza"));
+        studente.setResidenza(rs.getString("residenza"));
+        studente.setNumero(rs.getString("numero"));
+        studente.setTipo(rs.getString("tipo"));
+      }
+
 
     } finally {
       try {

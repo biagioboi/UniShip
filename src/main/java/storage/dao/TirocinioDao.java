@@ -195,17 +195,19 @@ public class TirocinioDao implements TirocinioInterface {
       preparedStatement.setInt(1, id);
 
       ResultSet rs = preparedStatement.executeQuery();
-      rs.next();
 
-      tirocinio.setId(rs.getInt("id"));
-      tirocinio.setOreTotali(rs.getTime("ore_totali"));
-      tirocinio.setTurorEsterno(rs.getString("tutor_esterno"));
-      tirocinio.setOreSvolte(rs.getTime("ore_svolte"));
-      tirocinio.setPath(rs.getString("path"));
-      tirocinio.setStato(rs.getString("stato"));
-      tirocinio.setAzienda(aziendaDao.doRetrieveByKey(rs.getString("azienda")));
-      tirocinio.setStudente(studenteDao.doRetrieveByKey(rs.getString("studente")));
-
+      if (rs.next() == false) {
+        return null;
+      } else {
+        tirocinio.setId(rs.getInt("id"));
+        tirocinio.setOreTotali(rs.getTime("ore_totali"));
+        tirocinio.setTurorEsterno(rs.getString("tutor_esterno"));
+        tirocinio.setOreSvolte(rs.getTime("ore_svolte"));
+        tirocinio.setPath(rs.getString("path"));
+        tirocinio.setStato(rs.getString("stato"));
+        tirocinio.setAzienda(aziendaDao.doRetrieveByKey(rs.getString("azienda")));
+        tirocinio.setStudente(studenteDao.doRetrieveByKey(rs.getString("studente")));
+      }
 
     } finally {
       try {
