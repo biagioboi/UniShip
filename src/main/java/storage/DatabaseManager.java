@@ -18,7 +18,7 @@ public class DatabaseManager {
     config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
     config.addDataSourceProperty("useSSL", "false");
     config.addDataSourceProperty("autoReconnect", "true");
-    config.addDataSourceProperty("serverTimezone", "UTC");
+    config.addDataSourceProperty("serverTimezone", "Europe/Rome");
     config.addDataSourceProperty("allowPublicKeyRetrieval", "true");
     config.addDataSourceProperty("leakDetectionThreshold", "6000");
     config.setDriverClassName("com.mysql.cj.jdbc.Driver");
