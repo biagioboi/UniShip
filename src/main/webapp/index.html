@@ -164,6 +164,15 @@
               &nbsp;Tirocinanti
             </a>
           </li>
+
+          <li class="nav-item">
+            <a id="pills-view-richiesteAzienda" class="nav-link" data-toggle="pill"
+               href="#pills-richiesteAzienda"
+               role="tab" aria-controls="pills-richiesteAzienda" aria-selected="false">
+              <i class="fas fa-tasks"></i>
+              &nbsp;Richieste
+            </a>
+          </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade show active" id="pills-aziende" role="tabpanel"
@@ -363,6 +372,41 @@
               </table>
             </div>
           </div>
+          <div class="tab-pane fade" id="pills-richiesteAzienda" role="tabpanel"
+               aria-labelledby="pills-view-richiesteAzienda">
+            <div class="table-responsive font-size-sm">
+              <table class="table table-hover mb-0 min-size-td">
+                <thead>
+                <tr>
+                  <th>Matricola</th>
+                  <th>Nome</th>
+                  <th>Cognome</th>
+                  <th>Messaggio</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>051212222</td>
+                  <td>Mario</td>
+                  <td>Rossi</td>
+                  <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                    when an unknown printer took a galley of type and scrambled it to make a type
+                    specimen book.
+                  </td>
+                  <td class="text-center">
+                    <button class="btn btn-success" >Accetta
+                    </button>
+                    <button class="btn btn-danger" data-toggle="modal"
+                            data-target="#rifiutaDisponibilitaModal">Rifiuta
+                    </button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal fade" id="aggiungiOreModal" tabindex="-1" role="dialog"
@@ -469,6 +513,31 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
             <button type="button" class="btn btn-success">Richiedi</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="rifiutaDisponibilitaModal" tabindex="-1" role="dialog"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="nomeStudente">Mario Rossi - matricola</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="motivazioni" class="col-form-label">Motivazioni:</label>
+                <textarea class="form-control" id="motivazioni" required></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
+            <button type="button" class="btn btn-success">Rifiuta</button>
           </div>
         </div>
       </div>
