@@ -29,10 +29,11 @@ public class SessionServlet extends HttpServlet {
       throws ServletException, IOException {
 
     Gson obj = new Gson();
+    HttpSession session = request.getSession();
 
     String action = request.getParameter("action");
     if (action != null && action.equals("retrieveUserLogged")) {
-      Utente user = (Utente) request.getSession().getAttribute("utente");
+      Utente user = (Utente) session.getAttribute("utente");
       if (user != null) {
         response.getWriter().println(obj.toJson(user));
       } else {
@@ -42,8 +43,10 @@ public class SessionServlet extends HttpServlet {
       JsonObject result = new JsonObject();
       response.setContentType("application/json");
       try {
-        request.getSession().setAttribute("utente", login(request, response));
-        request.getSession().setAttribute("login", "si");
+        Utente utente = login(request, response);
+        session.setAttribute("utente", utente);
+        session.setAttribute("login", "si");
+        session.setAttribute("tipo", utente.getTipo());
         result.put("status", "302");
         result.put("description", "index.jsp");
       } catch (IllegalArgumentException e) {
@@ -63,6 +66,7 @@ public class SessionServlet extends HttpServlet {
   private Utente login(HttpServletRequest request, HttpServletResponse response)
       throws IllegalArgumentException, IOException, RuntimeException {
     PrintWriter out = response.getWriter();
+    UtenteDao utenteDao = new UtenteDao();
 
     String email = request.getParameter("email");
     String password = request.getParameter("password");
@@ -74,19 +78,18 @@ public class SessionServlet extends HttpServlet {
         throw new IllegalArgumentException("Email too long.");
       } else if (!email.matches("[0-9a-zA-Z.]+@studenti.unisa.it")) {
         throw new IllegalArgumentException("Email not valid.");
-      } else if (!new UtenteDao().doCheckRegister(email)) {
+      } else if (!utenteDao.doCheckRegister(email)) {
         throw new IllegalArgumentException("Email not exist.");
       }
 
-      if (!(new UtenteDao().doCheckLogin(email, password))) {
+      if (!(utenteDao.doCheckLogin(email, password))) {
         throw new IllegalArgumentException("Credential not valid.");
       } else {
-        Utente u = new UtenteDao().doRetrieveByKey(email);
-        return u;
+        return utenteDao.doRetrieveByKey(email);
       }
     } catch (SQLException ex) {
-        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        return null;
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return null;
     }
   }
 
