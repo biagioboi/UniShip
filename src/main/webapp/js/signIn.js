@@ -10,7 +10,7 @@ $("#formAccesso").submit((e) => {
       password: password,
       action: 'logIn'
     },
-    succcess: (response) => {
+    success: (response) => {
       if (response.status != 302) {
         $("#toastAccessoFallitoBody").html(response.description);
         $("#toastAccessoFallito").toast('show');
