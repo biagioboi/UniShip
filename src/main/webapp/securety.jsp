@@ -1,16 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Biagi
-  Date: 02/01/2020
-  Time: 19:00
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1" %>
+
+<%
+    String controllo = (String)session.getAttribute("login");
+
+    if(controllo==null || controllo.equals("no")){
+
+        response.sendRedirect("login.jsp");
+        return ;
+    }
+%>

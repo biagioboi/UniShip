@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,82 +38,55 @@ public class SessionServlet extends HttpServlet {
       } else {
         response.getWriter().println(obj.toJson(null));
       }
+    } else if (action != null && action.equals("logIn")) {
+      JsonObject result = new JsonObject();
+      response.setContentType("application/json");
+      try {
+        request.getSession().setAttribute("utente", login(request, response));
+        request.getSession().setAttribute("login", "si");
+        result.put("status", "302");
+        result.put("description", "index.jsp");
+      } catch (IllegalArgumentException e) {
+        result.put("status", "422");
+        result.put("description", e.getMessage());
+      } catch (RuntimeException ex) {
+        result.put("status", "422");
+        result.put("description", "Generic error.");
+      }
+
+      PrintWriter out = response.getWriter();
+      response.setContentType("application/json");
+      out.println(obj.toJson(result));
     }
-    /*PrintWriter out = response.getWriter();
-    StringBuilder sb = new StringBuilder();
-    BufferedReader br = request.getReader();
-    String str;
-    while ((str = br.readLine()) != null) {
-      sb.append(str);
-    }
-    JsonObject jsonRequest = Jsoner.deserialize(sb.toString(), new JsonObject());
-    if (jsonRequest.containsKey("login")) {
-      login(request, response);
-    } else {
-      logout(request, response);
-    }*/
   }
 
-  private void login(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  private Utente login(HttpServletRequest request, HttpServletResponse response)
+      throws IllegalArgumentException, IOException, RuntimeException {
     PrintWriter out = response.getWriter();
-    StringBuilder sb = new StringBuilder();
-    BufferedReader br = request.getReader();
-    String str;
-    while ((str = br.readLine()) != null) {
-      sb.append(str);
-    }
-    response.setContentType("application/json");
+
+    String email = request.getParameter("email");
+    String password = request.getParameter("password");
 
     try {
-      JsonObject jsonRequest = Jsoner.deserialize(sb.toString(), new JsonObject());
-      if (jsonRequest.containsKey("email")) {
-        String email = (String) jsonRequest.get("email");
-        if (email.length() < 1) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "Email too short");
-          out.println(obj.toJson());
-          return;
-        } else if (email.length() > 50) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "Email too long");
-          out.println(obj.toJson());
-        } else if (!email.matches("[0-9a-zA-Z.]+@studenti.unisa.it")) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "Email not valid");
-          out.println(obj.toJson());
-        } else if (!new UtenteDao().doCheckRegister(email)) {
-          JsonObject obj = new JsonObject();
-          obj.put("status", "422");
-          obj.put("description", "Email not in database");
-          out.println(obj.toJson());
-        }
-
-        if (jsonRequest.containsKey("password")) {
-          String password = (String) jsonRequest.get("password");
-          if (new UtenteDao().doCheckLogin(email, password)) {
-            JsonObject obj = new JsonObject();
-            HttpSession session = request.getSession(true);
-            session.setAttribute("utente", new UtenteDao().doRetrieveByKey(email));
-            obj.put("status", "200");
-            obj.put("description", "ok");
-            out.println(obj.toJson());
-          } else {
-            JsonObject obj = new JsonObject();
-            obj.put("status", "401");
-            obj.put("description", "invalid credential");
-            out.println(obj.toJson());
-          }
-        }
+      if (email.length() < 1) {
+        throw new IllegalArgumentException("Email too short.");
+      } else if (email.length() > 50) {
+        throw new IllegalArgumentException("Email too long.");
+      } else if (!email.matches("[0-9a-zA-Z.]+@studenti.unisa.it")) {
+        throw new IllegalArgumentException("Email not valid.");
+      } else if (!new UtenteDao().doCheckRegister(email)) {
+        throw new IllegalArgumentException("Email not exist.");
       }
-    } catch (Exception ex) {
-      JsonObject obj = new JsonObject();
-      obj.put("status", "500");
-      obj.put("description", "Internal Error");
-      out.println(obj.toJson());
+
+      if (!(new UtenteDao().doCheckLogin(email, password))) {
+        throw new IllegalArgumentException("Credential not valid.");
+      } else {
+        Utente u = new UtenteDao().doRetrieveByKey(email);
+        return u;
+      }
+    } catch (SQLException ex) {
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        return null;
     }
   }
 
