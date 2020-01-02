@@ -40,8 +40,6 @@ public class SignUpServlet extends HttpServlet {
         try {
           Studente studente = registrazione(request, response);
           ses.setAttribute("utente", studente);
-          ses.setAttribute("login", "si");
-          ses.setAttribute("tipo", studente.getTipo());
           result.put("status", "302");
           result.put("redirect", "index.jsp");
         } catch (IllegalArgumentException e) {

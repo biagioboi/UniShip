@@ -1,9 +1,7 @@
 package applicationlogic.usersmanagment;
 
 import com.github.cliftonlabs.json_simple.JsonObject;
-import com.github.cliftonlabs.json_simple.Jsoner;
 import com.google.gson.Gson;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -60,12 +58,20 @@ public class SessionServlet extends HttpServlet {
       PrintWriter out = response.getWriter();
       response.setContentType("application/json");
       out.println(obj.toJson(result));
+    } else if (action != null && action.equals("logOut")) {
+
+      JsonObject result = new JsonObject();
+      response.setContentType("application/json");
+
+      logout(request, response);
+
+      result.put("status", "302");
+      result.put("redirect", "signin.html");
     }
   }
 
   private Utente login(HttpServletRequest request, HttpServletResponse response)
-      throws IllegalArgumentException, IOException, RuntimeException {
-    PrintWriter out = response.getWriter();
+      throws RuntimeException {
     UtenteDao utenteDao = new UtenteDao();
 
     String email = request.getParameter("email");
@@ -93,8 +99,7 @@ public class SessionServlet extends HttpServlet {
     }
   }
 
-  private void logout(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+  private void logout(HttpServletRequest request, HttpServletResponse response) {
     HttpSession session = request.getSession(true);
     session.invalidate();
   }
