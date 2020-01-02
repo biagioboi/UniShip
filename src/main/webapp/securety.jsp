@@ -6,7 +6,7 @@
 
     if(controllo==null || controllo.equals("no")){
 
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("signin.html");
         return ;
     }
 %>

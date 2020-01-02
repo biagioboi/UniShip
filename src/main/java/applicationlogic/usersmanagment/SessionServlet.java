@@ -48,7 +48,7 @@ public class SessionServlet extends HttpServlet {
         session.setAttribute("login", "si");
         session.setAttribute("tipo", utente.getTipo());
         result.put("status", "302");
-        result.put("description", "index.jsp");
+        result.put("redirect", "index.jsp");
       } catch (IllegalArgumentException e) {
         result.put("status", "422");
         result.put("description", e.getMessage());

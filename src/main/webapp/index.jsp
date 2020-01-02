@@ -1,3 +1,4 @@
+<%@include file="securety.jsp" %>
 <!doctype html>
 <html lang="en">
 <head>
