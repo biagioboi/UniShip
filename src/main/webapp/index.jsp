@@ -466,31 +466,7 @@ String tipo = (String) session.getAttribute("tipo");
         </div>
       </div>
     </div>
-    <div class="modal fade" id="richiediDisponibilitaModal" tabindex="-1" role="dialog"
-         aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="nomeAzienda">Azienda 1</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="messaggio" class="col-form-label">Messaggio:</label>
-                <textarea class="form-control" id="messaggio" required></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
-            <button type="button" class="btn btn-success">Richiedi</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <div class="modal fade" id="rifiutaDisponibilitaModal" tabindex="-1" role="dialog"
          aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -597,7 +573,7 @@ String tipo = (String) session.getAttribute("tipo");
   <div class="toast-box">
 
     <!-- Then put toasts within -->
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true"
+    <div id="messaggioSuccesso" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true"
          data-delay="5000">
       <div class="toast-header">
         <span class="circle bg-success"></span>
@@ -607,12 +583,12 @@ String tipo = (String) session.getAttribute("tipo");
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="toast-body">
+      <div id="messaggioSuccessoBody" class="toast-body">
         Ciao, sono un messaggio di successo e scompariro' tra 5 secondi
       </div>
     </div>
 
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true"
+    <div id="messaggioErrore" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true"
          data-delay="5000">
       <div class="toast-header">
         <span class="circle bg-danger"></span>
@@ -622,7 +598,7 @@ String tipo = (String) session.getAttribute("tipo");
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="toast-body">
+      <div id="messaggioErroreBody" class="toast-body">
         Ciao, sono un messaggio di errore e scompariro' tra 5 secondi
       </div>
     </div>

@@ -362,7 +362,6 @@ public class HandleUserServlet extends HttpServlet {
         for (RichiestaDisponibilita r : richieste) {
           if (r.getAzienda().equals(a)) {
             ri = r;
-            richieste.remove(r);
           }
         }
         result.add(new Pair(a, ri));

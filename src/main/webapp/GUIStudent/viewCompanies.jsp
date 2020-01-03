@@ -12,27 +12,31 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>AZIENDA 1</td>
-                <td>0515252</td>
-                <td>Via roma,199 Salerno</td>
-                <td>1000</td>
-                <td class="text-center">
-                    <button class="btn btn-success" data-toggle="modal"
-                            data-target="#richiediDisponibilitaModal">Richiedi
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>AZIENDA 2</td>
-                <td>56613</td>
-                <td>Via tevere,199 Nola</td>
-                <td>22</td>
-                <td class="text-center">
-                    <button class="btn btn-success">Richiedi</button>
-                </td>
-            </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+<div emailTarget="" class="modal fade" id="richiediDisponibilitaModal" tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="nomeAzienda">Azienda 1</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="messaggio" class="col-form-label">Messaggio:</label>
+                    <textarea class="form-control" id="messaggio" required></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
+                <button type="button" class="btn btn-success" id="btnSendRequest">Richiedi</button>
+            </div>
+        </div>
     </div>
 </div>
