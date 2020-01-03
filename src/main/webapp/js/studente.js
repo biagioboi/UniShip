@@ -4,11 +4,11 @@ $(() => {
   $('#richiediDisponibilitaModal').on('show.bs.modal', (e) => {
     var email = $(e.relatedTarget).data('email');
     $("#nomeAzienda").html($(e.relatedTarget).data('nome'));
-    $("#richiediDisponibilitaModal").attr("emailTarget", email);
+    $("#richiediDisponibilitaModal").attr("emailtarget", email);
   });
 
   $("#btnSendRequest").click(function(e){
-    let email = $("#richiediDisponibilitaModal").attr("emailTarget");
+    let email = $("#richiediDisponibilitaModal").attr("emailtarget");
     let motivazioni = $("#messaggio").val();
     $.ajax({
       url: 'RichiestaDServlet',
@@ -56,7 +56,7 @@ function chargeTableAziendeContent() {
               "<button  class='btn btn-success btn-open-req' data-toggle='modal' " +
               "data-target='#richiediDisponibilitaModal'" +
               "data-nome=\"" + azienda.nome + "\" data-email= \"" +
-               azienda.email + "\">" + "Richiedi </button>";
+               azienda.email + "\">" + "Richiedi </button></td>";
         }
         $("#tableAziendePresenti > tbody:last-child")
         .append("<tr>" + riga + "</tr>");

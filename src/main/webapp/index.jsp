@@ -133,6 +133,15 @@ String tipo = (String) session.getAttribute("tipo");
               Lista Aziende
             </a>
           </li>
+          <% } else if (tipo.equals("azienda")) { %>
+          <li class="nav-item">
+            <a id="pills-view-richiesteAzienda" class="nav-link active" data-toggle="pill"
+               href="#pills-richiesteAzienda"
+               role="tab" aria-controls="pills-richiesteAzienda" aria-selected="true">
+              <i class="fas fa-tasks"></i>
+              &nbsp;Richieste
+            </a>
+          </li>
           <% } %>
 
           <li class="nav-item">
@@ -144,14 +153,7 @@ String tipo = (String) session.getAttribute("tipo");
             </a>
           </li>
 
-          <li class="nav-item">
-            <a id="pills-view-richieste" class="nav-link" data-toggle="pill"
-               href="#pills-richieste"
-               role="tab" aria-controls="pills-richieste" aria-selected="false">
-              <i class="fas fa-tasks"></i>
-              &nbsp;Richieste
-            </a>
-          </li>
+
 
           <li class="nav-item">
             <a id="pills-view-tirocini" class="nav-link" data-toggle="pill"
@@ -170,21 +172,25 @@ String tipo = (String) session.getAttribute("tipo");
               &nbsp;Tirocinanti
             </a>
           </li>
-
+          <!-- questo lo possono vedere gli studenti -->
           <li class="nav-item">
-            <a id="pills-view-richiesteAzienda" class="nav-link" data-toggle="pill"
-               href="#pills-richiesteAzienda"
-               role="tab" aria-controls="pills-richiesteAzienda" aria-selected="false">
+            <a id="pills-view-richieste" class="nav-link" data-toggle="pill"
+               href="#pills-richieste"
+               role="tab" aria-controls="pills-richieste" aria-selected="false">
               <i class="fas fa-tasks"></i>
               &nbsp;Richieste
             </a>
           </li>
+
         </ul>
         <div class="tab-content" id="pills-tabContent">
           <!-- qui dobbiamo mettere un solo grande if che a seconda di chi è loggato fa gli
           include, per il momento lascio così e poi si modifica -->
-          <% if (tipo.equals("studente")) %>
+          <% if (tipo.equals("studente")) {%>
           <%@ include file="GUIStudent/viewCompanies.jsp" %>
+          <% } else if (tipo.equals("azienda")) {%>
+          <%@ include file="GUIAzienda/viewRequestsAvailability.jsp" %>
+          <% } %>
 
           <div class="tab-pane fade" id="pills-registro" role="tabpanel"
                aria-labelledby="pills-view-registro">
@@ -345,42 +351,6 @@ String tipo = (String) session.getAttribute("tipo");
               </table>
             </div>
           </div>
-          <div class="tab-pane fade" id="pills-richiesteAzienda" role="tabpanel"
-               aria-labelledby="pills-view-richiesteAzienda">
-            <div class="table-responsive font-size-sm">
-              <table class="table table-hover mb-0 min-size-td">
-                <thead>
-                <tr>
-                  <th>Matricola</th>
-                  <th>Nome</th>
-                  <th>Cognome</th>
-                  <th>Messaggio</th>
-                  <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>051212222</td>
-                  <td>Mario</td>
-                  <td>Rossi</td>
-                  <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                    when an unknown printer took a galley of type and scrambled it to make a type
-                    specimen book.
-                  </td>
-                  <td class="text-center">
-                    <button class="btn btn-success" data-toggle="modal"
-                            data-target="#accettaDisponibilitaModal">Accetta
-                    </button>
-                    <button class="btn btn-danger" data-toggle="modal"
-                            data-target="#rifiutaDisponibilitaModal">Rifiuta
-                    </button>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -467,104 +437,7 @@ String tipo = (String) session.getAttribute("tipo");
       </div>
     </div>
 
-    <div class="modal fade" id="rifiutaDisponibilitaModal" tabindex="-1" role="dialog"
-         aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="nomeStudente">Mario Rossi - matricola</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="motivazioni" class="col-form-label">Motivazioni:</label>
-                <textarea class="form-control" id="motivazioni" required></textarea>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
-            <button type="button" class="btn btn-success">Rifiuta</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal fade" id="accettaDisponibilitaModal" tabindex="-1" role="dialog"
-         aria-hidden="true">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="nomeAlunno">Mario Rossi - matricola</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h6>Compila il progetto formativo</h6>
-            <form class="m-3">
-              <div class="form-group">
-                <input class="form-control" type="number" placeholder="cfu" id="numeroCfu" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" placeholder="Sede Svolgimento"
-                       id="sedeSvolgimento" required>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" id="obiettivi" placeholder="Obiettivi"
-                          rows="3" required></textarea>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" id="competenze" placeholder="Competenze da acquisire"
-                          rows="3" required></textarea>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" id="attivita" placeholder="Attvit&agrave;"
-                          rows="3" required></textarea>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control" id="modalita" placeholder="Modalita di svolgimento"
-                          rows="3" required></textarea>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" placeholder="Orario Lavorativo"
-                       id="orarioLavorativo" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" placeholder="Numero RC"
-                       id="numeroRc" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" placeholder="Polizza assicurativa infortuni"
-                       id="polizza" required>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="dataInizio" class="col-4 col-form-label">Data inizio :</label>
-                  <div class="col-8">
-                    <input class="form-control" type="date" value="2011-08-19" id="dataInizio"
-                           required>
-                  </div>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="dataFine" class="col-4 col-form-label">Data fine :</label>
-                  <div class="col-8">
-                    <input class="form-control" type="date" value="2011-08-19" id="dataFine"
-                           required>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
-            <button type="button" class="btn btn-success">Invia</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
   </main>
 </div>
 
@@ -617,8 +490,13 @@ String tipo = (String) session.getAttribute("tipo");
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 <script src="js/script.js"></script>
+
+
 <% if (tipo.equals("studente")) { %>
 <script src="js/studente.js"></script>
+<% } else if (tipo.equals("azienda")) { %>
+<script src="js/azienda.js"></script>
 <% } %>
+
 </body>
 </html>

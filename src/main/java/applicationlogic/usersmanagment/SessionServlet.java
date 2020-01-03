@@ -87,8 +87,6 @@ public class SessionServlet extends HttpServlet {
         throw new IllegalArgumentException("Email too short.");
       } else if (email.length() > 50) {
         throw new IllegalArgumentException("Email too long.");
-      } else if (!email.matches("[0-9a-zA-Z.]+@studenti.unisa.it")) {
-        throw new IllegalArgumentException("Email not valid.");
       } else if (!utenteDao.doCheckRegister(email)) {
         throw new IllegalArgumentException("Email not exist.");
       }

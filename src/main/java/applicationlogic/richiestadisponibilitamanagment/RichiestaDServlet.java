@@ -109,11 +109,11 @@ public class RichiestaDServlet extends HttpServlet {
     String emailAzienda = request.getParameter("azienda");
     String messaggio = request.getParameter("messaggio");
 
-    if (emailAzienda == null) {
+    if (emailAzienda == null || emailAzienda.equals("")) {
       throw new IllegalArgumentException("Email della azienda non puo' essere vuota");
     }
 
-    if (messaggio == null) {
+    if (messaggio == null || messaggio.equals("")) {
       throw new IllegalArgumentException("Il messaggio non puo' essere vuoto");
     }
 
@@ -197,18 +197,18 @@ public class RichiestaDServlet extends HttpServlet {
   private boolean respondToRequest(HttpServletRequest request, HttpServletResponse response) {
 
     String emailStudente = request.getParameter("studente");
-    String motivazioni = request.getParameter("Messaggio");
+    String motivazioni = request.getParameter("messaggio");
     String risposta = request.getParameter("risposta");
 
-    if (risposta == null) {
+    if (risposta == null || risposta.equals("")) {
       throw new IllegalArgumentException("La risposta non puo' essere vuota");
     }
 
-    if (emailStudente == null) {
+    if (emailStudente == null || emailStudente.equals("")) {
       throw new IllegalArgumentException("Email dello studente non puo' essere vuota");
     }
 
-    if (motivazioni == null) {
+    if (motivazioni == null || motivazioni.equals("")) {
       throw new IllegalArgumentException("le motivazioni non possono essere vuote");
     }
 
