@@ -54,7 +54,7 @@ public class RichiestaDServlet extends HttpServlet {
 
     if (action != null && action.equals("sendRequest")) {
       try {
-        if (sendAvailabilityRequest(request, response)){
+        if (sendAvailabilityRequest(request, response)) {
           result.put("status", "200");
           result.put("description", "Richiesta inviata.");
         } else {
@@ -171,6 +171,11 @@ public class RichiestaDServlet extends HttpServlet {
 
     String emailStudente = request.getParameter("studente");
     String motivazioni = request.getParameter("Messaggio");
+    String risposta = request.getParameter("risposta");
+
+    if (risposta == null) {
+      throw new IllegalArgumentException("La risposta non puo' essere vuota");
+    }
 
     if (emailStudente == null) {
       throw new IllegalArgumentException("Email dello studente non puo' essere vuota");
@@ -185,6 +190,7 @@ public class RichiestaDServlet extends HttpServlet {
       AziendaInterface aziendaDao = new AziendaDao();
       UtenteInterface utenteDao = new UtenteDao();
       RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
+
       if (!utenteDao.doCheckRegister(emailStudente)) {
         throw new IllegalArgumentException("Email studente errata");
       }
@@ -192,7 +198,17 @@ public class RichiestaDServlet extends HttpServlet {
       Utente user = (Utente) request.getSession().getAttribute("utente");
       Studente studente = studenteDao.doRetrieveByKey(emailStudente);
       Azienda azienda = aziendaDao.doRetrieveByKey(user.getEmail());
-      RichiestaDisponibilita richiesta = richiestaDao.doRetrieveByKey(studente,azienda);
+      RichiestaDisponibilita richiesta = richiestaDao.doRetrieveByKey(studente, azienda);
+
+      richiesta.setMotivazioni(motivazioni);
+      if (risposta.equals("accettata")) {
+        richiesta.setStato(RichiestaDisponibilita.ACCETTATA);
+      } else {
+        richiesta.setStato(RichiestaDisponibilita.RIFIUTATA);
+      }
+
+      return richiestaDao.doChange(richiesta);
+
 
     } catch (SQLException e) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
