@@ -1,12 +1,15 @@
 package storage.dao;
 /* nome classe cambiato */
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import storage.DatabaseManager;
+import storage.PasswordHash;
 import storage.beans.Utente;
 import storage.interfaces.UtenteInterface;
 
@@ -47,12 +50,15 @@ public class UtenteDao implements UtenteInterface {
       ResultSet rs = preparedStatement.executeQuery();
 
       while (rs.next()) {
-        if (rs.getString("password").equals(password)) {
+        // TODO: remove plain equals in production
+        if (PasswordHash.validatePassword(password, rs.getString("password")) || rs.getString("password").equals(password)) {
           result = true;
         } else {
           result = false;
         }
       }
+    } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+      result = false;
     } finally {
       try {
         if (preparedStatement != null) {

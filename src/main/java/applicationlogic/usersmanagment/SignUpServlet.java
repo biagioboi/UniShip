@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import storage.PasswordHash;
 import storage.beans.Studente;
 import storage.beans.Utente;
 import storage.dao.StudenteDao;
@@ -84,6 +85,8 @@ public class SignUpServlet extends HttpServlet {
       } else if (!password.matches("[0-9a-zA-Z]{8,}")) {
         throw new IllegalArgumentException("Password invalid.");
       }
+
+      password = PasswordHash.createHash(password);
 
       String nome = request.getParameter("nome");
       if (nome.length() == 0) {
