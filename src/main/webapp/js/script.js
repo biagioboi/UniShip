@@ -87,4 +87,16 @@ function checkForLogin() {
   });
 }
 
+$("#logoutBtn").click((e) => {
+  $.ajax({
+    url: 'SessionServlet',
+    type: 'POST',
+    data: {
+      action: 'logOut',
+    },
+    success: (response) => {
+      location.href = response.redirect;
+    }
 
+  })
+});

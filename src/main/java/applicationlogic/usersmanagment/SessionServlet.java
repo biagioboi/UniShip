@@ -67,6 +67,10 @@ public class SessionServlet extends HttpServlet {
 
       result.put("status", "302");
       result.put("redirect", "signin.html");
+
+      PrintWriter out = response.getWriter();
+      response.setContentType("application/json");
+      out.println(obj.toJson(result));
     }
   }
 

@@ -112,7 +112,7 @@
       <a class="navbar-brand px-3 font-weight-bold primary-color h4" href="#">UniShip</a>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link primary-color" href="#">Logout <i class="fas fa-sign-out-alt"></i></a>
+          <a class="nav-link primary-color" id="logoutBtn" href="#">Logout <i class="fas fa-sign-out-alt"></i></a>
         </li>
       </ul>
     </nav>
