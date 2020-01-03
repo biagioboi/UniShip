@@ -1,4 +1,5 @@
 package storage.dao;
+/* da aggiungere il metodo doretrivebykey alla documentazione e aggiungere la constante */
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +12,60 @@ import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
 import storage.interfaces.RichiestaDisponibilitaInterface;
 
-public class  RichiestaDisponibilitaDao implements RichiestaDisponibilitaInterface {
+public class RichiestaDisponibilitaDao implements RichiestaDisponibilitaInterface {
+
+  /**
+   * Questo metodo si occupa di trovare la richiesta disponibilita che ha associata le email passate
+   * come parametro.
+   *
+   * @param azienda l'Azienda di cui si vogliono sapere le richieste di disponibilità..
+   * @param studente lo studente di cui si vogliono sapere le richieste di disponibilità.
+   * @return la RichiestaDisponibilita che ha come chiave le due email specificatae nei parametri se
+   *     esite nel Database, null altrimenti.
+   * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
+   * @throws IllegalArgumentException nel caso in cui si passa azienda == null oppure studente
+   *     == null.
+   */
+  @Override
+  public RichiestaDisponibilita doRetrieveByKey(Studente studente, Azienda azienda)
+      throws SQLException {
+    if (azienda == null || studente == null) {
+      throw new IllegalArgumentException();
+    }
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    RichiestaDisponibilita richiestaDisponibilita = new RichiestaDisponibilita();
+
+    try {
+      connection = DatabaseManager.getConnection();
+      preparedStatement = connection.prepareStatement(RETRIVE_BY_KEY);
+      preparedStatement.setString(1, studente.getEmail());
+      preparedStatement.setString(2, azienda.getEmail());
+      ResultSet rs = preparedStatement.executeQuery();
+
+      if (!rs.next()) {
+        return null;
+      } else {
+        richiestaDisponibilita.setMotivazioni(rs.getString("motivazioni"));
+        richiestaDisponibilita.setStato(rs.getString("stato"));
+        richiestaDisponibilita.setAzienda(azienda);
+        richiestaDisponibilita.setStudente(studente);
+      }
+
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        if (connection != null) {
+          connection.close();
+        }
+      }
+    }
+
+    return richiestaDisponibilita;
+  }
 
   /**
    * Questo metodo si occupa di trovare le richieste di disponibilità associate all'azienda passata
@@ -141,7 +195,7 @@ public class  RichiestaDisponibilitaDao implements RichiestaDisponibilitaInterfa
     Connection connection = null;
     PreparedStatement preparedStatement = null;
 
-    int result = 0;
+    int result;
 
     try {
       connection = DatabaseManager.getConnection();
@@ -183,7 +237,7 @@ public class  RichiestaDisponibilitaDao implements RichiestaDisponibilitaInterfa
     }
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-    int rs = 0;
+    int rs;
 
     try {
       connection = DatabaseManager.getConnection();
@@ -268,4 +322,7 @@ public class  RichiestaDisponibilitaDao implements RichiestaDisponibilitaInterfa
 
   public static final String SAVE = "INSERT INTO richiestadisponibilita (motivazioni, stato,"
       + " azienda, studente) VALUES (?, ?, ?, ?)";
+
+  public static final String RETRIVE_BY_KEY =
+      "SELECT * FROM richiestadisponibilita WHERE studente = ?  and azienda = ?";
 }

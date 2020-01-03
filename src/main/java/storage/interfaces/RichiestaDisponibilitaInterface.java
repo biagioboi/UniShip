@@ -8,6 +8,20 @@ import storage.beans.Studente;
 
 public interface RichiestaDisponibilitaInterface {
 
+  /**
+   * Questo metodo si occupa di trovare la richiesta disponibilita che ha associata le email passate
+   * come parametro.
+   *
+   * @param azienda l'Azienda di cui si vogliono sapere le richieste di disponibilità..
+   * @param studente lo studente di cui si vogliono sapere le richieste di disponibilità.
+   * @return la RichiestaDisponibilita che ha come chiave le due email specificatae nei parametri se
+   *     esite nel Database, null altrimenti.
+   * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
+   * @throws IllegalArgumentException nel caso in cui si passa azienda == null oppure studente
+   *     == null.
+   */
+  RichiestaDisponibilita doRetrieveByKey(Studente studente,Azienda azienda) throws SQLException;
+
 
   /**
    * Questo metodo si occupa di trovare le richieste di disponibilità associate all'azienda passata

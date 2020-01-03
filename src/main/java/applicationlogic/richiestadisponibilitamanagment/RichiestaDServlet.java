@@ -139,6 +139,36 @@ public class RichiestaDServlet extends HttpServlet {
   }
 
   private boolean respondToRequest(HttpServletRequest request, HttpServletResponse response) {
+
+    String emailStudente = request.getParameter("studente");
+    String motivazioni = request.getParameter("Messaggio");
+
+    if (emailStudente == null) {
+      throw new IllegalArgumentException("Email dello studente non puo' essere vuota");
+    }
+
+    if (motivazioni == null) {
+      throw new IllegalArgumentException("le motivazioni non possono essere vuote");
+    }
+
+    try {
+      StudenteInterface studenteDao = new StudenteDao();
+      AziendaInterface aziendaDao = new AziendaDao();
+      UtenteInterface utenteDao = new UtenteDao();
+      RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
+      if (!utenteDao.doCheckRegister(emailStudente)) {
+        throw new IllegalArgumentException("Email studente errata");
+      }
+
+      Utente user = (Utente) request.getSession().getAttribute("utente");
+      Studente studente = studenteDao.doRetrieveByKey(emailStudente);
+      Azienda azienda = aziendaDao.doRetrieveByKey(user.getEmail());
+      RichiestaDisponibilita richiesta = richiestaDao.doRetrieveByKey(studente,azienda);
+
+    } catch (SQLException e) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+
     return false;
 
   }
