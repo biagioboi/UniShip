@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import storage.DatabaseManager;
 import storage.beans.Azienda;
 import storage.interfaces.AziendaInterface;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class AziendaDao implements AziendaInterface {
 
@@ -204,6 +205,11 @@ public class AziendaDao implements AziendaInterface {
     }
 
     return rs != 0;
+  }
+
+  //TODO: Implement doRetrieveByPiva and add to documentation
+  public Azienda doRetrieveByPiva(String piva) throws SQLException {
+    throw new NotImplementedException();
   }
 
   private static UtenteDao utenteDao = new UtenteDao();
