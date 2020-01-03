@@ -69,7 +69,9 @@ public class Azienda extends Utente {
 
   @Override
   public boolean equals(Object obj) {
-    if (!(obj instanceof Azienda)) return false;
+    if (!(obj instanceof Azienda)) {
+      return false;
+    }
     Azienda other = (Azienda) obj;
     if (this.partitaIva.equals(other.partitaIva)) {
       return true;

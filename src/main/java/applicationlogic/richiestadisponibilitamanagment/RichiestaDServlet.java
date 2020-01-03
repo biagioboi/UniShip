@@ -1,7 +1,9 @@
 package applicationlogic.richiestadisponibilitamanagment;
 
+import com.sun.deploy.net.HttpRequest;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,21 +34,21 @@ public class RichiestaDServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-  }
-
-  private boolean sendAvailabilityRequest(HttpServletRequest request,
-      HttpServletResponse response) {
-
     HttpSession session = request.getSession();
-    StudenteInterface studenteDao = new StudenteDao();
-    AziendaInterface aziendaDao = new AziendaDao();
-
     Utente user = (Utente) session.getAttribute("utente");
     String login = (String) session.getAttribute("login");
 
     if (login == null || !login.equals("si") || user == null) {
       throw new IllegalArgumentException("Devi effettuare il login.");
     }
+
+  }
+
+  private boolean sendAvailabilityRequest(HttpServletRequest request,
+      HttpServletResponse response) {
+
+    StudenteInterface studenteDao = new StudenteDao();
+    AziendaInterface aziendaDao = new AziendaDao();
 
     String emailAzienda = request.getParameter("azienda");
     String messaggio = request.getParameter("Messaggio");
@@ -65,6 +67,7 @@ public class RichiestaDServlet extends HttpServlet {
         throw new IllegalArgumentException("Email azienda errata");
       }
 
+      Utente user = (Utente) request.getSession().getAttribute("utente");
       Studente studente = studenteDao.doRetrieveByKey(user.getEmail());
       Azienda azienda = aziendaDao.doRetrieveByKey(emailAzienda);
       RichiestaDisponibilita richiesta = new RichiestaDisponibilita();
@@ -83,5 +86,24 @@ public class RichiestaDServlet extends HttpServlet {
     }
 
     return false;
+  }
+
+  private ArrayList<RichiestaDisponibilita> viewAllAvailabilityRequest(
+      HttpServletRequest request, HttpServletResponse response) {
+
+    Utente user = (Utente) request.getSession().getAttribute("utente");
+    AziendaInterface aziendaDao = new AziendaDao();
+
+    try {
+      Azienda azienda = aziendaDao.doRetrieveByKey(user.getEmail());
+      RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
+
+      return richiestaDao.doRetrieveByAzienda(azienda);
+
+    } catch (SQLException e) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+
+    return null;
   }
 }
