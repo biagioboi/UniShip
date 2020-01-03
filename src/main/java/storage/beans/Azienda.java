@@ -67,6 +67,16 @@ public class Azienda extends Utente {
     this.numeroDipendenti = numeroDipendenti;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof Azienda)) return false;
+    Azienda other = (Azienda) obj;
+    if (this.partitaIva.equals(other.partitaIva)) {
+      return true;
+    }
+    return false;
+  }
+
   private String partitaIva;
   private String indirizzo;
   private String rappresentante;

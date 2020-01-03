@@ -1,5 +1,7 @@
 package storage.beans;
 
+import com.google.gson.annotations.Expose;
+
 /*CAMBIAMENTO: INSERITE STRINGHE FINAL PER LO STATO*/
 public class Utente {
 
@@ -56,7 +58,7 @@ public class Utente {
 
   private String email;
   private String nome;
-  private String password;
+  private transient String password;
   private String tipo;
 
   public static final String ADMIN = "admin";

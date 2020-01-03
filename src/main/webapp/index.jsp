@@ -1,4 +1,7 @@
 <%@include file="securety.jsp" %>
+<%
+String tipo = (String) session.getAttribute("tipo");
+%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -122,14 +125,16 @@
       <div class="table-pills m-3 p-3 rounded-lg">
         <ul class="nav nav-tabs nav-pills" role="tablist">
 
+          <% if (tipo.equals("studente")) { %>
           <li class="nav-item">
             <a id="pills-view-aziende" class="nav-link active" data-toggle="pill"
                href="#pills-aziende" role="tab" aria-controls="pills-aziende" aria-selected="true">
               <i class="far fa-building"></i>
               Lista Aziende
             </a>
-
           </li>
+          <% } %>
+
           <li class="nav-item">
             <a id="pills-view-registro" class="nav-link" data-toggle="pill"
                href="#pills-registro"
@@ -176,44 +181,11 @@
           </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
-          <div class="tab-pane fade show active" id="pills-aziende" role="tabpanel"
-               aria-labelledby="pills-view-aziende">
-            <div class="table-responsive font-size-sm">
-              <table class="table table-hover mb-0 ">
-                <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Codice Ateco</th>
-                  <th>Indirizzo</th>
-                  <th>Numero dipendenti</th>
-                  <th class="text-center">Richiesta Disponibilit&agrave;</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>AZIENDA 1</td>
-                  <td>0515252</td>
-                  <td>Via roma,199 Salerno</td>
-                  <td>1000</td>
-                  <td class="text-center">
-                    <button class="btn btn-success" data-toggle="modal"
-                            data-target="#richiediDisponibilitaModal">Richiedi
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>AZIENDA 2</td>
-                  <td>56613</td>
-                  <td>Via tevere,199 Nola</td>
-                  <td>22</td>
-                  <td class="text-center">
-                    <button class="btn btn-success">Richiedi</button>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <!-- qui dobbiamo mettere un solo grande if che a seconda di chi è loggato fa gli
+          include, per il momento lascio così e poi si modifica -->
+          <% if (tipo.equals("studente")) %>
+          <%@ include file="GUIStudent/viewCompanies.jsp" %>
+
           <div class="tab-pane fade" id="pills-registro" role="tabpanel"
                aria-labelledby="pills-view-registro">
             <div class="table-responsive font-size-sm min-size-td">
@@ -669,5 +641,8 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 <script src="js/script.js"></script>
+<% if (tipo.equals("studente")) { %>
+<script src="js/studente.js"></script>
+<% } %>
 </body>
 </html>

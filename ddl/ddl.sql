@@ -31,7 +31,7 @@ CREATE TABLE azienda(
     email varchar(50) primary key,
     partita_iva char(11) NOT NULL,
     indirizzo varchar(50) NOT NULL,
-    rappresentate varchar(50) NOT NULL,
+    rappresentante varchar(50) NOT NULL,
     codice_ateco varchar(10) NOT NULL,
     numero_dipendenti int NOT NULL,
     foreign key (email) references utente(email)

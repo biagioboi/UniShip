@@ -2,22 +2,34 @@ package applicationlogic.usersmanagment;
 
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+import javafx.util.Pair;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import storage.beans.Azienda;
+import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
 import storage.beans.Utente;
 import storage.dao.AziendaDao;
+import storage.dao.RichiestaDisponibilitaDao;
 import storage.dao.StudenteDao;
 import storage.dao.UtenteDao;
 
+//ho aggiunto il metodo retrieve free companies
 @WebServlet("/HandleUserServlet")
 public class HandleUserServlet extends HttpServlet {
 
@@ -28,17 +40,29 @@ public class HandleUserServlet extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
+
     PrintWriter out = response.getWriter();
+    Gson obj = new GsonBuilder().serializeNulls().create();
+    response.setContentType("application/json");
 
     Utente user = (Utente) request.getSession().getAttribute("utente");
     if (user == null) {
-      response.setContentType("application/json");
-      JsonObject obj = new JsonObject();
-      obj.put("status", "403");
-      obj.put("description", "Not Authorized");
-      out.println(obj.toJson());
+      Map<String, String> result = new HashMap<>();
+      result.put("status", "403");
+      result.put("description", "Not Authorized");
+      out.println(obj.toJson(result));
       return;
     }
+
+    String action = request.getParameter("action");
+    if (action != null && action.equals("retrieveCompanies")) {
+      ArrayList<Pair> result = retrieveFreeCompanies(request, response);
+      out.println(obj.toJson(result));
+      return;
+    }
+
+
+    /*
     StringBuilder sb = new StringBuilder();
     BufferedReader br = request.getReader();
     String str;
@@ -68,6 +92,7 @@ public class HandleUserServlet extends HttpServlet {
         changeCompanyData(request, response);
       }
     }
+    */
   }
 
   private void addCompany(HttpServletRequest request, HttpServletResponse response)
@@ -319,5 +344,34 @@ public class HandleUserServlet extends HttpServlet {
       obj.put("description", "Internal Error");
       out.println(obj.toJson());
     }
+  }
+
+  private ArrayList<Pair> retrieveFreeCompanies(HttpServletRequest request,
+      HttpServletResponse response) {
+    ArrayList<Pair> result = new ArrayList<>();
+    RichiestaDisponibilitaDao richDisp = new RichiestaDisponibilitaDao();
+    AziendaDao azienda = new AziendaDao();
+    Utente utente = (Utente) request.getSession().getAttribute("utente");
+
+    try {
+      Studente studente = new StudenteDao().doRetrieveByKey(utente.getEmail());
+      ArrayList<RichiestaDisponibilita> richieste = richDisp.doRetrieveByStudente(studente);
+      ArrayList<Azienda> aziendeDispo = azienda.doRetrieveAll();
+      for (Azienda a : aziendeDispo) {
+        RichiestaDisponibilita ri = null;
+        for (RichiestaDisponibilita r : richieste) {
+          if (r.getAzienda().equals(a)) {
+            ri = r;
+            richieste.remove(r);
+          }
+        }
+        result.add(new Pair(a, ri));
+      }
+    } catch (SQLException e) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return null;
+    }
+    return result;
+
   }
 }
