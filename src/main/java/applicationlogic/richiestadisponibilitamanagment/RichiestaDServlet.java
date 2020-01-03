@@ -88,7 +88,7 @@ public class RichiestaDServlet extends HttpServlet {
     return false;
   }
 
-  private ArrayList<RichiestaDisponibilita> viewAllAvailabilityRequest(
+  private ArrayList<RichiestaDisponibilita> viewAvailabilityRequest(
       HttpServletRequest request, HttpServletResponse response) {
 
     Utente user = (Utente) request.getSession().getAttribute("utente");
@@ -106,4 +106,25 @@ public class RichiestaDServlet extends HttpServlet {
 
     return null;
   }
+
+  private ArrayList<RichiestaDisponibilita> viewAllAvailabilityRequest(
+      HttpServletRequest request, HttpServletResponse response) {
+
+    Utente user = (Utente) request.getSession().getAttribute("utente");
+
+    if (!user.getTipo().equals(Utente.ADMIN) && !user.getTipo().equals(Utente.UFFICIO_CARRIERE)) {
+      throw new IllegalArgumentException("Non hai l'autorizzazione per accedere a questi dati");
+    }
+
+    try {
+      RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
+      return richiestaDao.doRetrieveAll();
+
+    } catch (SQLException e) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+
+    return null;
+  }
+
 }
