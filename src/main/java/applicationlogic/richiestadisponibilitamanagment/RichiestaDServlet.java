@@ -1,7 +1,6 @@
 package applicationlogic.richiestadisponibilitamanagment;
 
 import com.google.gson.Gson;
-import com.sun.deploy.net.HttpRequest;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
