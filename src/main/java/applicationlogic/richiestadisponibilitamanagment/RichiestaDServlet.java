@@ -45,30 +45,57 @@ public class RichiestaDServlet extends HttpServlet {
     if (login == null || !login.equals("si") || user == null) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
       return;
-      //throw new IllegalArgumentException("Devi effettuare il login.");
     }
 
     String action = request.getParameter("action");
     Gson obj = new Gson();
     Map<String, String> result = new HashMap<>();
 
-    if (action != null && action.equals("sendRequest")) {
+    PrintWriter out = response.getWriter();
+    response.setContentType("application/json");
+
+    if (action != null) {
       try {
-        if (sendAvailabilityRequest(request, response)) {
-          result.put("status", "200");
-          result.put("description", "Richiesta inviata.");
-        } else {
-          result.put("status", "400");
-          result.put("description", "Errore generico.");
+        if (action.equals("sendRequest")) {
+
+          if (sendAvailabilityRequest(request, response)) {
+            result.put("status", "200");
+            result.put("description", "Richiesta inviata.");
+          } else {
+            result.put("status", "400");
+            result.put("description", "Errore generico.");
+          }
+
+          out.println(obj.toJson(result));
+
+        } else if (action.equals("viewAllRequest")) {
+
+          out.println(obj.toJson(viewAllAvailabilityRequest(request,response)));
+
+        } else if (action.equals("viewRequest")) {
+
+          out.println(obj.toJson(viewAvailabilityRequest(request,response)));
+
+        } else if (action.equals("respondRequest")) {
+
+          if (respondToRequest(request, response)) {
+            result.put("status", "200");
+            result.put("description", "Richiesta risposta.");
+          } else {
+            result.put("status", "400");
+            result.put("description", "Errore generico.");
+          }
+
+          out.println(obj.toJson(result));
         }
       } catch (IllegalArgumentException e) {
         result.put("status", "422");
         result.put("description", e.getMessage());
+
+        out.println(obj.toJson(result));
       }
 
-      PrintWriter out = response.getWriter();
-      response.setContentType("application/json");
-      out.println(obj.toJson(result));
+
     }
 
   }
