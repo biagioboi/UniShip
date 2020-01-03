@@ -93,12 +93,23 @@ public class RichiestaDServlet extends HttpServlet {
 
     Utente user = (Utente) request.getSession().getAttribute("utente");
     AziendaInterface aziendaDao = new AziendaDao();
+    StudenteInterface studenteDao = new StudenteDao();
 
     try {
-      Azienda azienda = aziendaDao.doRetrieveByKey(user.getEmail());
       RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
+      ArrayList<RichiestaDisponibilita> result = null;
 
-      return richiestaDao.doRetrieveByAzienda(azienda);
+      if (user.getTipo().equals(Utente.AZIENDA)) {
+
+        Azienda azienda = aziendaDao.doRetrieveByKey(user.getEmail());
+        result = richiestaDao.doRetrieveByAzienda(azienda);
+
+      } else if (user.getTipo().equals(Utente.STUDENTE)) {
+        Studente studente = studenteDao.doRetrieveByKey(user.getEmail());
+        result = richiestaDao.doRetrieveByStudente(studente);
+      }
+
+      return result;
 
     } catch (SQLException e) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -127,4 +138,8 @@ public class RichiestaDServlet extends HttpServlet {
     return null;
   }
 
+  private boolean respondToRequest(HttpServletRequest request, HttpServletResponse response) {
+    return false;
+
+  }
 }
