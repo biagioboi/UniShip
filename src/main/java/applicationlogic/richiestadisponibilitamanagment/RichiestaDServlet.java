@@ -1,9 +1,13 @@
 package applicationlogic.richiestadisponibilitamanagment;
 
+import com.google.gson.Gson;
 import com.sun.deploy.net.HttpRequest;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +43,32 @@ public class RichiestaDServlet extends HttpServlet {
     String login = (String) session.getAttribute("login");
 
     if (login == null || !login.equals("si") || user == null) {
-      throw new IllegalArgumentException("Devi effettuare il login.");
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
+      //throw new IllegalArgumentException("Devi effettuare il login.");
+    }
+
+    String action = request.getParameter("action");
+    Gson obj = new Gson();
+    Map<String, String> result = new HashMap<>();
+
+    if (action != null && action.equals("sendRequest")) {
+      try {
+        if (sendAvailabilityRequest(request, response)){
+          result.put("status", "200");
+          result.put("description", "Richiesta inviata.");
+        } else {
+          result.put("status", "400");
+          result.put("description", "Errore generico.");
+        }
+      } catch (IllegalArgumentException e) {
+        result.put("status", "422");
+        result.put("description", e.getMessage());
+      }
+
+      PrintWriter out = response.getWriter();
+      response.setContentType("application/json");
+      out.println(obj.toJson(result));
     }
 
   }
@@ -51,7 +80,7 @@ public class RichiestaDServlet extends HttpServlet {
     AziendaInterface aziendaDao = new AziendaDao();
 
     String emailAzienda = request.getParameter("azienda");
-    String messaggio = request.getParameter("Messaggio");
+    String messaggio = request.getParameter("messaggio");
 
     if (emailAzienda == null) {
       throw new IllegalArgumentException("Email della azienda non puo' essere vuota");
