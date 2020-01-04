@@ -1,7 +1,7 @@
 <div class="tab-pane fade show active" id="pills-richiesteAzienda" role="tabpanel"
      aria-labelledby="pills-view-richiesteAzienda">
     <div class="table-responsive font-size-sm">
-        <table id="tableRichiesteDisponibilita" class="table table-hover mb-0 min-size-td">
+        <table id="tableRichiesteDisponibilita" class="table table-hover mb-0 min-size-td" style="display: none">
             <thead>
             <tr>
                 <th>Matricola</th>

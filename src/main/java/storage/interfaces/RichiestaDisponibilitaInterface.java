@@ -6,6 +6,8 @@ import storage.beans.Azienda;
 import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
 
+
+//bisogna aggiungere alla documentazione il metodo doDelete
 public interface RichiestaDisponibilitaInterface {
 
   /**
@@ -73,4 +75,14 @@ public interface RichiestaDisponibilitaInterface {
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    */
   ArrayList<RichiestaDisponibilita> doRetrieveAll() throws SQLException;
+
+
+  /**
+   * Questo metodo si occupa di cancellare una RichiestaDisponibilita dal Database.
+   *
+   * @param richiesta lo richiesta che si deve cancellare.
+   * @return true se la cancellazione avviene con successo, false altrimenti
+   * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
+   */
+  boolean doDelete(RichiestaDisponibilita richiesta) throws SQLException;
 }

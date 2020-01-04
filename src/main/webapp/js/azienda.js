@@ -10,6 +10,15 @@ $(() => {
     $("#rispondiDisponibilitaModal").attr("emailtarget", email);
   });
 
+  $('#compilaProgettoFormativoModal').on('show.bs.modal', (e) => {
+    var matricola = $(e.relatedTarget).data('matricolastudente');
+    var nome = $(e.relatedTarget).data('nomestudente');
+    var email = $(e.relatedTarget).data('emailstudente');
+    $("#nomeStudenteProgettoF").html(nome + " - " + matricola);
+    $("#compilaProgettoFormativoModal").attr("emailtarget", email);
+  });
+
+
 
 });
 
@@ -21,28 +30,49 @@ function caricaRichieste() {
       action: 'viewRequest'
     },
     success: (response) => {
+      let exist = false;
       response.forEach((x) => {
-        if (x.stato == "Valutazione") {
+        if (x.stato == "Valutazione" || x.stato == "Accettata") {
+          exist = true;
           let motivazioni = x.motivazioni;
           let studente = x.studente;
           let riga = "<td>" + studente.matricola + "</td>" +
               "<td>" + studente.nome + "</td>" +
               "<td>" + studente.cognome + "</td>" +
-              "<td>" + motivazioni + "</td>"
-          riga += "<td class=\"text-center\">" +
-              "<button class=\"btn btn-primary btn-respond\" " +
-              "data-nomestudente = \"" +
-              studente.nome + " " + studente.cognome + "\" " +
-              "data-matricolastudente = \"" + studente.matricola + "\" " +
-              "data-emailstudente = \"" + studente.email + "\" " +
-              "data-toggle=\"modal\" " +
-              "data-target=\"#rispondiDisponibilitaModal\">Rispondi" +
-              "</button>" +
-              "</td>";
+              "<td>" + motivazioni + "</td>";
+          if (x.stato == "Valutazione") {
+            riga += "<td class=\"text-center\">" +
+                "<button class=\"btn btn-success btn-respond\" " +
+                "data-nomestudente = \"" +
+                studente.nome + " " + studente.cognome + "\" " +
+                "data-matricolastudente = \"" + studente.matricola + "\" " +
+                "data-emailstudente = \"" + studente.email + "\" " +
+                "data-toggle=\"modal\" " +
+                "data-target=\"#rispondiDisponibilitaModal\">Rispondi" +
+                "</button>" +
+                "</td>";
+          } else {
+            riga += "<td class=\"text-center\">" +
+                "<button class=\"btn btn-success btn-respond\" " +
+                "data-nomestudente = \"" +
+                studente.nome + " " + studente.cognome + "\" " +
+                "data-matricolastudente = \"" + studente.matricola + "\" " +
+                "data-emailstudente = \"" + studente.email + "\" " +
+                "data-toggle=\"modal\" " +
+                "data-target=\"#compilaProgettoFormativoModal\">Compila Progetto F." +
+                "</button>" +
+                "</td>";
+          }
           $("#tableRichiesteDisponibilita > tbody:last-child")
           .append("<tr>" + riga + "</tr>");
         }
       });
+      if (!exist) {
+        $("#tableRichiesteDisponibilita")
+        .html("<tr><td style='text-align: center;' class='mt-2'>" +
+            "Non sono presenti richieste di disponibilit&agrave;.</td></tr>");
+      }
+      $("#tableRichiesteDisponibilita").fadeIn();
     }
   });
 }

@@ -308,6 +308,46 @@ public class RichiestaDisponibilitaDao implements RichiestaDisponibilitaInterfac
     return list;
   }
 
+  /**
+   * Questo metodo si occupa di cancellare una RichiestaDisponibilita dal Database.
+   *
+   * @param richiesta lo richiesta che si deve cancellare.
+   * @return true se la cancellazione avviene con successo, false altrimenti
+   * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
+   */
+  @Override
+  public boolean doDelete(RichiestaDisponibilita richiesta) throws SQLException {
+    if (richiesta == null) {
+      throw new IllegalArgumentException();
+    }
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+
+    int result;
+
+    try {
+      connection = DatabaseManager.getConnection();
+      preparedStatement = connection.prepareStatement(DELETE);
+      preparedStatement.setString(1, richiesta.getAzienda().getEmail());
+      preparedStatement.setString(2, richiesta.getStudente().getEmail());
+
+      result = preparedStatement.executeUpdate();
+
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        if (connection != null) {
+          connection.close();
+        }
+      }
+    }
+
+    return result != 0;
+  }
+
   private static StudenteDao studenteDao = new StudenteDao();
   private static AziendaDao aziendaDao = new AziendaDao();
 
@@ -325,4 +365,7 @@ public class RichiestaDisponibilitaDao implements RichiestaDisponibilitaInterfac
 
   public static final String RETRIVE_BY_KEY =
       "SELECT * FROM richiestadisponibilita WHERE studente = ?  and azienda = ?";
+
+  public static final String DELETE =
+      "DELETE FROM richiestadisponibilita WHERE studente = ? and azienda = ?";
 }

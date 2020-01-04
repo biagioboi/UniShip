@@ -190,6 +190,7 @@ String tipo = (String) session.getAttribute("tipo");
           <%@ include file="GUIStudent/viewCompanies.jsp" %>
           <% } else if (tipo.equals("azienda")) {%>
           <%@ include file="GUIAzienda/viewRequestsAvailability.jsp" %>
+          <%@ include file="GUIAzienda/formProgettoF.jsp" %>
           <% } %>
 
           <div class="tab-pane fade" id="pills-registro" role="tabpanel"
