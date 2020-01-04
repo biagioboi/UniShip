@@ -1,11 +1,13 @@
 package applicationlogic.tirociniomanagment;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import storage.beans.AttivitaRegistro;
 
 @WebServlet("/RegistroServlet")
 public class RegistroServlet extends HttpServlet {
@@ -18,5 +20,14 @@ public class RegistroServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
+  }
+
+  private ArrayList<AttivitaRegistro> viewRegister(HttpServletRequest request,
+      HttpServletResponse response) {
+    return null;
+  }
+
+  private boolean addActivity(HttpServletRequest request, HttpServletResponse response) {
+    return false;
   }
 }
