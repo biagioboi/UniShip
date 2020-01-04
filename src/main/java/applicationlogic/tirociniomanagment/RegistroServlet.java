@@ -1,10 +1,14 @@
 package applicationlogic.tirociniomanagment;
 
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,6 +45,42 @@ public class RegistroServlet extends HttpServlet {
     if (login == null || !login.equals("si") || user == null) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
       return;
+    }
+
+    String action = request.getParameter("action");
+    Gson obj = new Gson();
+    Map<String, String> result = new HashMap<>();
+
+    PrintWriter out = response.getWriter();
+    response.setContentType("application/json");
+
+    if (action != null) {
+      try {
+        if (action.equals("addActivity")) {
+
+          if (addActivity(request, response)) {
+            result.put("status", "200");
+            result.put("description", "Attivita' aggiunta.");
+          } else {
+            result.put("status", "400");
+            result.put("description", "Errore generico.");
+          }
+
+          out.println(obj.toJson(result));
+
+        } else if (action.equals("viewRegister")) {
+
+          out.println(obj.toJson(viewRegister(request, response)));
+
+        }
+      } catch (IllegalArgumentException e) {
+        result.put("status", "422");
+        result.put("description", e.getMessage());
+
+        out.println(obj.toJson(result));
+      }
+
+
     }
 
 
