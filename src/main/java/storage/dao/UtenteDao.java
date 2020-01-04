@@ -57,7 +57,7 @@ public class UtenteDao implements UtenteInterface {
           result = false;
         }
       }
-    } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+    } catch (Exception e) {
       result = false;
     } finally {
       try {
