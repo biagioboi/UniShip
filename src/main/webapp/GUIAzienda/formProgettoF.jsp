@@ -27,7 +27,7 @@
                           rows="3" required></textarea>
                     </div>
                     <div class="form-group">
-                <textarea class="form-control" id="attivita" placeholder="Attvit&agrave;"
+                <textarea class="form-control" id="attivita" placeholder="Attivit&agrave;"
                           rows="3" required></textarea>
                     </div>
                     <div class="form-group">
@@ -66,7 +66,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Annulla</button>
-                <button type="button" class="btn btn-success">Invia</button>
+                <button type="button" class="btn btn-success" id="btnInviaProgettoF">Invia</button>
             </div>
         </div>
     </div>

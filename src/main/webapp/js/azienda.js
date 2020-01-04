@@ -18,7 +18,20 @@ $(() => {
     $("#compilaProgettoFormativoModal").attr("emailtarget", email);
   });
 
+  $("#btnInviaProgettoF").click(() => {
+    let emailStudente = $("#compilaProgettoFormativoModal").attr("emailtarget");
+    let cfu = $("#numeroCfu").val();
+    let sede = $("#sedeSvolgimento").val();
+    let obiettibi = $("#obiettivi").html();
+    let competenze = $("#competenze").html();
+    let attivita = $("#attivita").html();
+    let orario = $("#orarioLavorativo").val();
+    let numeroRC = $("#numeroRc").val();
+    let polizza = $("#polizza").val();
+    let dataInizio = $("#dataInizio").val();
+    let dataFine = $("#dataFine").val();
 
+  });
 
 });
 
