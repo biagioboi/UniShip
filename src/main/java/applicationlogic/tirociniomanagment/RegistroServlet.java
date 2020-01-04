@@ -1,7 +1,9 @@
 package applicationlogic.tirociniomanagment;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,7 +53,6 @@ public class RegistroServlet extends HttpServlet {
     TirocinioInterface tirocinioDao = new TirocinioDao();
 
     String tirocinioId = request.getParameter("tirocinio");
-
     if (tirocinioId == null) {
       throw new IllegalArgumentException("Tirocinio non valido");
     }
@@ -69,6 +70,45 @@ public class RegistroServlet extends HttpServlet {
   }
 
   private boolean addActivity(HttpServletRequest request, HttpServletResponse response) {
+
+    AttivitaRegistroInterface attivitaDao = new AttivitaRegistroDao();
+    TirocinioInterface tirocinioDao = new TirocinioDao();
+
+    String tirocinioId = request.getParameter("tirocinio");
+    if (tirocinioId == null) {
+      throw new IllegalArgumentException("Tirocinio non valido");
+    }
+
+    String ore = request.getParameter("oreSvolte");
+    if (ore == null) {
+      throw new IllegalArgumentException("Le ore non possono essere vuote");
+    }
+
+    String data = request.getParameter("data");
+    if (data == null) {
+      throw new IllegalArgumentException("La data non puo' essere vuota");
+    }
+
+    String descrizione = request.getParameter("attivita");
+    if (descrizione == null) {
+      throw new IllegalArgumentException("La descrizione non puo' essere vuota");
+    }
+
+    try {
+
+      Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(tirocinioId));
+      AttivitaRegistro attivita = new AttivitaRegistro();
+      attivita.setTirocinio(tirocinio);
+      attivita.setOreSvolte(Time.valueOf(ore));
+      attivita.setData(Date.valueOf(data));
+      attivita.setAttivita(descrizione);
+
+      return attivitaDao.doSave(attivita);
+
+    } catch (SQLException e) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+
     return false;
   }
 }
