@@ -20,6 +20,14 @@
     }
 
 
+    .p80 {
+      word-wrap: break-word;
+      width: 81%;
+      margin-bottom: 30px !important;
+      font: 16px 'Garamond' !important;
+    }
+
+
     #page_2 {
       position: relative;
       overflow: hidden;
@@ -598,43 +606,37 @@
   <P class="p8 ft7">Rappresentante legale: prof. Alfredo De Santis, in qualità di Direttore pro
     tempore, nato a nato a Nocera Inferiore (SA) il 07/12/1960.</P>
   <P class="p9 ft4">SOGGETTO OSPITANTE</P>
-  <P class="p10 ft6">Denominazione___________________________________________ (specificare la natura
-    giuridica)</P>
+  <P class="p10 ft6">Denominazione [[${nomeAzienda}]]</P>
   <P class="p11 ft6">Sede legale in
-    ____________________________________________________________________</P>
-  <P class="p11 ft6">Indirizzo PEC
-    ___________________________________________________________________</P>
+    [[${indirizzoSede}]]</P>
+  <P class="p11 ft6">Indirizzo PEC [[${email}]]</P>
   <P class="p11 ft6">Codice Fiscale e Partita IVA
-    ________________________________________________________</P>
-  <P class="p11 ft6">Rappresentante legale: _________________________, in qualità di __________,
+    [[${partitaIva}]]</P>
+  <P class="p11 ft6">Rappresentante legale: [[${rappresentateAzienda}]] , in qualità di __________,
     nato a _________</P>
   <P class="p11 ft6">il _______________</P>
   <P class="p11 ft6">Attività economica esercitata
     ________________________________________________________</P>
-  <P class="p11 ft6">Codice ATECO
-    _________________________________________________________________</P>
+  <P class="p11 ft6">Codice ATECO [[${codiceAteco}]]</P>
   <P class="p11 ft6">Numero Dipendenti a tempo indeterminato
-    ____________________________________________</P>
+    [[${NumeroDipendenti}]]</P>
   <P class="p12 ft4">TIROCINANTE</P>
-  <P class="p10 ft6">Cognome e nome del tirocinante;</P>
+  <P class="p10 ft6">Cognome e nome del tirocinante [[${cognomeStudente}]] [[${nomeStudente}]]</P>
   <P class="p11 ft6">Data e luogo di
-    nascita_____________________________________________________________</P>
-  <P class="p11 ft6">Cittadinanza
-    _____________________________________________________________________</P>
-  <P class="p11 ft6">Residenza
-    _______________________________________________________________________</P>
+    nascita [[${dataDiNascita}]]</P>
+  <P class="p11 ft6">Cittadinanza [[${cittadinanza}]]</P>
+  <P class="p11 ft6">Residenza [[${residenza}]]</P>
   <P class="p13 ft8">1</P>
 </DIV>
 <DIV id="page_2">
 
 
   <P class="p14 ft6">Codice
-    Fiscale [[${codice}]]</P>
-  <P class="p11 ft6">Telefono n.
-    _____________________________________________________________________</P>
+    Fiscale [[${codiceFiscale}]]</P>
+  <P class="p11 ft6">Telefono n. [[${numeroTelefono}]]</P>
   <P class="p11 ft6">Indirizzo
     <NOBR>e-mail</NOBR>
-    __________________________________________________________________
+    [[${emailStudente}]]
   </P>
   <P class="p11 ft6">Iscritto al Corso di Laurea Triennale in Informatica</P>
   <P class="p12 ft4">TUTOR DESIGNATO DAL DIPARTIMENTO:
@@ -645,75 +647,49 @@
   <P class="p15 ft4">N. TOTALE DI CREDITI FORMATIVI PREVISTI PER L’ATTIVITÀ DI TIROCINIO: <SPAN
       class="ft6">____ di cui</SPAN></P>
   <P class="p16 ft6"><SPAN class="ft10"></SPAN><SPAN
-      class="ft11">___ CFU per tirocinio curriculare</SPAN></P>
+      class="ft11">[[${cfu}]] CFU per tirocinio curriculare</SPAN></P>
   <P class="p17 ft6"><SPAN class="ft10"></SPAN><SPAN class="ft11">___ CFU provenienti da tirocinio esterno (1) a scelta</SPAN>
   </P>
   <P class="p17 ft6"><SPAN class="ft10"></SPAN><SPAN class="ft11">___ CFU provenienti da tirocinio esterno (2) a scelta</SPAN>
   </P>
-  <P class="p12 ft6"><SPAN class="ft4">SEDE DI SVOLGIMENTO DEL TIROCINI</SPAN><SPAN class="ft9">O: ___</SPAN>______________________________________
+  <P class="p12 ft6"><SPAN class="ft4">SEDE DI SVOLGIMENTO DEL TIROCINI</SPAN><SPAN class="ft9">O: ___</SPAN>[[${indirizzoSede}]]
   </P>
   <P class="p12 ft4">INDICAZIONE DEGLI OBIETTIVI</P>
-  <P class="p10 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
+  <P class="p10 ft2 p80">
+    [[${obiettivi}]] </P>
   <P class="p11 ft4">INDICAZIONE LE COMPETENZE DA ACQUISIRE</P>
-  <P class="p10 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
+  <P class="p10 ft2 p80">
+    [[${copetenze}]] </P>
+
   <P class="p10 ft4">INDICAZIONE DELLE ATTIVITÀ FORMATIVE PREVISTE</P>
-  <P class="p10 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
+  <P class="p10 ft2 p80">
+    [[${attivita}]] </P>
+
   <P class="p18 ft8">2</P>
 </DIV>
 <DIV id="page_3">
 
 
   <P class="p14 ft4">INDICAZIONE DELLE MODALITÀ DI SVOLGIMENTO DEL TIROCINIO</P>
-  <P class="p10 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
+  <P class="p10 ft2 p80">
+    [[${modalita}]] </P>
   <P class="p12 ft6"><SPAN class="ft4">DURATA DEL TIROCINIO</SPAN><SPAN class="ft2">: </SPAN>n.
-    ________ mesi, a decorrere dal ________ e fino al ______________</P>
+    ________ mesi, a decorrere dal [[${dataInizio}]]  e fino al [[${dataFine}]] </P>
   <P class="p19 ft4">INDICAZIONE DELL’ORARIO DI SVOLGIMENTO DEL TIROCINIO</P>
-  <P class="p10 ft2">
-    ________________________________________________________________________________</P>
-  <P class="p11 ft2">
-    ________________________________________________________________________________</P>
+  <P class="p10 ft2 p80">
+    [[${orario}]] </P>
   <P class="p12 ft4">POLIZZE ASSICURATIVE:</P>
   <P class="p10 ft6">Posizione assicurativa INAIL: Gestione per conto dello Stato</P>
   <TABLE class="t0">
     <TR>
       <TD class="tr0 td0"><P class="p20 ft6">Polizza assicurativa RC</P></TD>
       <TD class="tr0 td1"><P class="p21 ft6">
-        ______________________________________________________</P></TD>
+        [[${rc}]] </P></TD>
     </TR>
     <TR>
       <TD class="tr1 td0"><P class="p20 ft6">Polizza assicurativa Infortuni</P></TD>
       <TD class="tr1 td1"><P class="p22 ft6">
-        _______________________________________________________</P></TD>
+        [[${pInfortuni}]] </P></TD>
     </TR>
   </TABLE>
   <P class="p12 ft6">Ai sensi dell’art.5 della convenzione Rep.n.___________, a cui fa riferimento
