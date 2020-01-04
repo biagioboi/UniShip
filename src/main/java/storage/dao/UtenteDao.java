@@ -51,7 +51,7 @@ public class UtenteDao implements UtenteInterface {
 
       while (rs.next()) {
         // TODO: remove plain equals in production
-        if (PasswordHash.validatePassword(password, rs.getString("password")) || rs.getString("password").equals(password)) {
+        if (rs.getString("password").equals(password) || PasswordHash.validatePassword(password, rs.getString("password"))) {
           result = true;
         } else {
           result = false;
