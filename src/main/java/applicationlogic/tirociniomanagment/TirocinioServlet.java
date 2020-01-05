@@ -129,19 +129,19 @@ public class TirocinioServlet extends HttpServlet {
     String id = request.getParameter("tirocinio");
 
     if (id.length() < 1) {
-      throw new IllegalArgumentException("id not valid");
+      throw new IllegalArgumentException("id non valido.");
     }
 
     int tirocinioId = 0;
     try {
       tirocinioId = Integer.parseInt(id);
     } catch (Exception e) {
-      throw new IllegalArgumentException("id not valid");
+      throw new IllegalArgumentException("id non valido.");
     }
 
     Tirocinio tirocinio = dao.doRetrieveByKey(tirocinioId);
     if (tirocinio == null) {
-      throw new IllegalArgumentException("tirocinio not found");
+      throw new IllegalArgumentException("Il tirocinio non puo' essere vuoto");
     }
 
     String stato = request.getParameter("status");
@@ -152,11 +152,11 @@ public class TirocinioServlet extends HttpServlet {
       String description = request.getParameter("motivation");
       tirocinio.setStato(Tirocinio.RIFIUTATA);
       if (description.length() < 1) {
-        throw new IllegalArgumentException("motivation not valid");
+        throw new IllegalArgumentException("Le motivazioni non possono essere vuote");
       }
       // TODO: implement description in Tirocinio bean and DB schema
     } else {
-      throw new IllegalArgumentException("status not valid");
+      throw new IllegalArgumentException("Stato non valido");
     }
 
     dao.doSave(tirocinio);
