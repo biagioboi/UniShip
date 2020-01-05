@@ -51,7 +51,16 @@ $(() => {
         action: 'createPdf'
       },
       success: (response) => {
-        console.log(response);
+        $("#rispondiDisponibilitaModal").modal('toggle');
+        $("#messaggioSuccessoBody").html("");
+
+        if (response.status == 200) {
+          $("#messaggioSuccessoBody").html(response.description);
+          $("#messaggioSuccesso").toast('show');
+        } else {
+          $("#messaggioErroreBody").html(response.description);
+          $("#messaggioErrore").toast('show');
+        }
       }
     });
   });
