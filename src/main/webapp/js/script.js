@@ -73,13 +73,21 @@ function checkForLogin() {
     success: (response) => {
       response = JSON.parse(response);
       if (response!=null) {
-        let cognome = "";
-        let nome = response.nome;
         if (!response.tipo.localeCompare("studente")) {
-          cognome = response.cognome;
-          $("#numeroMatricola").html(response.matricola);
+          let nome = response.nome;
+          let cognome = response.cognome;
+          let matricola = response.matricola;
+
+          $("#numeroMatricola").html(matricola);
+          $("#nomeUtente").html(`${nome} ${cognome}`);
+        }else if (!response.tipo.localeCompare("azienda")){
+          let nome = response.nome;
+          let partitaIva = response.partitaIva;
+
+          $("#numeroMatricola").html(partitaIva);
+          $("#nomeUtente").html(`${nome}`);
+
         }
-        $("#nomeUtente").html(nome + " " + cognome);
       } else {
         location.href = 'signin.html';
       }

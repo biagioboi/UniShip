@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import storage.beans.Utente;
+import storage.dao.AziendaDao;
+import storage.dao.StudenteDao;
 import storage.dao.UtenteDao;
+import storage.interfaces.AziendaInterface;
+import storage.interfaces.StudenteInterface;
 
 @WebServlet("/SessionServlet")
 public class SessionServlet extends HttpServlet {
@@ -32,12 +36,26 @@ public class SessionServlet extends HttpServlet {
 
     String action = request.getParameter("action");
     if (action != null && action.equals("retrieveUserLogged")) {
+
       Utente user = (Utente) session.getAttribute("utente");
-      if (user != null) {
-        response.getWriter().println(obj.toJson(user));
-      } else {
+      try {
+
+        if (user.getTipo().equals(Utente.STUDENTE)) {
+          StudenteInterface studenteDao = new StudenteDao();
+          response.getWriter().println(obj.toJson(studenteDao.doRetrieveByKey(user.getEmail())));
+
+        } else if (user.getTipo().equals(Utente.AZIENDA)) {
+          AziendaInterface aziendaDao = new AziendaDao();
+          response.getWriter().println(obj.toJson(aziendaDao.doRetrieveByKey(user.getEmail())));
+        } else {
+          response.getWriter().println(obj.toJson(user));
+        }
+
+      } catch (Exception e) {
         response.getWriter().println(obj.toJson(null));
       }
+
+
     } else if (action != null && action.equals("logIn")) {
       JsonObject result = new JsonObject();
       response.setContentType("application/json");

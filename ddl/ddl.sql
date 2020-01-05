@@ -90,3 +90,7 @@ create table attivitaregistro(
         ON DELETE cascade
         ON UPDATE cascade
 );
+
+INSERT INTO `utente` VALUES ('f.ferrucci@unisa.it','Filomena','password','admin'),('g.gullo@studenti.unisa.it','Gerardo','password','studente'),('info@clarotech.it','ClaroTech','password','azienda'),('info@hotelMisericodia.it','Hotel Misericordia','password','azienda'),('ufficiocarriere@unisa.it','Ufficio Carriere','password','ufficio_carriere');
+INSERT INTO `studente` VALUES ('g.gullo@studenti.unisa.it','Gullo','BNGRLL91P51H987N','0512105269','1994-05-16','Italia','Napoli','3354961184');
+INSERT INTO `azienda` VALUES ('info@clarotech.it','02188520544','via cardinale,16','Paquale Di Franco','46692',20),('info@hotelMisericodia.it','02188520547','via caracciolo,69','Biagio Boi','66669',100);
