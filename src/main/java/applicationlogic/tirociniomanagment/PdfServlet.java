@@ -1,19 +1,24 @@
 package applicationlogic.tirociniomanagment;
 
+import com.google.gson.Gson;
 import com.itextpdf.text.DocumentException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.naming.AuthenticationException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
@@ -45,22 +50,49 @@ public class PdfServlet extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    try {
-      Utente user = (Utente) request.getSession().getAttribute("utente");
-      if (user == null) {
-        throw new AuthenticationException("Non autorizzato");
+
+    HttpSession session = request.getSession();
+    Utente user = (Utente) session.getAttribute("utente");
+    String login = (String) session.getAttribute("login");
+
+    if (login == null || !login.equals("si") || user == null) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
+    }
+
+    String action = request.getParameter("action");
+    Gson obj = new Gson();
+    Map<String, String> result = new HashMap<>();
+
+    PrintWriter out = response.getWriter();
+    response.setContentType("application/json");
+
+    if (action != null) {
+      try {
+        if (action.equals("createPdf")) {
+
+          if (createPdf(request, response)) {
+            result.put("status", "200");
+            result.put("description", "pdf creato con successo.");
+          } else {
+            result.put("status", "400");
+            result.put("description", "Errore generico.");
+          }
+
+          out.println(obj.toJson(result));
+
+        }
+      } catch (IllegalArgumentException e) {
+        result.put("status", "422");
+        result.put("description", e.getMessage());
+
+        out.println(obj.toJson(result));
       }
-      String action = request.getParameter("action");
-      if (action != null && action.equals("createPdf")) {
-        createPdf(request, response);
-      }
-    } catch (AuthenticationException e) {
-      //TODO
     }
 
   }
 
-  private void createPdf(HttpServletRequest request, HttpServletResponse response)
+  private boolean createPdf(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
     String numeroCfu = request.getParameter("cfu");
@@ -208,9 +240,13 @@ public class PdfServlet extends HttpServlet {
       renderer.createPDF(outputStream);
       outputStream.close();
 
+      return true;
+
     } catch (DocumentException | SQLException e) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
+
+    return false;
 
   }
 
