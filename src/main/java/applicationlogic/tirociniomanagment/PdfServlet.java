@@ -27,20 +27,15 @@ import org.w3c.tidy.Tidy;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import storage.beans.Azienda;
 import storage.beans.Studente;
-import storage.beans.Tirocinio;
 import storage.beans.Utente;
 import storage.dao.AziendaDao;
-import storage.dao.RichiestaDisponibilitaDao;
 import storage.dao.StudenteDao;
-import storage.dao.TirocinioDao;
 import storage.dao.UtenteDao;
 import storage.interfaces.AziendaInterface;
-import storage.interfaces.RichiestaDisponibilitaInterface;
 import storage.interfaces.StudenteInterface;
-import storage.interfaces.TirocinioInterface;
 import storage.interfaces.UtenteInterface;
 
-//todo : da cambiare il nome sulla documetazione per createPDF in createPdf
+//todo : da cambiare il nome sulla documetazione in createPdf aggiungere i metodi e costante
 @WebServlet("/PdfServlet")
 public class PdfServlet extends HttpServlet {
 
