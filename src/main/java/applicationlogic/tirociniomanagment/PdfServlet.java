@@ -177,6 +177,7 @@ public class PdfServlet extends HttpServlet {
     ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
     templateResolver.setSuffix(".html");
     templateResolver.setTemplateMode("HTML");
+    templateResolver.setCharacterEncoding("UTF-8");
 
     TemplateEngine templateEngine = new TemplateEngine();
     templateEngine.setTemplateResolver(templateResolver);
@@ -211,13 +212,13 @@ public class PdfServlet extends HttpServlet {
       context.setVariable("cognomeStudente", studente.getCognome());
       context.setVariable("nomeStudente", studente.getNome());
       context.setVariable("dataDiNascita", studente.getDataDiNascita());
-      context.setVariable("cittadinaza", studente.getCittadinanza());
+      context.setVariable("cittadinanza", studente.getCittadinanza());
       context.setVariable("residenza", studente.getResidenza());
       context.setVariable("codiceFiscale", studente.getCodiceFiscale());
       context.setVariable("numeroTelefono", studente.getNumero());
       context.setVariable("emailStudente", studente.getEmail());
 
-      context.setVariable("cfue", numeroCfu);
+      context.setVariable("cfu", numeroCfu);
       context.setVariable("sedeSvolgimento", sedeSvolgimento);
       context.setVariable("obiettivi", obiettivi);
       context.setVariable("competenze", competenze);
