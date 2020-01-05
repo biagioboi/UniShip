@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import javax.naming.AuthenticationException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,9 +21,12 @@ import org.w3c.tidy.Tidy;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import storage.beans.Azienda;
 import storage.beans.Studente;
+import storage.beans.Tirocinio;
 import storage.beans.Utente;
 import storage.dao.RichiestaDisponibilitaDao;
+import storage.dao.TirocinioDao;
 import storage.interfaces.RichiestaDisponibilitaInterface;
+import storage.interfaces.TirocinioInterface;
 
 //todo : da cambiare il nome sulla documetazione per createPDF in createPdf
 @WebServlet("/PDFServlet")
@@ -139,58 +143,64 @@ public class PdfServlet extends HttpServlet {
     TemplateEngine templateEngine = new TemplateEngine();
     templateEngine.setTemplateResolver(templateResolver);
 
-    RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
+    String id = request.getParameter("tirocinio");
+    if (id == null) {
+      throw new IllegalArgumentException("Inserire un tirocinio.");
+    }
+    if (id.length() < 1) {
+      throw new IllegalArgumentException("id non valido.");
+    }
 
-
-    Azienda azienda = new Azienda();
-    Studente studente = new Studente();
-
-    Context context = new Context();
-    context.setVariable("nomeAzienda", azienda.getNome());
-    context.setVariable("indirizzoSede", azienda.getIndirizzo());
-    context.setVariable("email", azienda.getEmail());
-    context.setVariable("partivaIva", azienda.getPartitaIva());
-    context.setVariable("rappresentanteAzienda", azienda.getRappresentante());
-    context.setVariable("codiceAteco", azienda.getCodAteco());
-
-    context.setVariable("numeroDipendenti", azienda.getNumeroDipendenti());
-    context.setVariable("cognomeStudente", studente.getCognome());
-    context.setVariable("nomeStudente", studente.getNome());
-    context.setVariable("dataDiNascita", studente.getDataDiNascita());
-    context.setVariable("cittadinaza", studente.getCittadinanza());
-    context.setVariable("residenza", studente.getResidenza());
-    context.setVariable("codiceFiscale", studente.getCodiceFiscale());
-    context.setVariable("numeroTelefono", studente.getNumero());
-    context.setVariable("emailStudente", studente.getEmail());
-
-    context.setVariable("cfue", numeroCfu);
-    context.setVariable("sedeSvolgimento", sedeSvolgimento);
-    context.setVariable("obiettivi", obiettivi);
-    context.setVariable("competenze", competenze);
-    context.setVariable("attivita", attivita);
-    context.setVariable("modalita", attivita);
-    context.setVariable("dataInizio", dataInizio);
-    context.setVariable("dataFine", dataFine);
-    context.setVariable("orario", orario);
-    context.setVariable("rc", numeroRc);
-    context.setVariable("pInfortuni", polizza);
-
-    // Get the plain HTML with the resolved ${name} variable!
-    String html = templateEngine.process("template", context);
-    String xhtml = convertToXhtml(html);
-
-    OutputStream outputStream = new FileOutputStream("test.pdf");
-    ITextRenderer renderer = new ITextRenderer();
-    renderer.setDocumentFromString(xhtml);
-    renderer.layout();
     try {
-      renderer.createPDF(outputStream);
+      TirocinioInterface tirocinioDao = new TirocinioDao();
+      Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(id));
+      Azienda azienda = tirocinio.getAzienda();
+      Studente studente = tirocinio.getStudente();
 
-    } catch (DocumentException e) {
+      Context context = new Context();
+      context.setVariable("nomeAzienda", azienda.getNome());
+      context.setVariable("indirizzoSede", azienda.getIndirizzo());
+      context.setVariable("email", azienda.getEmail());
+      context.setVariable("partivaIva", azienda.getPartitaIva());
+      context.setVariable("rappresentanteAzienda", azienda.getRappresentante());
+      context.setVariable("codiceAteco", azienda.getCodAteco());
+
+      context.setVariable("numeroDipendenti", azienda.getNumeroDipendenti());
+      context.setVariable("cognomeStudente", studente.getCognome());
+      context.setVariable("nomeStudente", studente.getNome());
+      context.setVariable("dataDiNascita", studente.getDataDiNascita());
+      context.setVariable("cittadinaza", studente.getCittadinanza());
+      context.setVariable("residenza", studente.getResidenza());
+      context.setVariable("codiceFiscale", studente.getCodiceFiscale());
+      context.setVariable("numeroTelefono", studente.getNumero());
+      context.setVariable("emailStudente", studente.getEmail());
+
+      context.setVariable("cfue", numeroCfu);
+      context.setVariable("sedeSvolgimento", sedeSvolgimento);
+      context.setVariable("obiettivi", obiettivi);
+      context.setVariable("competenze", competenze);
+      context.setVariable("attivita", attivita);
+      context.setVariable("modalita", attivita);
+      context.setVariable("dataInizio", dataInizio);
+      context.setVariable("dataFine", dataFine);
+      context.setVariable("orario", orario);
+      context.setVariable("rc", numeroRc);
+      context.setVariable("pInfortuni", polizza);
+
+      // Get the plain HTML with the resolved ${name} variable!
+      String html = templateEngine.process("template", context);
+      String xhtml = convertToXhtml(html);
+
+      OutputStream outputStream = new FileOutputStream("test.pdf");
+      ITextRenderer renderer = new ITextRenderer();
+      renderer.setDocumentFromString(xhtml);
+      renderer.layout();
+      renderer.createPDF(outputStream);
+      outputStream.close();
+
+    } catch (DocumentException | SQLException e) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
-    outputStream.close();
-
 
   }
 
