@@ -10,6 +10,8 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import java.io.*;
 import java.nio.file.FileSystems;
+import storage.beans.Azienda;
+import storage.beans.Studente;
 
 import static com.itextpdf.text.pdf.BaseFont.EMBEDDED;
 import static com.itextpdf.text.pdf.BaseFont.IDENTITY_H;
@@ -28,6 +30,7 @@ public class PdfServletTest {
 
   @Test
   public void generatePdf() throws Exception {
+
     ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
     templateResolver.setSuffix(".html");
     templateResolver.setTemplateMode("HTML");
@@ -35,8 +38,29 @@ public class PdfServletTest {
     TemplateEngine templateEngine = new TemplateEngine();
     templateEngine.setTemplateResolver(templateResolver);
 
+    Azienda azienda = new Azienda();
+    Studente studente = new Studente();
+
     Context context = new Context();
-    context.setVariable("codice", "Gerardo");
+    context.setVariable("nomeAzienda",azienda.getNome());
+    context.setVariable("indirizzoSede",azienda.getIndirizzo());
+    context.setVariable("email",azienda.getEmail());
+    context.setVariable("partivaIva",azienda.getPartitaIva());
+    context.setVariable("rappresentanteAzienda",azienda.getRappresentante());
+    context.setVariable("codiceAteco",azienda.getCodAteco());
+
+    context.setVariable("numeroDipendenti",azienda.getNumeroDipendenti());
+    context.setVariable("cognomeStudente",studente.getCognome());
+    context.setVariable("nomeStudente",studente.getNome());
+    context.setVariable("dataDiNascita",studente.getDataDiNascita());
+    context.setVariable("cittadinaza",studente.getCittadinanza());
+    context.setVariable("residenza",studente.getResidenza());
+    context.setVariable("codiceFiscale",studente.getCodiceFiscale());
+    context.setVariable("numeroTelefono",studente.getNumero());
+    context.setVariable("emailStudente",studente.getEmail());
+
+
+
 
 // Get the plain HTML with the resolved ${name} variable!
     String html = templateEngine.process("fs-progetto-formativo-curriculare", context);
