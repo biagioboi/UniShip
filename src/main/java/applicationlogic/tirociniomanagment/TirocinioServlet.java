@@ -26,12 +26,10 @@ public class TirocinioServlet extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    HttpSession ses = request.getSession(true);
-    Utente user = null;
     PrintWriter out = response.getWriter();
     Gson obj = new GsonBuilder().serializeNulls().create();
     response.setContentType("application/json");
-    user = (Utente) request.getSession().getAttribute("utente");
+    Utente user = (Utente) request.getSession().getAttribute("utente");
     Map<String, String> result = new HashMap<>();
 
     if (user == null) {

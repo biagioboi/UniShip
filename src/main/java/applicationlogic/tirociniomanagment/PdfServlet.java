@@ -22,7 +22,7 @@ public class PdfServlet extends HttpServlet {
     try {
       Utente user = (Utente) request.getSession().getAttribute("utente");
       if (user == null)
-        throw new AuthenticationException("Not Authorized");
+        throw new AuthenticationException("Non autorizzato");
       String action = request.getParameter("action");
       if (action != null && action.equals("createPDF")) {
         createPDF(request, response);
@@ -35,6 +35,7 @@ public class PdfServlet extends HttpServlet {
 
   private void createPDF(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+
     String numeroCfu = request.getParameter("cfu");
     if (!numeroCfu.matches("[0-9]{1,2}")) {
       throw new IllegalArgumentException("Numero cfu non valido.");
