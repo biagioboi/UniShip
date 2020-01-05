@@ -40,7 +40,7 @@ import storage.interfaces.TirocinioInterface;
 import storage.interfaces.UtenteInterface;
 
 //todo : da cambiare il nome sulla documetazione per createPDF in createPdf
-@WebServlet("/PDFServlet")
+@WebServlet("/PdfServlet")
 public class PdfServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -106,35 +106,35 @@ public class PdfServlet extends HttpServlet {
     String sedeSvolgimento = request.getParameter("sede");
     if (sedeSvolgimento == null || sedeSvolgimento.length() == 0) {
       throw new IllegalArgumentException("Inserire una sede di svolgimento.");
-    } else if (!sedeSvolgimento.matches("[A-z0-9 ,]")) {
+    } else if (!sedeSvolgimento.matches("[A-z0-9 ,]+")) {
       throw new IllegalArgumentException("Sede svolgimento non valida.");
     }
 
     String obiettivi = request.getParameter("obiettivi");
     if (obiettivi == null || obiettivi.length() == 0) {
       throw new IllegalArgumentException("Inserire gli obiettivi.");
-    } else if (!obiettivi.matches("[A-z0-9 ,.;]")) {
+    } else if (!obiettivi.matches("[A-z0-9 ,.;]+")) {
       throw new IllegalArgumentException("Formato degli obiettivi non valido.");
     }
 
     String competenze = request.getParameter("competenze");
     if (competenze == null || competenze.length() == 0) {
       throw new IllegalArgumentException("Inserire le competenze.");
-    } else if (!competenze.matches("[A-z0-9 ,.;]")) {
+    } else if (!competenze.matches("[A-z0-9 ,.;]+")) {
       throw new IllegalArgumentException("Formato delle competenze non valido.");
     }
 
     String attivita = request.getParameter("attivita");
     if (attivita == null || attivita.length() == 0) {
       throw new IllegalArgumentException("Inserire le attivit&agrave;.");
-    } else if (!attivita.matches("[A-z0-9 ,.;]")) {
+    } else if (!attivita.matches("[A-z0-9 ,.;]+")) {
       throw new IllegalArgumentException("Formato delle attivit&agrave; non valido.");
     }
 
     String modalita = request.getParameter("modalita");
     if (modalita == null || modalita.length() == 0) {
       throw new IllegalArgumentException("Inserire le modalit&agrave; .");
-    } else if (!modalita.matches("[A-z0-9 ,.;]")) {
+    } else if (!modalita.matches("[A-z0-9 ,.;]+")) {
       throw new IllegalArgumentException("Formato delle modalit&agrave; non valido.");
     }
 
@@ -155,21 +155,21 @@ public class PdfServlet extends HttpServlet {
     String orario = request.getParameter("orario");
     if (orario == null || orario.length() == 0) {
       throw new IllegalArgumentException("Inserire l'orario di lavoro.");
-    } else if (!orario.matches("[A-z0-9 ,.;]")) {
+    } else if (!orario.matches("[A-z0-9 ,.;]+")) {
       throw new IllegalArgumentException("Formato dell'orario non valido.");
     }
 
     String numeroRc = request.getParameter("numeroRc");
     if (numeroRc == null || numeroRc.length() == 0) {
       throw new IllegalArgumentException("Inserire il numero RC.");
-    } else if (!numeroRc.matches("[0-9]")) {
+    } else if (!numeroRc.matches("[0-9]+")) {
       throw new IllegalArgumentException("Formato del numero RC non valido.");
     }
 
     String polizza = request.getParameter("polizza");
     if (polizza == null || polizza.length() == 0) {
       throw new IllegalArgumentException("Inserire la polizza assicurativa infortuni.");
-    } else if (!obiettivi.matches("[A-z0-9 ,.;]")) {
+    } else if (!obiettivi.matches("[A-z0-9 ,.;]+")) {
       throw new IllegalArgumentException(
           "Formato della aolizza assicurativa infortuni non valido.");
     }
@@ -203,7 +203,7 @@ public class PdfServlet extends HttpServlet {
       context.setVariable("nomeAzienda", azienda.getNome());
       context.setVariable("indirizzoSede", azienda.getIndirizzo());
       context.setVariable("email", azienda.getEmail());
-      context.setVariable("partivaIva", azienda.getPartitaIva());
+      context.setVariable("partitaIva", azienda.getPartitaIva());
       context.setVariable("rappresentanteAzienda", azienda.getRappresentante());
       context.setVariable("codiceAteco", azienda.getCodAteco());
 

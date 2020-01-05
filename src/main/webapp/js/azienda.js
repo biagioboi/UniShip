@@ -22,15 +22,38 @@ $(() => {
     let emailStudente = $("#compilaProgettoFormativoModal").attr("emailtarget");
     let cfu = $("#numeroCfu").val();
     let sede = $("#sedeSvolgimento").val();
-    let obiettibi = $("#obiettivi").html();
-    let competenze = $("#competenze").html();
-    let attivita = $("#attivita").html();
+    let obiettivi = $("#obiettivi").val();
+    let competenze = $("#competenze").val();
+    let attivita = $("#attivita").val();
+    let modalita = $("#modalita").val();
     let orario = $("#orarioLavorativo").val();
-    let numeroRC = $("#numeroRc").val();
+    let numeroRc = $("#numeroRc").val();
     let polizza = $("#polizza").val();
     let dataInizio = $("#dataInizio").val();
     let dataFine = $("#dataFine").val();
 
+    $.ajax({
+      url: 'PdfServlet',
+      type: 'POST',
+      data: {
+        studente: emailStudente,
+        cfu: cfu,
+        sede: sede,
+        obiettivi: obiettivi,
+        competenze: competenze,
+        attivita: attivita,
+        modalita: modalita,
+        orario: orario,
+        numeroRc: numeroRc,
+        polizza: polizza,
+        dataInizio: dataInizio,
+        dataFine: dataFine,
+        action: 'createPdf'
+      },
+      success: (response) => {
+        console.log(response);
+      }
+    });
   });
 
 });
@@ -72,7 +95,8 @@ function caricaRichieste() {
                 "data-matricolastudente = \"" + studente.matricola + "\" " +
                 "data-emailstudente = \"" + studente.email + "\" " +
                 "data-toggle=\"modal\" " +
-                "data-target=\"#compilaProgettoFormativoModal\">Compila Progetto F." +
+                "data-target=\"#compilaProgettoFormativoModal\">Compila Progetto F."
+                +
                 "</button>" +
                 "</td>";
           }
@@ -109,7 +133,8 @@ function rispondiRichiesta(how) {
       if (response.status == 200) {
         $("#messaggioSuccessoBody").html(response.description);
         $("#messaggioSuccesso").toast('show');
-        $(".btn-respond[data-emailstudente='" + emailStudente + "']").fadeOut('500');
+        $(".btn-respond[data-emailstudente='" + emailStudente + "']").fadeOut(
+            '500');
       } else {
         $("#messaggioErroreBody").html(response.description);
         $("#messaggioErrore").toast('show');

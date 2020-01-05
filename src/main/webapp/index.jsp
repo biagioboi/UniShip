@@ -354,7 +354,8 @@ String tipo = (String) session.getAttribute("tipo");
         </div>
       </div>
     </div>
-    <div class="modal fade" id="aggiungiOreModal" tabindex="-1" role="dialog"
+    <% if (tipo.equals("azienda")) { %>
+      <div class="modal fade" id="aggiungiOreModal" tabindex="-1" role="dialog"
          aria-hidden="true">
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -436,7 +437,8 @@ String tipo = (String) session.getAttribute("tipo");
         </div>
       </div>
     </div>
-
+      <%@ include file="GUIAzienda/formProgettoF.jsp" %>
+    <% } %>
 
   </main>
 </div>
