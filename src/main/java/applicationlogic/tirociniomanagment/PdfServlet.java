@@ -10,9 +10,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
-import javax.naming.AuthenticationException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -224,6 +225,12 @@ public class PdfServlet extends HttpServlet {
       context.setVariable("competenze", competenze);
       context.setVariable("attivita", attivita);
       context.setVariable("modalita", attivita);
+
+      long durata = ChronoUnit.MONTHS.between(
+          LocalDate.parse(dataInizio).withDayOfMonth(1),
+          LocalDate.parse(dataFine).withDayOfMonth(1));
+
+      context.setVariable("durata", durata);
       context.setVariable("dataInizio", dataInizio);
       context.setVariable("dataFine", dataFine);
       context.setVariable("orario", orario);

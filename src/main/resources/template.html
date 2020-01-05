@@ -21,6 +21,7 @@
     .p80 {
       word-wrap: break-word;
       width: 81%;
+      height: 100px;
       margin-bottom: 30px !important;
       font: 16px 'Garamond' !important;
     }
@@ -636,10 +637,10 @@
   <P class="p10 ft9">Tel. __________________________</P>
   <P class="p10 ft9">email _________________________</P>
   <P class="p15 ft4">N. TOTALE DI CREDITI FORMATIVI PREVISTI PER L’ATTIVITÀ DI TIROCINIO: <SPAN
-      class="ft6">____ di cui</SPAN></P>
+      class="ft6">[[${cfu}]] di cui</SPAN></P>
   <P class="p16 ft6"><SPAN class="ft10"></SPAN><SPAN
-      class="ft11">[[${cfu}]] CFU per tirocinio curriculare</SPAN></P>
-  <P class="p17 ft6"><SPAN class="ft10"></SPAN><SPAN class="ft11"> X CFU provenienti da tirocinio esterno (1) a scelta</SPAN>
+      class="ft11"> [[${cfu}]] CFU per tirocinio curriculare</SPAN></P>
+  <P class="p17 ft6"><SPAN class="ft10"></SPAN><SPAN class="ft11"> ___ CFU provenienti da tirocinio esterno (1) a scelta</SPAN>
   </P>
   <P class="p17 ft6"><SPAN class="ft10"></SPAN><SPAN class="ft11">___ CFU provenienti da tirocinio esterno (2) a scelta</SPAN>
   </P>
@@ -665,7 +666,7 @@
   <P class="p10 ft2 p80">
     [[${modalita}]] </P>
   <P class="p12 ft6"><SPAN class="ft4">DURATA DEL TIROCINIO</SPAN><SPAN class="ft2">: </SPAN>n.
-    ________ mesi, a decorrere dal [[${dataInizio}]] e fino al [[${dataFine}]] </P>
+    [[${durata}]] mesi, a decorrere dal [[${dataInizio}]] e fino al [[${dataFine}]] </P>
   <P class="p19 ft4">INDICAZIONE DELL’ORARIO DI SVOLGIMENTO DEL TIROCINIO</P>
   <P class="p10 ft2 p80">
     [[${orario}]] </P>
