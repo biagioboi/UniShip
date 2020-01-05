@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -12,9 +14,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import storage.beans.Azienda;
+import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
+import storage.dao.AziendaDao;
+import storage.dao.StudenteDao;
 import storage.dao.TirocinioDao;
+import storage.interfaces.AziendaInterface;
+import storage.interfaces.StudenteInterface;
+import storage.interfaces.TirocinioInterface;
 
 @WebServlet("/TirocinioServlet")
 public class TirocinioServlet extends HttpServlet {
@@ -72,8 +81,36 @@ public class TirocinioServlet extends HttpServlet {
     }
   }
 
-  private void viewInternship(HttpServletRequest request, HttpServletResponse response) {
-    // TODO: implement viewInternshipByFilter
+  private ArrayList<Tirocinio> viewInternship(HttpServletRequest request,
+      HttpServletResponse response) {
+
+    Utente user = (Utente) request.getSession().getAttribute("utente");
+
+    try {
+      TirocinioInterface tirocinioDao = new TirocinioDao();
+      ArrayList<Tirocinio> result = null;
+
+      if (user.getTipo().equals(Utente.AZIENDA)) {
+        AziendaInterface aziendaDao = new AziendaDao();
+        Azienda azienda = aziendaDao.doRetrieveByKey(user.getEmail());
+        result = tirocinioDao.doRetrieveByAzienda(azienda);
+
+      } else if (user.getTipo().equals(Utente.STUDENTE)) {
+        StudenteInterface studenteDao = new StudenteDao();
+        Studente studente = studenteDao.doRetrieveByKey(user.getEmail());
+        result = tirocinioDao.doRetrieveByStudente(studente);
+      } else {
+        result = tirocinioDao.doRetrieveAll();
+      }
+
+      return result;
+
+    } catch (SQLException e) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+
+    return null;
+
   }
 
   private void changeState(HttpServletRequest request, HttpServletResponse response) {
