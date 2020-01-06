@@ -123,42 +123,42 @@ public class TirocinioServlet extends HttpServlet {
 
   }
 
-  private void validateInternship(HttpServletRequest request, HttpServletResponse response)
-      throws Exception {
-    TirocinioDao dao = new TirocinioDao();
+  private boolean validateInternship(HttpServletRequest request, HttpServletResponse response) {
+
     String id = request.getParameter("tirocinio");
-
-    if (id.length() < 1) {
+    if (id == null || id.length() < 1) {
       throw new IllegalArgumentException("id non valido.");
     }
 
-    int tirocinioId = 0;
+    String risposta = request.getParameter("risposta");
+    if (risposta == null || risposta.equals("")) {
+      throw new IllegalArgumentException("La risposta non puo' essere vuota");
+    }
+
     try {
-      tirocinioId = Integer.parseInt(id);
-    } catch (Exception e) {
-      throw new IllegalArgumentException("id non valido.");
-    }
 
-    Tirocinio tirocinio = dao.doRetrieveByKey(tirocinioId);
-    if (tirocinio == null) {
-      throw new IllegalArgumentException("Il tirocinio non puo' essere vuoto");
-    }
+      TirocinioInterface tirocinioDao = new TirocinioDao();
+      Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(id));
 
-    String stato = request.getParameter("status");
+      if (risposta.equals(Tirocinio.ACCETTATA)) {
+        tirocinio.setStato(Tirocinio.ACCETTATA);
+      } else {
 
-    if (stato.equals(Tirocinio.ACCETTATA)) {
-      tirocinio.setStato(Tirocinio.ACCETTATA);
-    } else if (stato.equals(Tirocinio.RIFIUTATA)) {
-      String description = request.getParameter("motivation");
-      tirocinio.setStato(Tirocinio.RIFIUTATA);
-      if (description.length() < 1) {
-        throw new IllegalArgumentException("Le motivazioni non possono essere vuote");
+        String motivazioni = request.getParameter("motivazioni");
+        if (motivazioni == null || motivazioni.equals("")) {
+          throw new IllegalArgumentException("le motivazioni non possono essere vuote");
+        }
+
+        tirocinio.setMotivazioni(motivazioni);
+        tirocinio.setStato(Tirocinio.RIFIUTATA);
       }
-      // TODO: implement description in Tirocinio bean and DB schema
-    } else {
-      throw new IllegalArgumentException("Stato non valido");
-    }
 
-    dao.doSave(tirocinio);
+      return tirocinioDao.doChange(tirocinio);
+
+
+    } catch (SQLException e) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+    return false;
   }
 }

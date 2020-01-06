@@ -227,7 +227,7 @@ public class RichiestaDServlet extends HttpServlet {
       RichiestaDisponibilita richiesta = richiestaDao.doRetrieveByKey(studente, azienda);
 
       richiesta.setMotivazioni(motivazioni);
-      if (risposta.equals("accettata")) {
+      if (risposta.equals(RichiestaDisponibilita.ACCETTATA)) {
         richiesta.setStato(RichiestaDisponibilita.ACCETTATA);
       } else {
         richiesta.setStato(RichiestaDisponibilita.RIFIUTATA);
