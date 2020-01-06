@@ -8,10 +8,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -23,6 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
@@ -93,6 +99,18 @@ public class PdfServlet extends HttpServlet {
 
           out.println(obj.toJson(result));
 
+        } else if (action.equals("uploadPdf")) {
+
+          if (uploadPdf(request, response)) {
+            result.put("status", "200");
+            result.put("description", "file caricato con successo.");
+          } else {
+            result.put("status", "400");
+            result.put("description", "Errore generico.");
+          }
+
+          out.println(obj.toJson(result));
+
         }
       } catch (IllegalArgumentException e) {
         result.put("status", "422");
@@ -105,6 +123,19 @@ public class PdfServlet extends HttpServlet {
   }
 
   private boolean uploadPdf(HttpServletRequest request, HttpServletResponse response) {
+    try {
+
+      Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
+      String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName()
+          .toString(); // MSIE fix.
+      InputStream fileContent = filePart.getInputStream();
+
+      Files.copy(fileContent, Paths.get("C:\\Users\\Gerardo\\Downloads\\" + fileName + ".pdf"));
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
     return false;
   }
 
@@ -331,12 +362,33 @@ public class PdfServlet extends HttpServlet {
       String html = templateEngine.process("template", context);
       String xhtml = convertToXhtml(html);
 
-      OutputStream outputStream = new FileOutputStream("test.pdf");
+      String path = this.getClass().getClassLoader().getResource("").getPath();
+      String fullPath = URLDecoder.decode(path, "UTF-8");
+
+      String filename = azienda.getPartitaIva() + "_" + studente.getMatricola();
+      path = fullPath.split("/WEB-INF/classes/")[0] + "/generated/" + filename + ".pdf";
+
+      OutputStream outputStream = new FileOutputStream(path);
+
       ITextRenderer renderer = new ITextRenderer();
       renderer.setDocumentFromString(xhtml);
       renderer.layout();
       renderer.createPDF(outputStream);
       outputStream.close();
+
+      //file created
+
+      Tirocinio tirocinio = new Tirocinio();
+      tirocinio.setStudente(studente);
+      tirocinio.setAzienda(azienda);
+      tirocinio.setStato(Tirocinio.DA_CONVALIDARE);
+      tirocinio.setPath(path);
+      tirocinio.setOreSvolte(new Time(0));
+      tirocinio.setOreTotali(new Time(25 * Integer.parseInt(numeroCfu)));
+      tirocinio.setTurorEsterno(azienda.getRappresentante());
+
+      TirocinioInterface tirocinioDao = new TirocinioDao();
+      tirocinioDao.doSave(tirocinio);
 
       return true;
 
