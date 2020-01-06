@@ -36,8 +36,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" onclick="rispondiRichiesta('rifiutata');">Rifiuta</button>
-                <button type="button" class="btn btn-success" onclick="rispondiRichiesta('accettata');">Accetta</button>
+                <button type="button" class="btn btn-danger" onclick="rispondiRichiesta('Rifiutata');">Rifiuta</button>
+                <button type="button" class="btn btn-success" onclick="rispondiRichiesta('Accettata');">Accetta</button>
             </div>
         </div>
     </div>

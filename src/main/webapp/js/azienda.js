@@ -51,8 +51,7 @@ $(() => {
         action: 'createPdf'
       },
       success: (response) => {
-        $("#rispondiDisponibilitaModal").modal('toggle');
-        $("#messaggioSuccessoBody").html("");
+        $("#compilaProgettoFormativoModal").modal('toggle');
 
         if (response.status == 200) {
           $("#messaggioSuccessoBody").html(response.description);
