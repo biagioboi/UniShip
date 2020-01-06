@@ -328,8 +328,8 @@ public class RichiestaDisponibilitaDao implements RichiestaDisponibilitaInterfac
     try {
       connection = DatabaseManager.getConnection();
       preparedStatement = connection.prepareStatement(DELETE);
-      preparedStatement.setString(1, richiesta.getAzienda().getEmail());
-      preparedStatement.setString(2, richiesta.getStudente().getEmail());
+      preparedStatement.setString(1, richiesta.getStudente().getEmail());
+      preparedStatement.setString(2, richiesta.getAzienda().getEmail());
 
       result = preparedStatement.executeUpdate();
 
