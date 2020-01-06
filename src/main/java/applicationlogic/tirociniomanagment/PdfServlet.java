@@ -361,7 +361,6 @@ public class PdfServlet extends HttpServlet {
       context.setVariable("pInfortuni", polizza);
 
       // Get the plain HTML with the resolved ${name} variable!
-      String html = templateEngine.process("template", context);
 
       String path = this.getClass().getClassLoader().getResource("").getPath();
       String fullPath = URLDecoder.decode(path, "UTF-8");
@@ -378,6 +377,7 @@ public class PdfServlet extends HttpServlet {
 
       OutputStream outputStream = new FileOutputStream(path);
 
+      String html = templateEngine.process("template", context);
       String xhtml = convertToXhtml(html);
       ITextRenderer renderer = new ITextRenderer();
       renderer.setDocumentFromString(xhtml);
