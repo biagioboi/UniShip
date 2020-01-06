@@ -124,18 +124,48 @@ public class PdfServlet extends HttpServlet {
 
   }
 
-  private boolean uploadPdf(HttpServletRequest request, HttpServletResponse response) {
+  private boolean uploadPdf(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException {
+
+    String tirocinioId = request.getParameter("tirocinio");
+    if (tirocinioId == null || tirocinioId.length() == 0) {
+      throw new IllegalArgumentException("Tirocinio non valido.");
+    }
+
     try {
+      TirocinioInterface tirocinioDao = new TirocinioDao();
+      Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(tirocinioId));
+
+      HttpSession session = request.getSession();
+      Utente user = (Utente) session.getAttribute("utente");
+
+      if (!tirocinio.getStudente().getEmail().equals(user.getEmail())) {
+        throw new IllegalArgumentException("Non puoi accedere a questo tirocinio.");
+      }
 
       Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
       String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName()
           .toString(); // MSIE fix.
+
+      String path = this.getClass().getClassLoader().getResource("").getPath();
+      String fullPath = URLDecoder.decode(path, "UTF-8");
+
+      path = fullPath.split("/WEB-INF/classes/")[0] + "/uploaded";
+      //make directory if doesn't exist
+      File directory = new File(path);
+      if (!directory.exists()) {
+        directory.mkdir();
+      }
+      path += "/" + fileName;
+
       InputStream fileContent = filePart.getInputStream();
+      Files.copy(fileContent,Paths.get(path));
 
-      Files.copy(fileContent, Paths.get("C:\\Users\\Gerardo\\Downloads\\" + fileName + ".pdf"));
+      return true;
 
-    } catch (Exception e) {
-      e.printStackTrace();
+
+    } catch (SQLException | IOException e) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 
     return false;
@@ -172,7 +202,6 @@ public class PdfServlet extends HttpServlet {
 
       // if you want to use a relative path to context root:
       String relativePath = getServletContext().getRealPath("");
-      System.out.println("relativePath = " + relativePath);
 
       // obtains ServletContext
       ServletContext context = getServletContext();
@@ -183,7 +212,6 @@ public class PdfServlet extends HttpServlet {
         // set to binary type if MIME mapping not found
         mimeType = "application/octet-stream";
       }
-      System.out.println("MIME type: " + mimeType);
 
       File downloadFile = new File(filePath);
       // modifies response
@@ -390,7 +418,7 @@ public class PdfServlet extends HttpServlet {
       Tirocinio tirocinio = new Tirocinio();
       tirocinio.setStudente(studente);
       tirocinio.setAzienda(azienda);
-      tirocinio.setStato(Tirocinio.NON_COMPLETO);
+      tirocinio.setStato(Tirocinio.DA_VALUTARE);
       tirocinio.setPath(path);
       tirocinio.setOreSvolte(new Time(0));
       tirocinio.setOreTotali(new Time(25 * Integer.parseInt(numeroCfu)));
@@ -399,10 +427,9 @@ public class PdfServlet extends HttpServlet {
       TirocinioInterface tirocinioDao = new TirocinioDao();
       tirocinioDao.doSave(tirocinio);
 
-
       //cancello la richiesta risponibilita relativa
       RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
-      richiestaDao.doDelete(richiestaDao.doRetrieveByKey(studente,azienda));
+      richiestaDao.doDelete(richiestaDao.doRetrieveByKey(studente, azienda));
 
       return true;
 
