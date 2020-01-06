@@ -39,10 +39,12 @@ import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
 import storage.dao.AziendaDao;
+import storage.dao.RichiestaDisponibilitaDao;
 import storage.dao.StudenteDao;
 import storage.dao.TirocinioDao;
 import storage.dao.UtenteDao;
 import storage.interfaces.AziendaInterface;
+import storage.interfaces.RichiestaDisponibilitaInterface;
 import storage.interfaces.StudenteInterface;
 import storage.interfaces.TirocinioInterface;
 import storage.interfaces.UtenteInterface;
@@ -360,16 +362,23 @@ public class PdfServlet extends HttpServlet {
 
       // Get the plain HTML with the resolved ${name} variable!
       String html = templateEngine.process("template", context);
-      String xhtml = convertToXhtml(html);
 
       String path = this.getClass().getClassLoader().getResource("").getPath();
       String fullPath = URLDecoder.decode(path, "UTF-8");
 
+      path = fullPath.split("/WEB-INF/classes/")[0] + "/generated";
+      //make directory if doesn't exist
+      File directory = new File(path);
+      if (!directory.exists()) {
+        directory.mkdir();
+      }
+
       String filename = azienda.getPartitaIva() + "_" + studente.getMatricola();
-      path = fullPath.split("/WEB-INF/classes/")[0] + "/generated/" + filename + ".pdf";
+      path += "/" + filename + ".pdf";
 
       OutputStream outputStream = new FileOutputStream(path);
 
+      String xhtml = convertToXhtml(html);
       ITextRenderer renderer = new ITextRenderer();
       renderer.setDocumentFromString(xhtml);
       renderer.layout();
@@ -389,6 +398,11 @@ public class PdfServlet extends HttpServlet {
 
       TirocinioInterface tirocinioDao = new TirocinioDao();
       tirocinioDao.doSave(tirocinio);
+
+
+      //cancello la richiesta risponibilita relativa
+      RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
+      richiestaDao.doDelete(richiestaDao.doRetrieveByKey(studente,azienda));
 
       return true;
 
