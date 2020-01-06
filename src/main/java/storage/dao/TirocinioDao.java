@@ -43,7 +43,8 @@ public class TirocinioDao implements TirocinioInterface {
       preparedStatement.setString(5, tirocinio.getStato());
       preparedStatement.setString(6, tirocinio.getAzienda().getEmail());
       preparedStatement.setString(7, tirocinio.getStudente().getEmail());
-      preparedStatement.setInt(8, tirocinio.getId());
+      preparedStatement.setString(8, tirocinio.getMotivazioni());
+      preparedStatement.setInt(9, tirocinio.getId());
 
       result = preparedStatement.executeUpdate();
 
@@ -96,6 +97,7 @@ public class TirocinioDao implements TirocinioInterface {
         tirocinio.setOreSvolte(rs.getTime("ore_svolte"));
         tirocinio.setPath(rs.getString("path"));
         tirocinio.setStato(rs.getString("stato"));
+        tirocinio.setMotivazioni(rs.getString("motivazioni"));
         tirocinio.setAzienda(aziendaDao.doRetrieveByKey(rs.getString("azienda")));
         tirocinio.setStudente(studente); //evito di prendere sempre gli stessi dati
 
@@ -152,6 +154,7 @@ public class TirocinioDao implements TirocinioInterface {
         tirocinio.setOreSvolte(rs.getTime("ore_svolte"));
         tirocinio.setPath(rs.getString("path"));
         tirocinio.setStato(rs.getString("stato"));
+        tirocinio.setMotivazioni(rs.getString("motivazioni"));
         tirocinio.setAzienda(azienda); //evito di prendere sempre gli stessi dati
         tirocinio.setStudente(studenteDao.doRetrieveByKey(rs.getString("studente")));
 
@@ -205,6 +208,7 @@ public class TirocinioDao implements TirocinioInterface {
         tirocinio.setOreSvolte(rs.getTime("ore_svolte"));
         tirocinio.setPath(rs.getString("path"));
         tirocinio.setStato(rs.getString("stato"));
+        tirocinio.setMotivazioni(rs.getString("motivazioni"));
         tirocinio.setAzienda(aziendaDao.doRetrieveByKey(rs.getString("azienda")));
         tirocinio.setStudente(studenteDao.doRetrieveByKey(rs.getString("studente")));
       }
@@ -251,6 +255,7 @@ public class TirocinioDao implements TirocinioInterface {
       preparedStatement.setString(5, tirocinio.getStato());
       preparedStatement.setString(6, tirocinio.getAzienda().getEmail());
       preparedStatement.setString(7, tirocinio.getStudente().getEmail());
+      preparedStatement.setString(8, tirocinio.getMotivazioni());
 
       rs = preparedStatement.executeUpdate();
 
@@ -295,6 +300,7 @@ public class TirocinioDao implements TirocinioInterface {
         tirocinio.setOreSvolte(rs.getTime("ore_svolte"));
         tirocinio.setPath(rs.getString("path"));
         tirocinio.setStato(rs.getString("stato"));
+        tirocinio.setMotivazioni(rs.getString("motivazioni"));
         tirocinio.setAzienda(aziendaDao.doRetrieveByKey(rs.getString("azienda")));
         tirocinio.setStudente(studenteDao.doRetrieveByKey(rs.getString("studente")));
 
@@ -326,9 +332,10 @@ public class TirocinioDao implements TirocinioInterface {
   public static final String RETRIVE_ALL = "SELECT * FROM tirocinio";
 
   public static final String CHANGE = "UPDATE tirocinio SET ore_totali = ?, tutor_esterno = ?, "
-      + "ore_svolte = ? , path = ? , stato = ?, azienda = ?, studente = ? WHERE id = ?";
+      + "ore_svolte = ? , path = ? , stato = ?, azienda = ?, studente = ? ,"
+      + "motivazioni = ? WHERE id = ?";
 
   public static final String SAVE = "INSERT INTO tirocinio (ore_totali, tutor_esterno, ore_svolte,"
-      + " path, stato, azienda, studente) VALUES (?, ?, ?, ?, ?, ? , ?)";
+      + " path, stato, azienda, studente,motivazioni) VALUES (?, ?, ?, ?, ?, ? , ?, ?)";
 
 }

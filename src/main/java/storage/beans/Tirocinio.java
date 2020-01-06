@@ -18,9 +18,10 @@ public class Tirocinio {
    * @param turorEsterno il nome del tutor esterno del tirocinio
    * @param oreSvolte le ore già svolte
    * @param path la path del PDF del Progetto Formativo
+   * @param motivazioni le motivazioni di una eventuale rifiuta
    */
   public Tirocinio(int id, String stato, Time oreTotali, String turorEsterno, Time oreSvolte,
-      String path, Studente studente, Azienda azienda) {
+      String path, Studente studente, Azienda azienda, String motivazioni) {
     this.id = id;
     this.stato = stato;
     this.oreTotali = oreTotali;
@@ -29,6 +30,7 @@ public class Tirocinio {
     this.path = path;
     this.studente = studente;
     this.azienda = azienda;
+    this.motivazioni = motivazioni;
   }
 
   public int getId() {
@@ -95,11 +97,20 @@ public class Tirocinio {
     this.azienda = azienda;
   }
 
+  public String getMotivazioni() {
+    return motivazioni;
+  }
+
+  public void setMotivazioni(String motivazioni) {
+    this.motivazioni = motivazioni;
+  }
+
   private int id;
   private String stato;
   private Time oreTotali;
   private String turorEsterno;
   private Time oreSvolte;
+  private String motivazioni;
   private String path;
   private Studente studente;
   private Azienda azienda;

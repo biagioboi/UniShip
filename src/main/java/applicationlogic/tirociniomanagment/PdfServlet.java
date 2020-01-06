@@ -390,7 +390,7 @@ public class PdfServlet extends HttpServlet {
       Tirocinio tirocinio = new Tirocinio();
       tirocinio.setStudente(studente);
       tirocinio.setAzienda(azienda);
-      tirocinio.setStato(Tirocinio.DA_CONVALIDARE);
+      tirocinio.setStato(Tirocinio.NON_COMPLETO);
       tirocinio.setPath(path);
       tirocinio.setOreSvolte(new Time(0));
       tirocinio.setOreTotali(new Time(25 * Integer.parseInt(numeroCfu)));
