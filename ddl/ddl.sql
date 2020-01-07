@@ -41,9 +41,9 @@ CREATE TABLE azienda(
 
 CREATE TABLE tirocinio(
     id int primary key AUTO_INCREMENT,
-    ore_totali timestamp NOT NULL, # modificato da date a time in quanto tiene traccia solo delle ore
+    ore_totali double(8, 2) NOT NULL, # modificato da date a time in quanto tiene traccia solo delle ore
     tutor_esterno varchar(50) NOT NULL,
-    ore_svolte timestamp, # modificato da date a time in quanto tiene traccia solo delle ore
+    ore_svolte double(8, 2), # modificato da date a time in quanto tiene traccia solo delle ore
     path varchar(100),
     motivazioni varchar(100),
     stato enum(

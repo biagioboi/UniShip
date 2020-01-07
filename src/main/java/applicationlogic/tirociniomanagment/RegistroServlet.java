@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -135,13 +137,17 @@ public class RegistroServlet extends HttpServlet {
       AttivitaRegistro attivita = new AttivitaRegistro();
       attivita.setTirocinio(tirocinio);
 
-      Duration dur = Duration.valueOf(ore);
-      attivita.setOreSvolte(dur.toMinutes());
+      double minutes = 0;
+      String[] split = ore.split(":");
+      minutes += Double.parseDouble(split[0])*60;
+      minutes += Double.parseDouble(split[1]);
+      attivita.setOreSvolte(minutes);
+      tirocinio.setOreSvolte(tirocinio.getOreSvolte() + minutes);
 
       attivita.setData(Date.valueOf(data));
       attivita.setAttivita(descrizione);
 
-      return attivitaDao.doSave(attivita);
+      return (tirocinioDao.doChange(tirocinio) && attivitaDao.doSave(attivita));
 
     } catch (SQLException e) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

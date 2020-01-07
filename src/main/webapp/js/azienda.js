@@ -23,6 +23,8 @@ $(() => {
 
   $('#aggiungiOreModal').on('show.bs.modal', (e) => {
     var id = $(e.relatedTarget).data('idtirocinio');
+    $("#aggiungiOreModal").attr("idtirocinio", id);
+    $("#tableOreSvolte > tbody").html("");
     $.ajax({
       url: 'RegistroServlet',
       type: 'POST',
@@ -31,22 +33,22 @@ $(() => {
         tirocinio: id
       },
       success: (response) => {
-        alert(JSON.stringify(response));
+        let exist = false;
         response.forEach((e) => {
-          console.log(timeConvert(e.tirocinio.oreTotali));
-        })
+          exist = true;
+          let data = e.data;
+          let oreSvolte = timeConvert(e.oreSvolte);
+          let attivita = e.attivita;
+          let riga = "<td>" + data + "</td>"
+              + "<td>" + oreSvolte + "</td>"
+              + "<td>" + attivita + "</td>";
+          $("#tableOreSvolte > tbody:last-child").append("<tr>" + riga + "</tr>");
+        });
       }
     });
   });
 
-  function timeConvert(n) {
-    let num = n;
-    let hours = (num / 60);
-    let rhours = Math.floor(hours);
-    let minutes = (hours - rhours) * 60;
-    let rminutes = Math.round(minutes);
-    return rhours +":"+ rminutes;
-  }
+
 
   $("#btnInviaProgettoF").click(() => {
     let emailStudente = $("#compilaProgettoFormativoModal").attr("emailtarget");
@@ -88,6 +90,36 @@ $(() => {
           $("#messaggioSuccessoBody").html(response.description);
           $("#messaggioSuccesso").toast('show');
 
+        } else {
+          $("#messaggioErroreBody").html(response.description);
+          $("#messaggioErrore").toast('show');
+        }
+      }
+    });
+  });
+
+  $("#formAddActivity").submit((e)=> {
+    e.preventDefault();
+    let ore = $("#ore").val();
+    let data = $("#giorno").val();
+    let descrizione = $("#descrizione").val();
+    let tirocinio = $("#aggiungiOreModal").attr("idtirocinio");
+    $.ajax({
+      url: 'RegistroServlet',
+      type: 'POST',
+      data: {
+        action: 'addActivity',
+        tirocinio: tirocinio,
+        oreSvolte: ore,
+        data: data,
+        attivita: descrizione
+      },
+      success: (response) => {
+        $("#aggiungiOreModal").modal('toggle');
+        if (response.status == 200) {
+          document.getElementById("formAddActivity").reset();
+          $("#messaggioSuccessoBody").html(response.description);
+          $("#messaggioSuccesso").toast('show');
         } else {
           $("#messaggioErroreBody").html(response.description);
           $("#messaggioErrore").toast('show');
@@ -173,8 +205,20 @@ function rispondiRichiesta(how) {
       if (response.status == 200) {
         $("#messaggioSuccessoBody").html(response.description);
         $("#messaggioSuccesso").toast('show');
-        $(".btn-respond[data-emailstudente='" + emailStudente + "']").fadeOut(
-            '500');
+        let email = emailStudente;
+        let matricola = $(".btn-respond[data-emailstudente='" + emailStudente + "']").attr("data-matricolastudente");
+        let nome = $(".btn-respond[data-emailstudente='" + emailStudente + "']").attr("data-nomestudente");
+        $(".btn-respond[data-emailstudente='" + emailStudente + "']").parent().html(
+            "<button class=\"btn btn-success btn-respond\" " +
+            "data-nomestudente = \"" + nome + "\" " +
+            "data-matricolastudente = \"" + matricola + "\" " +
+            "data-emailstudente = \"" + email + "\" " +
+            "data-toggle=\"modal\" " +
+            "data-target=\"#compilaProgettoFormativoModal\">Compila Progetto F."
+            +
+            "</button>"
+        );
+
       } else {
         $("#messaggioErroreBody").html(response.description);
         $("#messaggioErrore").toast('show');
@@ -205,9 +249,25 @@ function caricaStudenti() {
             + "         Aggiungi ore "
             + "</button>"
             + "</td>";
-        $("#tableStudentiTirocinio").append("<tr>" + riga + "</tr>");
+        $("#tableStudentiTirocinio > tbody:last-child").append("<tr>" + riga + "</tr>");
       })
     }
   });
 }
 
+function timeConvert(n) {
+  let num = n;
+  let hours = (num / 60);
+  let rhours = Math.floor(hours);
+  let minutes = (hours - rhours) * 60;
+  let rminutes = Math.round(minutes);
+  return rhours +":"+ rminutes;
+}
+
+function dateConverter(date) {
+  let mesi = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
+  let mese = parseInt(date.substr(5, 2))-1;
+  let giorno = date.substr(8, 2);
+  let anno = date.substr(0, 4);
+  return mesi[mese] + " " + giorno + ", " + anno;
+}

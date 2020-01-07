@@ -423,7 +423,7 @@ public class PdfServlet extends HttpServlet {
       tirocinio.setStato(Tirocinio.DA_VALUTARE);
       tirocinio.setPath(path);
       tirocinio.setOreSvolte(0);
-      tirocinio.setOreTotali(25 * 60);
+      tirocinio.setOreTotali(25 * 60 * Integer.parseInt(numeroCfu));
       tirocinio.setTurorEsterno(azienda.getRappresentante());
 
       TirocinioInterface tirocinioDao = new TirocinioDao();
