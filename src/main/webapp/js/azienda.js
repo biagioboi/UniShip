@@ -23,7 +23,10 @@ $(() => {
 
   $('#aggiungiOreModal').on('show.bs.modal', (e) => {
     var id = $(e.relatedTarget).data('idtirocinio');
+    var matricola = $(e.relatedTarget).data('matricolastudente');
+    var nome = $(e.relatedTarget).data('nomestudente');
     $("#aggiungiOreModal").attr("idtirocinio", id);
+    $("#nomeStudenteAttRegistro").html(nome + " - " + matricola);
     $("#tableOreSvolte > tbody").html("");
     $.ajax({
       url: 'RegistroServlet',
@@ -244,6 +247,9 @@ function caricaStudenti() {
             + "<td>" + studente.codiceFiscale + "</td>"
             + "<td class='text-center'>"
             + " <button class=\"btn btn-success\" data-toggle=\"modal\" "
+            + "         data-nomestudente = \""
+            +  studente.nome + " " + studente.cognome + "\" "
+            + "         data-matricolastudente = \"" + studente.matricola + "\" "
             + "         data-idtirocinio=\"" + e.id + "\" "
             + "         data-target=\"#aggiungiOreModal\"> "
             + "         Aggiungi ore "
