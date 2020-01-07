@@ -39,9 +39,9 @@ public class TirocinioDao implements TirocinioInterface {
     try {
       connection = DatabaseManager.getConnection();
       preparedStatement = connection.prepareStatement(CHANGE);
-      preparedStatement.setTimestamp(1, tirocinio.getOreTotali());
+      preparedStatement.setDouble(1, tirocinio.getOreTotali());
       preparedStatement.setString(2, tirocinio.getTurorEsterno());
-      preparedStatement.setTimestamp(3, tirocinio.getOreSvolte());
+      preparedStatement.setDouble(3, tirocinio.getOreSvolte());
       preparedStatement.setString(4, tirocinio.getPath());
       preparedStatement.setString(5, tirocinio.getStato());
       preparedStatement.setString(6, tirocinio.getAzienda().getEmail());
@@ -95,9 +95,9 @@ public class TirocinioDao implements TirocinioInterface {
 
         Tirocinio tirocinio = new Tirocinio();
         tirocinio.setId(rs.getInt("id"));
-        tirocinio.setOreTotali(rs.getTimestamp("ore_totali"));
+        tirocinio.setOreTotali(rs.getDouble("ore_totali"));
         tirocinio.setTurorEsterno(rs.getString("tutor_esterno"));
-        tirocinio.setOreSvolte(rs.getTimestamp("ore_svolte"));
+        tirocinio.setOreSvolte(rs.getDouble("ore_svolte"));
         tirocinio.setPath(rs.getString("path"));
         tirocinio.setStato(rs.getString("stato"));
         tirocinio.setMotivazioni(rs.getString("motivazioni"));
@@ -152,9 +152,9 @@ public class TirocinioDao implements TirocinioInterface {
 
         Tirocinio tirocinio = new Tirocinio();
         tirocinio.setId(rs.getInt("id"));
-        tirocinio.setOreTotali(rs.getTimestamp("ore_totali"));
+        tirocinio.setOreTotali(rs.getDouble("ore_totali"));
         tirocinio.setTurorEsterno(rs.getString("tutor_esterno"));
-        tirocinio.setOreSvolte(rs.getTimestamp("ore_svolte"));
+        tirocinio.setOreSvolte(rs.getDouble("ore_svolte"));
         tirocinio.setPath(rs.getString("path"));
         tirocinio.setStato(rs.getString("stato"));
         tirocinio.setMotivazioni(rs.getString("motivazioni"));
@@ -206,9 +206,9 @@ public class TirocinioDao implements TirocinioInterface {
         return null;
       } else {
         tirocinio.setId(rs.getInt("id"));
-        tirocinio.setOreTotali(rs.getTimestamp("ore_totali"));
+        tirocinio.setOreTotali(rs.getDouble("ore_totali"));
         tirocinio.setTurorEsterno(rs.getString("tutor_esterno"));
-        tirocinio.setOreSvolte(rs.getTimestamp("ore_svolte"));
+        tirocinio.setOreSvolte(rs.getDouble("ore_svolte"));
         tirocinio.setPath(rs.getString("path"));
         tirocinio.setStato(rs.getString("stato"));
         tirocinio.setMotivazioni(rs.getString("motivazioni"));
@@ -252,9 +252,9 @@ public class TirocinioDao implements TirocinioInterface {
       connection = DatabaseManager.getConnection();
       SimpleDateFormat df = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
       preparedStatement = connection.prepareStatement(SAVE);
-      preparedStatement.setTimestamp(1, tirocinio.getOreTotali());
+      preparedStatement.setDouble(1, tirocinio.getOreTotali());
       preparedStatement.setString(2, tirocinio.getTurorEsterno());
-      preparedStatement.setTimestamp(3, tirocinio.getOreSvolte());
+      preparedStatement.setDouble(3, tirocinio.getOreSvolte());
       preparedStatement.setString(4, tirocinio.getPath());
       preparedStatement.setString(5, tirocinio.getStato());
       preparedStatement.setString(6, tirocinio.getAzienda().getEmail());
@@ -299,9 +299,9 @@ public class TirocinioDao implements TirocinioInterface {
       while (rs.next()) {
         Tirocinio tirocinio = new Tirocinio();
         tirocinio.setId(rs.getInt("id"));
-        tirocinio.setOreTotali(rs.getTimestamp("ore_totali"));
+        tirocinio.setOreTotali(rs.getDouble("ore_totali"));
         tirocinio.setTurorEsterno(rs.getString("tutor_esterno"));
-        tirocinio.setOreSvolte(rs.getTimestamp("ore_svolte"));
+        tirocinio.setOreSvolte(rs.getDouble("ore_svolte"));
         tirocinio.setPath(rs.getString("path"));
         tirocinio.setStato(rs.getString("stato"));
         tirocinio.setMotivazioni(rs.getString("motivazioni"));
