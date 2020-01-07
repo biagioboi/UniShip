@@ -33,6 +33,9 @@ $(() => {
     });
   });
 
+  checkIfExistTirocinio();
+
+  chargeTableTirocini();
 
 });
 
@@ -64,4 +67,52 @@ function chargeTableAziendeContent() {
 
       }
   });
+}
+
+function checkIfExistTirocinio() {
+  $.ajax({
+    url: 'TirocinioServlet',
+    type: 'POST',
+    data: {
+      action: 'viewInternship'
+    },
+    success: (response) => {
+      response.forEach((x) => {
+        let email = x.azienda.email;
+        $(".btn-open-req[data-email='" + email + "']")
+        .parent()
+        .parent()
+        .remove();
+      });
+    }
+  });
+}
+
+function chargeTableTirocini(){
+  $.ajax({
+    url: 'TirocinioServlet',
+    type: 'POST',
+    data: {
+      action: 'viewInternship'
+    },
+    success: (response) => {
+      response.forEach((x) => {
+        let link = "";
+        if (x.stato == "Da Valutare") {
+          x.stato = "Carica/Scarica PDF"
+          link = "onclick=\"operatePDF(" + x.id + ");\"";
+        }
+        let riga = "<td>" + x.studente.matricola + "</td>"
+            + "<td>" + x.azienda.nome + "</td>"
+            + "<td><span class='addbadge badge' " + link + ">" + x.stato + "</span></td>"
+            + "<td>" + x.motivazioni + "</td>";
+        $("#richiesteTirocinioStudente > tbody:last-child").append("<tr>" + riga + "</tr>");
+        restyleBadge();
+      });
+    }
+  });
+}
+
+function operatePDF(what) {
+
 }

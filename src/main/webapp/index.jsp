@@ -133,6 +133,15 @@ String tipo = (String) session.getAttribute("tipo");
               Lista Aziende
             </a>
           </li>
+          <li class="nav-item">
+            <a id="pills-view-richieste" class="nav-link" data-toggle="pill"
+               href="#pills-richieste"
+               role="tab" aria-controls="pills-richieste" aria-selected="false">
+              <i class="fas fa-tasks"></i>
+              &nbsp;Richieste
+            </a>
+          </li>
+
           <% } else if (tipo.equals("azienda")) { %>
           <li class="nav-item">
             <a id="pills-view-richiesteAzienda" class="nav-link active" data-toggle="pill"
@@ -172,15 +181,6 @@ String tipo = (String) session.getAttribute("tipo");
             </a>
           </li>
 
-          <!-- questo lo possono vedere gli studenti -->
-          <li class="nav-item">
-            <a id="pills-view-richieste" class="nav-link" data-toggle="pill"
-               href="#pills-richieste"
-               role="tab" aria-controls="pills-richieste" aria-selected="false">
-              <i class="fas fa-tasks"></i>
-              &nbsp;Richieste
-            </a>
-          </li>
 
         </ul>
         <div class="tab-content" id="pills-tabContent">
@@ -188,84 +188,12 @@ String tipo = (String) session.getAttribute("tipo");
           include, per il momento lascio così e poi si modifica -->
           <% if (tipo.equals("studente")) {%>
           <%@ include file="GUIStudent/viewCompanies.jsp" %>
+          <%@ include file="GUIStudent/viewRequest.jsp" %>
           <% } else if (tipo.equals("azienda")) {%>
           <%@ include file="GUIAzienda/viewRequestsAvailability.jsp" %>
           <%@ include file="GUIAzienda/viewRegister.jsp" %>
           <% } %>
 
-          <div class="tab-pane fade" id="pills-registro" role="tabpanel"
-               aria-labelledby="pills-view-registro">
-            <div class="table-responsive font-size-sm min-size-td">
-              <table class="table table-hover mb-0 ">
-                <thead>
-                <tr>
-                  <th>Data</th>
-                  <th>ore svolte</th>
-                  <th>attivita</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>AZIENDA 1</td>
-                  <td>0515252</td>
-                  <td>It is a long established fact that a reader will be distracted by the readable
-                    content of a page when looking at its layout. The point of using Lorem Ipsum is
-                    that it has a more-or-less normal distribution of letters, as opposed to using
-                    'Content here, content here', making it look like readable English. Many desktop
-                    publishing packages and web page editors now use Lorem Ipsum as their default
-                    model text, and a search for 'lorem ipsum' will uncover many web sites still in
-                    their infancy. Various versions have evolved over the years, sometimes by
-                    accident, sometimes on purpose (injected humour and the like).
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="pills-richieste" role="tabpanel"
-               aria-labelledby="pills-view-richieste">
-            <div class="table-responsive font-size-sm">
-              <table class="table table-hover mb-0 min-size-td">
-                <thead>
-                <tr>
-                  <th>Studente</th>
-                  <th>Azienda</th>
-                  <th>stato</th>
-                  <th>Motivazioni</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>051212222</td>
-                  <td>Azienda 1</td>
-                  <td><span class="addbadge badge ">Valutazione</span></td>
-                  <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                    when an unknown printer took a galley of type and scrambled it to make a type
-                    specimen book.
-                  </td>
-                </tr>
-                <tr>
-                  <td>051212222</td>
-                  <td>Azienda 2</td>
-                  <td><span class="addbadge badge ">Accettata</span></td>
-                  <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                    when an unknown printer took a galley of type and scrambled it to make a type
-                    specimen book.
-                  </td>
-                </tr>
-                <tr>
-                  <td>051212222</td>
-                  <td>Azienda 3</td>
-                  <td><span class="addbadge badge ">Rifiutata</span></td>
-                  <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
           <div class="tab-pane fade" id="pills-tirocini" role="tabpanel"
                aria-labelledby="pills-view-richieste">
             <div class="table-responsive font-size-sm">
@@ -322,6 +250,37 @@ String tipo = (String) session.getAttribute("tipo");
               </table>
             </div>
           </div>
+
+          <div class="tab-pane fade" id="pills-registro" role="tabpanel"
+               aria-labelledby="pills-view-registro">
+            <div class="table-responsive font-size-sm min-size-td">
+              <table class="table table-hover mb-0 ">
+                <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>ore svolte</th>
+                  <th>attivita</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>AZIENDA 1</td>
+                  <td>0515252</td>
+                  <td>It is a long established fact that a reader will be distracted by the readable
+                    content of a page when looking at its layout. The point of using Lorem Ipsum is
+                    that it has a more-or-less normal distribution of letters, as opposed to using
+                    'Content here, content here', making it look like readable English. Many desktop
+                    publishing packages and web page editors now use Lorem Ipsum as their default
+                    model text, and a search for 'lorem ipsum' will uncover many web sites still in
+                    their infancy. Various versions have evolved over the years, sometimes by
+                    accident, sometimes on purpose (injected humour and the like).
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
 
         </div>
       </div>
