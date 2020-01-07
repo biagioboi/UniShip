@@ -37,6 +37,11 @@ $(() => {
 
   chargeTableTirocini();
 
+  $("#caricaScaricaPDFModal").on('show.bs.modal', (e) => {
+    var tirocinio = $(e.relatedTarget).data('idtirocinio');
+    $("#linkPDF").attr("href", "PdfServlet?tirocinio=" + tirocinio);
+    $("#caricaScaricaPDFModal").attr("idtirocinio", tirocinio);
+  });
 });
 
 function chargeTableAziendeContent() {
@@ -56,8 +61,7 @@ function chargeTableAziendeContent() {
             "<td>" + azienda.numeroDipendenti + "</td>"
         if (richiesta == null) {
           riga += "<td class='text-center'>" +
-              "<button  class='btn btn-success btn-open-req' data-toggle='modal' " +
-              "data-target='#richiediDisponibilitaModal'" +
+              "<button  class='btn btn-success btn-open-req' " +
               "data-nome=\"" + azienda.nome + "\" data-email= \"" +
                azienda.email + "\">" + "Richiedi </button></td>";
         }
@@ -100,11 +104,17 @@ function chargeTableTirocini(){
         let link = "";
         if (x.stato == "Da Valutare") {
           x.stato = "Carica/Scarica PDF"
-          link = "onclick=\"operatePDF(" + x.id + ");\"";
+          link = "data-idtirocinio = \"" + x.id + "\""
+              + " data-toggle='modal' "
+              + " data-target='#caricaScaricaPDFModal'";
+        }
+        if (x.motivazioni == null) {
+          x.motivazioni = "Non disponibili.";
         }
         let riga = "<td>" + x.studente.matricola + "</td>"
             + "<td>" + x.azienda.nome + "</td>"
-            + "<td><span class='addbadge badge' " + link + ">" + x.stato + "</span></td>"
+            + "<td><span class='addbadge badge' " + link + " >"
+            + x.stato + "</span></td>"
             + "<td>" + x.motivazioni + "</td>";
         $("#richiesteTirocinioStudente > tbody:last-child").append("<tr>" + riga + "</tr>");
         restyleBadge();
