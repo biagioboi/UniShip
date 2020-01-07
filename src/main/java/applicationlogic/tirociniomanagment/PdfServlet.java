@@ -161,7 +161,7 @@ public class PdfServlet extends HttpServlet {
       path += "/" + fileName;
 
       InputStream fileContent = filePart.getInputStream();
-      Files.copy(fileContent,Paths.get(path));
+      Files.copy(fileContent, Paths.get(path));
 
       return true;
 
@@ -423,7 +423,7 @@ public class PdfServlet extends HttpServlet {
       tirocinio.setStato(Tirocinio.DA_VALUTARE);
       tirocinio.setPath(path);
       tirocinio.setOreSvolte(0);
-      tirocinio.setOreTotali(25*60);
+      tirocinio.setOreTotali(25 * 60);
       tirocinio.setTurorEsterno(azienda.getRappresentante());
 
       TirocinioInterface tirocinioDao = new TirocinioDao();
