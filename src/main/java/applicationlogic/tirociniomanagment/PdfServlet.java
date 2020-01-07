@@ -17,6 +17,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.sql.Time;
+
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
@@ -420,8 +422,8 @@ public class PdfServlet extends HttpServlet {
       tirocinio.setAzienda(azienda);
       tirocinio.setStato(Tirocinio.DA_VALUTARE);
       tirocinio.setPath(path);
-      tirocinio.setOreSvolte(new Time(0));
-      tirocinio.setOreTotali(new Time(3600000 * 25 * Integer.parseInt(numeroCfu)));
+      tirocinio.setOreSvolte(null);
+      tirocinio.setOreTotali(new Timestamp(3600000L * 25 * Integer.parseInt(numeroCfu)));
       tirocinio.setTurorEsterno(azienda.getRappresentante());
 
       TirocinioInterface tirocinioDao = new TirocinioDao();

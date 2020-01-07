@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,7 +70,6 @@ public class RegistroServlet extends HttpServlet {
           out.println(obj.toJson(result));
 
         } else if (action.equals("viewRegister")) {
-
           out.println(obj.toJson(viewRegister(request, response)));
 
         }
@@ -93,7 +93,7 @@ public class RegistroServlet extends HttpServlet {
     TirocinioInterface tirocinioDao = new TirocinioDao();
 
     String tirocinioId = request.getParameter("tirocinio");
-    if (tirocinioId == null) {
+    if (tirocinioId == null || tirocinioId.equals("")) {
       throw new IllegalArgumentException("Tirocinio non valido");
     }
     try {
@@ -139,7 +139,7 @@ public class RegistroServlet extends HttpServlet {
       Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(tirocinioId));
       AttivitaRegistro attivita = new AttivitaRegistro();
       attivita.setTirocinio(tirocinio);
-      attivita.setOreSvolte(Time.valueOf(ore));
+      attivita.setOreSvolte(Timestamp.valueOf(ore));
       attivita.setData(Date.valueOf(data));
       attivita.setAttivita(descrizione);
 

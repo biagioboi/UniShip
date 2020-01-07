@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import storage.DatabaseManager;
 import storage.beans.Azienda;
@@ -36,9 +39,9 @@ public class TirocinioDao implements TirocinioInterface {
     try {
       connection = DatabaseManager.getConnection();
       preparedStatement = connection.prepareStatement(CHANGE);
-      preparedStatement.setTime(1, tirocinio.getOreTotali());
+      preparedStatement.setTimestamp(1, tirocinio.getOreTotali());
       preparedStatement.setString(2, tirocinio.getTurorEsterno());
-      preparedStatement.setTime(3, tirocinio.getOreSvolte());
+      preparedStatement.setTimestamp(3, tirocinio.getOreSvolte());
       preparedStatement.setString(4, tirocinio.getPath());
       preparedStatement.setString(5, tirocinio.getStato());
       preparedStatement.setString(6, tirocinio.getAzienda().getEmail());
@@ -92,9 +95,9 @@ public class TirocinioDao implements TirocinioInterface {
 
         Tirocinio tirocinio = new Tirocinio();
         tirocinio.setId(rs.getInt("id"));
-        tirocinio.setOreTotali(rs.getTime("ore_totali"));
+        tirocinio.setOreTotali(rs.getTimestamp("ore_totali"));
         tirocinio.setTurorEsterno(rs.getString("tutor_esterno"));
-        tirocinio.setOreSvolte(rs.getTime("ore_svolte"));
+        tirocinio.setOreSvolte(rs.getTimestamp("ore_svolte"));
         tirocinio.setPath(rs.getString("path"));
         tirocinio.setStato(rs.getString("stato"));
         tirocinio.setMotivazioni(rs.getString("motivazioni"));
@@ -149,9 +152,9 @@ public class TirocinioDao implements TirocinioInterface {
 
         Tirocinio tirocinio = new Tirocinio();
         tirocinio.setId(rs.getInt("id"));
-        tirocinio.setOreTotali(rs.getTime("ore_totali"));
+        tirocinio.setOreTotali(rs.getTimestamp("ore_totali"));
         tirocinio.setTurorEsterno(rs.getString("tutor_esterno"));
-        tirocinio.setOreSvolte(rs.getTime("ore_svolte"));
+        tirocinio.setOreSvolte(rs.getTimestamp("ore_svolte"));
         tirocinio.setPath(rs.getString("path"));
         tirocinio.setStato(rs.getString("stato"));
         tirocinio.setMotivazioni(rs.getString("motivazioni"));
@@ -203,9 +206,9 @@ public class TirocinioDao implements TirocinioInterface {
         return null;
       } else {
         tirocinio.setId(rs.getInt("id"));
-        tirocinio.setOreTotali(rs.getTime("ore_totali"));
+        tirocinio.setOreTotali(rs.getTimestamp("ore_totali"));
         tirocinio.setTurorEsterno(rs.getString("tutor_esterno"));
-        tirocinio.setOreSvolte(rs.getTime("ore_svolte"));
+        tirocinio.setOreSvolte(rs.getTimestamp("ore_svolte"));
         tirocinio.setPath(rs.getString("path"));
         tirocinio.setStato(rs.getString("stato"));
         tirocinio.setMotivazioni(rs.getString("motivazioni"));
@@ -247,10 +250,11 @@ public class TirocinioDao implements TirocinioInterface {
 
     try {
       connection = DatabaseManager.getConnection();
+      SimpleDateFormat df = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
       preparedStatement = connection.prepareStatement(SAVE);
-      preparedStatement.setTime(1, tirocinio.getOreTotali());
+      preparedStatement.setTimestamp(1, tirocinio.getOreTotali());
       preparedStatement.setString(2, tirocinio.getTurorEsterno());
-      preparedStatement.setTime(3, tirocinio.getOreSvolte());
+      preparedStatement.setTimestamp(3, tirocinio.getOreSvolte());
       preparedStatement.setString(4, tirocinio.getPath());
       preparedStatement.setString(5, tirocinio.getStato());
       preparedStatement.setString(6, tirocinio.getAzienda().getEmail());
@@ -295,9 +299,9 @@ public class TirocinioDao implements TirocinioInterface {
       while (rs.next()) {
         Tirocinio tirocinio = new Tirocinio();
         tirocinio.setId(rs.getInt("id"));
-        tirocinio.setOreTotali(rs.getTime("ore_totali"));
+        tirocinio.setOreTotali(rs.getTimestamp("ore_totali"));
         tirocinio.setTurorEsterno(rs.getString("tutor_esterno"));
-        tirocinio.setOreSvolte(rs.getTime("ore_svolte"));
+        tirocinio.setOreSvolte(rs.getTimestamp("ore_svolte"));
         tirocinio.setPath(rs.getString("path"));
         tirocinio.setStato(rs.getString("stato"));
         tirocinio.setMotivazioni(rs.getString("motivazioni"));

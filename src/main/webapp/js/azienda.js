@@ -2,6 +2,9 @@ $(() => {
 
   caricaRichieste();
 
+  caricaStudenti();
+
+
   $('#rispondiDisponibilitaModal').on('show.bs.modal', (e) => {
     var matricola = $(e.relatedTarget).data('matricolastudente');
     var nome = $(e.relatedTarget).data('nomestudente');
@@ -16,6 +19,24 @@ $(() => {
     var email = $(e.relatedTarget).data('emailstudente');
     $("#nomeStudenteProgettoF").html(nome + " - " + matricola);
     $("#compilaProgettoFormativoModal").attr("emailtarget", email);
+  });
+
+  $('#aggiungiOreModal').on('show.bs.modal', (e) => {
+    var id = $(e.relatedTarget).data('idtirocinio');
+    $.ajax({
+      url: 'RegistroServlet',
+      type: 'POST',
+      data: {
+        action: 'viewRegister',
+        tirocinio: id
+      },
+      success: (response) => {
+        alert(JSON.stringify(response));
+        response.forEach((e) => {
+          alert(new Date().valueOf(e.tirocinio.oreTotali));
+        })
+      }
+    });
   });
 
   $("#btnInviaProgettoF").click(() => {
@@ -54,8 +75,10 @@ $(() => {
         $("#compilaProgettoFormativoModal").modal('toggle');
 
         if (response.status == 200) {
+          $("#richiesta" + emailStudente).remove();
           $("#messaggioSuccessoBody").html(response.description);
           $("#messaggioSuccesso").toast('show');
+
         } else {
           $("#messaggioErroreBody").html(response.description);
           $("#messaggioErrore").toast('show');
@@ -109,7 +132,7 @@ function caricaRichieste() {
                 "</td>";
           }
           $("#tableRichiesteDisponibilita > tbody:last-child")
-          .append("<tr>" + riga + "</tr>");
+          .append("<tr id='richiesta" + studente.email + "'>" + riga + "</tr>");
         }
       });
       if (!exist) {
@@ -150,3 +173,32 @@ function rispondiRichiesta(how) {
     }
   });
 }
+
+function caricaStudenti() {
+  $.ajax({
+    url: 'TirocinioServlet',
+    type: 'POST',
+    data: {
+      action: 'viewInternship'
+    },
+    success: (response) => {
+      let exist = false;
+      response.forEach((e) => {
+        let studente = e.studente;
+        let riga = "<td>" + studente.matricola + "</td>"
+            + "<td>" + studente.nome + "</td>"
+            + "<td>" + studente.cognome + "</td>"
+            + "<td>" + studente.codiceFiscale + "</td>"
+            + "<td class='text-center'>"
+            + " <button class=\"btn btn-success\" data-toggle=\"modal\" "
+            + "         data-idtirocinio=\"" + e.id + "\" "
+            + "         data-target=\"#aggiungiOreModal\"> "
+            + "         Aggiungi ore "
+            + "</button>"
+            + "</td>";
+        $("#tableStudentiTirocinio").append("<tr>" + riga + "</tr>");
+      })
+    }
+  });
+}
+

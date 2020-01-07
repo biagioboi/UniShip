@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -59,7 +60,8 @@ public class TirocinioServlet extends HttpServlet {
             out.println(obj.toJson(result));
           }
         } else if (action.equals("viewInternship")) {
-          viewInternship(request, response);
+          List<Tirocinio> tirocini = viewInternship(request, response);
+          out.println(obj.toJson(tirocini));
         } else if (action.equals("changeState")) {
           changeState(request, response);
         } else if (action.equals("viewInternshipByFilter")) {

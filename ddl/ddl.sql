@@ -41,9 +41,9 @@ CREATE TABLE azienda(
 
 CREATE TABLE tirocinio(
     id int primary key AUTO_INCREMENT,
-    ore_totali time NOT NULL, # modificato da date a time in quanto tiene traccia solo delle ore
+    ore_totali timestamp NOT NULL, # modificato da date a time in quanto tiene traccia solo delle ore
     tutor_esterno varchar(50) NOT NULL,
-    ore_svolte time NOT NULL, # modificato da date a time in quanto tiene traccia solo delle ore
+    ore_svolte timestamp, # modificato da date a time in quanto tiene traccia solo delle ore
     path varchar(100),
     motivazioni varchar(100),
     stato enum(
@@ -85,7 +85,7 @@ create table attivitaregistro(
     tirocinio int,
     data date NOT NULL,
     attivita varchar(50) NOT NULL,
-    ore_svolte time NOT NULL,
+    ore_svolte timestamp NOT NULL,
     primary key(id,tirocinio),
     foreign key (tirocinio) references tirocinio(id)
         ON DELETE cascade

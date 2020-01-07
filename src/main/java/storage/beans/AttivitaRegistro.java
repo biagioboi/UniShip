@@ -2,6 +2,7 @@ package storage.beans;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 public class AttivitaRegistro {
 
@@ -18,7 +19,7 @@ public class AttivitaRegistro {
    * @param oreSvolte il numero di ore svolte
    */
   public AttivitaRegistro(int id, Tirocinio tirocinio, Date data, String attivita,
-      Time oreSvolte) {
+      Timestamp oreSvolte) {
     this.id = id;
     this.tirocinio = tirocinio;
     this.data = data;
@@ -58,11 +59,11 @@ public class AttivitaRegistro {
     this.attivita = attivita;
   }
 
-  public Time getOreSvolte() {
+  public Timestamp getOreSvolte() {
     return oreSvolte;
   }
 
-  public void setOreSvolte(Time oreSvolte) {
+  public void setOreSvolte(Timestamp oreSvolte) {
     this.oreSvolte = oreSvolte;
   }
 
@@ -70,6 +71,6 @@ public class AttivitaRegistro {
   private Tirocinio tirocinio;
   private Date data;
   private String attivita;
-  private Time oreSvolte;
+  private Timestamp oreSvolte;
 
 }

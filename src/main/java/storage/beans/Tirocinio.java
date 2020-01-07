@@ -1,6 +1,7 @@
 package storage.beans;
 
 import java.sql.Time;
+import java.sql.Timestamp;
 
 /*CAMBIAMENTO: INSERITE STRINGHE FINAL PER LO STATO*/
 
@@ -20,7 +21,7 @@ public class Tirocinio {
    * @param path la path del PDF del Progetto Formativo
    * @param motivazioni le motivazioni di una eventuale rifiuta
    */
-  public Tirocinio(int id, String stato, Time oreTotali, String turorEsterno, Time oreSvolte,
+  public Tirocinio(int id, String stato, Timestamp oreTotali, String turorEsterno, Timestamp oreSvolte,
       String path, Studente studente, Azienda azienda, String motivazioni) {
     this.id = id;
     this.stato = stato;
@@ -49,11 +50,11 @@ public class Tirocinio {
     this.stato = stato;
   }
 
-  public Time getOreTotali() {
+  public Timestamp getOreTotali() {
     return oreTotali;
   }
 
-  public void setOreTotali(Time oreTotali) {
+  public void setOreTotali(Timestamp oreTotali) {
     this.oreTotali = oreTotali;
   }
 
@@ -65,11 +66,11 @@ public class Tirocinio {
     this.turorEsterno = turorEsterno;
   }
 
-  public Time getOreSvolte() {
+  public Timestamp getOreSvolte() {
     return oreSvolte;
   }
 
-  public void setOreSvolte(Time oreSvolte) {
+  public void setOreSvolte(Timestamp oreSvolte) {
     this.oreSvolte = oreSvolte;
   }
 
@@ -107,9 +108,9 @@ public class Tirocinio {
 
   private int id;
   private String stato;
-  private Time oreTotali;
+  private Timestamp oreTotali;
   private String turorEsterno;
-  private Time oreSvolte;
+  private Timestamp oreSvolte;
   private String motivazioni;
   private String path;
   private Studente studente;

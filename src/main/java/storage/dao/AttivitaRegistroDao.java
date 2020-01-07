@@ -37,6 +37,8 @@ public class AttivitaRegistroDao implements AttivitaRegistroInterface {
       preparedStatement = connection.prepareStatement(RETRIVE_BY_TIROCINIO);
       preparedStatement.setInt(1, tirocinio.getId());
 
+      list = new ArrayList<>();
+
       ResultSet rs = preparedStatement.executeQuery();
 
       while (rs.next()) {
@@ -44,7 +46,7 @@ public class AttivitaRegistroDao implements AttivitaRegistroInterface {
         bean.setId(rs.getInt("id"));
         bean.setAttivita(rs.getString("attivita"));
         bean.setData(rs.getDate("data"));
-        bean.setOreSvolte(rs.getTime("ore_svolte"));
+        bean.setOreSvolte(rs.getTimestamp("ore_svolte"));
         bean.setTirocinio(tirocinio);
 
         list.add(bean);
@@ -92,7 +94,7 @@ public class AttivitaRegistroDao implements AttivitaRegistroInterface {
       preparedStatement.setInt(1, attivita.getTirocinio().getId());
       preparedStatement.setDate(2, attivita.getData());
       preparedStatement.setString(3, attivita.getAttivita());
-      preparedStatement.setTime(4, attivita.getOreSvolte());
+      preparedStatement.setTimestamp(4, attivita.getOreSvolte());
 
       rs = preparedStatement.executeUpdate();
 
@@ -116,6 +118,6 @@ public class AttivitaRegistroDao implements AttivitaRegistroInterface {
       "INSERT INTO attivitaregistro (tirocinio, data, attivita, ore_svolte) VALUES (?, ?, ?, ?)";
 
   public static final String RETRIVE_BY_TIROCINIO =
-      "SELECT * FROM attivita_registro WHERE tirocinio = ?";
+      "SELECT * FROM attivitaregistro WHERE tirocinio = ?";
 
 }
