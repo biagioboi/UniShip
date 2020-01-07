@@ -85,7 +85,7 @@ create table attivitaregistro(
     tirocinio int,
     data date NOT NULL,
     attivita varchar(50) NOT NULL,
-    ore_svolte timestamp NOT NULL,
+    ore_svolte long NOT NULL,
     primary key(id,tirocinio),
     foreign key (tirocinio) references tirocinio(id)
         ON DELETE cascade

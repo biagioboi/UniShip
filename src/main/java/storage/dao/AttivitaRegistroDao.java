@@ -46,7 +46,7 @@ public class AttivitaRegistroDao implements AttivitaRegistroInterface {
         bean.setId(rs.getInt("id"));
         bean.setAttivita(rs.getString("attivita"));
         bean.setData(rs.getDate("data"));
-        bean.setOreSvolte(rs.getTimestamp("ore_svolte"));
+        bean.setOreSvolte(rs.getDouble("ore_svolte"));
         bean.setTirocinio(tirocinio);
 
         list.add(bean);
@@ -94,7 +94,7 @@ public class AttivitaRegistroDao implements AttivitaRegistroInterface {
       preparedStatement.setInt(1, attivita.getTirocinio().getId());
       preparedStatement.setDate(2, attivita.getData());
       preparedStatement.setString(3, attivita.getAttivita());
-      preparedStatement.setTimestamp(4, attivita.getOreSvolte());
+      preparedStatement.setDouble(4, attivita.getOreSvolte());
 
       rs = preparedStatement.executeUpdate();
 

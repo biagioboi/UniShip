@@ -5,11 +5,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.util.Duration;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,12 +19,8 @@ import storage.beans.AttivitaRegistro;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
 import storage.dao.AttivitaRegistroDao;
-import storage.dao.AziendaDao;
-import storage.dao.StudenteDao;
 import storage.dao.TirocinioDao;
 import storage.interfaces.AttivitaRegistroInterface;
-import storage.interfaces.AziendaInterface;
-import storage.interfaces.StudenteInterface;
 import storage.interfaces.TirocinioInterface;
 
 @WebServlet("/RegistroServlet")
@@ -139,7 +134,10 @@ public class RegistroServlet extends HttpServlet {
       Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(tirocinioId));
       AttivitaRegistro attivita = new AttivitaRegistro();
       attivita.setTirocinio(tirocinio);
-      attivita.setOreSvolte(Timestamp.valueOf(ore));
+
+      Duration dur = Duration.valueOf(ore);
+      attivita.setOreSvolte(dur.toMinutes());
+
       attivita.setData(Date.valueOf(data));
       attivita.setAttivita(descrizione);
 

@@ -19,7 +19,7 @@ public class AttivitaRegistro {
    * @param oreSvolte il numero di ore svolte
    */
   public AttivitaRegistro(int id, Tirocinio tirocinio, Date data, String attivita,
-      Timestamp oreSvolte) {
+      double oreSvolte) {
     this.id = id;
     this.tirocinio = tirocinio;
     this.data = data;
@@ -59,11 +59,11 @@ public class AttivitaRegistro {
     this.attivita = attivita;
   }
 
-  public Timestamp getOreSvolte() {
+  public double getOreSvolte() {
     return oreSvolte;
   }
 
-  public void setOreSvolte(Timestamp oreSvolte) {
+  public void setOreSvolte(double oreSvolte) {
     this.oreSvolte = oreSvolte;
   }
 
@@ -71,6 +71,6 @@ public class AttivitaRegistro {
   private Tirocinio tirocinio;
   private Date data;
   private String attivita;
-  private Timestamp oreSvolte;
+  private double oreSvolte;
 
 }

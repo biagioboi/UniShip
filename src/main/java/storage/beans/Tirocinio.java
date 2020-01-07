@@ -21,8 +21,8 @@ public class Tirocinio {
    * @param path la path del PDF del Progetto Formativo
    * @param motivazioni le motivazioni di una eventuale rifiuta
    */
-  public Tirocinio(int id, String stato, Timestamp oreTotali, String turorEsterno, Timestamp oreSvolte,
-      String path, Studente studente, Azienda azienda, String motivazioni) {
+  public Tirocinio(int id, String stato, double oreTotali, String turorEsterno,
+      double oreSvolte, String path, Studente studente, Azienda azienda, String motivazioni) {
     this.id = id;
     this.stato = stato;
     this.oreTotali = oreTotali;
@@ -50,11 +50,11 @@ public class Tirocinio {
     this.stato = stato;
   }
 
-  public Timestamp getOreTotali() {
+  public double getOreTotali() {
     return oreTotali;
   }
 
-  public void setOreTotali(Timestamp oreTotali) {
+  public void setOreTotali(double oreTotali) {
     this.oreTotali = oreTotali;
   }
 
@@ -66,11 +66,11 @@ public class Tirocinio {
     this.turorEsterno = turorEsterno;
   }
 
-  public Timestamp getOreSvolte() {
+  public double getOreSvolte() {
     return oreSvolte;
   }
 
-  public void setOreSvolte(Timestamp oreSvolte) {
+  public void setOreSvolte(double oreSvolte) {
     this.oreSvolte = oreSvolte;
   }
 
@@ -108,9 +108,9 @@ public class Tirocinio {
 
   private int id;
   private String stato;
-  private Timestamp oreTotali;
+  private double oreTotali;
   private String turorEsterno;
-  private Timestamp oreSvolte;
+  private double oreSvolte;
   private String motivazioni;
   private String path;
   private Studente studente;

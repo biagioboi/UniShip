@@ -33,11 +33,20 @@ $(() => {
       success: (response) => {
         alert(JSON.stringify(response));
         response.forEach((e) => {
-          alert(new Date().valueOf(e.tirocinio.oreTotali));
+          console.log(timeConvert(e.tirocinio.oreTotali));
         })
       }
     });
   });
+
+  function timeConvert(n) {
+    let num = n;
+    let hours = (num / 60);
+    let rhours = Math.floor(hours);
+    let minutes = (hours - rhours) * 60;
+    let rminutes = Math.round(minutes);
+    return rhours + rminutes;
+  }
 
   $("#btnInviaProgettoF").click(() => {
     let emailStudente = $("#compilaProgettoFormativoModal").attr("emailtarget");
