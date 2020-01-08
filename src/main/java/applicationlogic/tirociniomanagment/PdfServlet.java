@@ -1,6 +1,7 @@
 package applicationlogic.tirociniomanagment;
 
 import com.google.gson.Gson;
+import com.itextpdf.io.util.FileUtil;
 import com.itextpdf.text.DocumentException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -16,15 +17,9 @@ import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.sql.Time;
-
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Collection;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -54,6 +49,8 @@ import storage.interfaces.RichiestaDisponibilitaInterface;
 import storage.interfaces.StudenteInterface;
 import storage.interfaces.TirocinioInterface;
 import storage.interfaces.UtenteInterface;
+import sun.misc.IOUtils;
+import sun.nio.ch.IOUtil;
 
 //todo : da cambiare il nome sulla documetazione in createPdf aggiungere i metodi e costante
 @WebServlet("/PdfServlet")
@@ -166,7 +163,11 @@ public class PdfServlet extends HttpServlet {
       path += "/" + fileName;
 
       InputStream fileContent = filePart.getInputStream();
-      Files.copy(fileContent, Paths.get(path));
+      byte[] buffer = new byte[fileContent.available()];
+      fileContent.read(buffer);
+
+      OutputStream outStream = new FileOutputStream(path);
+      outStream.write(buffer);
 
       return true;
 
