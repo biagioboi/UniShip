@@ -28,19 +28,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <a style="cursor: pointer;" id="linkPDF" href="post.php">Scarica PDF</a>
+                    <a style="cursor: pointer;" id="linkPDF" href="">Scarica PDF</a>
+                    <div class="form-row">
+                        <form id="formUploadPDF">
+                            <input type="file" class="custom-file-input" id="file" aria-describedby="file" name="fileUpload">
+                            <label class="custom-file-label" for="file">Scegli...</label>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="motivazioni" class="col-form-label">Motivazioni:</label>
-                        <textarea class="form-control" id="motivazioni" required></textarea>
-                    </div>
-                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" onclick="rispondiRichiesta('Rifiutata');">Rifiuta</button>
-                <button type="button" class="btn btn-success" onclick="rispondiRichiesta('Accettata');">Accetta</button>
+                <button type="button" class="btn btn-success" onclick="caricaAllegato();">Accetta</button>
             </div>
         </div>
     </div>

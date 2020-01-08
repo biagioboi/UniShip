@@ -103,7 +103,7 @@ function chargeTableTirocini(){
       response.forEach((x) => {
         let link = "";
         if (x.stato == "Da Valutare") {
-          x.stato = "Carica/Scarica PDF"
+          x.stato = "Carica/Scarica PDF";
           link = "data-idtirocinio = \"" + x.id + "\""
               + " data-toggle='modal' "
               + " data-target='#caricaScaricaPDFModal'";
@@ -123,6 +123,17 @@ function chargeTableTirocini(){
   });
 }
 
-function operatePDF(what) {
-
+function caricaAllegato(){
+  let tirocinio = $("#caricaScaricaPDFModal").attr("idtirocinio");
+  let form = new FormData(document.getElementById("formUploadPDF"));
+  $.ajax({
+    url: 'PdfServlet',
+    type: 'POST',
+    enctype: 'multipart/form-data',
+    processData: false,
+    contentType: false,
+    data: form,
+    success: (response) => {
+    }
+  });
 }

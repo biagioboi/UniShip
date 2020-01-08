@@ -21,10 +21,12 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +55,7 @@ import storage.interfaces.UtenteInterface;
 
 //todo : da cambiare il nome sulla documetazione in createPdf aggiungere i metodi e costante
 @WebServlet("/PdfServlet")
+@MultipartConfig
 public class PdfServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
