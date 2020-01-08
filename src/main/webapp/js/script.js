@@ -1,27 +1,5 @@
 $(function () {
 
-  $(".progress").each(function () {
-
-    var value = $(this).attr('data-value');
-    var left = $(this).find('.progress-left .progress-bar');
-    var right = $(this).find('.progress-right .progress-bar');
-
-    if (value > 0) {
-      right.css("transition", "all linear 2s");
-      if (value <= 50) {
-        right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
-      } else {
-        right.css('transform', 'rotate(180deg)');
-        left.css('transform',
-            'rotate(' + percentageToDegrees(value - 50) + 'deg)');
-        left.css("transition", "all linear 1s");
-        left.css("transition-delay", " 2s");
-      }
-
-    }
-
-  });
-
 
   //toggle sidebar
   $("#toggle-sidebar").click(function () {
@@ -118,4 +96,29 @@ function timeConvert(n) {
   let minutes = (hours - rhours) * 60;
   let rminutes = Math.round(minutes);
   return rhours +":"+ rminutes;
+}
+
+function updateValueSpinner() {
+  $(".progress").each(function () {
+
+    var value = $(this).attr('data-value');
+    var left = $(this).find('.progress-left .progress-bar');
+    var right = $(this).find('.progress-right .progress-bar');
+    $("#percentoTotale").html(value);
+
+    if (value > 0) {
+      right.css("transition", "all linear 2s");
+      if (value <= 50) {
+        right.css('transform', 'rotate(' + percentageToDegrees(value) + 'deg)')
+      } else {
+        right.css('transform', 'rotate(180deg)');
+        left.css('transform',
+            'rotate(' + percentageToDegrees(value - 50) + 'deg)');
+        left.css("transition", "all linear 1s");
+        left.css("transition-delay", " 2s");
+      }
+
+    }
+
+  });
 }

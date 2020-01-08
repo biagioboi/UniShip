@@ -47,10 +47,11 @@ String tipo = (String) session.getAttribute("tipo");
 
     </div>
 
+    <% if (tipo.equals("studente")) { %>
     <div id="progress-cicle" class="bg-white rounded-lg p-5 shadow m-3">
       <h2 class="h6 font-weight-bold text-center mb-4">Total overdue</h2>
       <!-- Progress bar 4 -->
-      <div class="progress mx-auto" data-value='100'>
+      <div class="progress mx-auto" data-value='0' id="percentoOreSvolte">
                 <span class="progress-left">
                       <span class="progress-bar border-warning"></span>
                 </span>
@@ -60,24 +61,24 @@ String tipo = (String) session.getAttribute("tipo");
 
         <div
             class="progress-value w-100 h-100 rounded-circle d-flex align-items-center justify-content-center">
-          <div class="h2 font-weight-bold">12<sup class="small">%</sup></div>
+          <div class="h2 font-weight-bold"><span id="percentoTotale">0</span><sup class="small">%</sup></div>
         </div>
       </div>
-      <!-- END -->
 
       <!-- Demo info -->
       <div class="row text-center mt-4">
         <div class="col-6 border-right">
-          <div class="h4 font-weight-bold mb-0">28%</div>
-          <span class="small text-gray">Last week</span>
+          <div class="h4 font-weight-bold mb-0" id="oreFatte">0</div>
+          <span class="small text-gray">Ore svolte</span>
         </div>
         <div class="col-6">
-          <div class="h4 font-weight-bold mb-0">60%</div>
-          <span class="small text-gray">Last month</span>
+          <div class="h4 font-weight-bold mb-0" id="oreTotali">0</div>
+          <span class="small text-gray">Ore totali</span>
         </div>
       </div>
       <!-- END -->
     </div>
+    <% } %>
 
     <div class="card info-card rounded-lg m-3 p-2">
 

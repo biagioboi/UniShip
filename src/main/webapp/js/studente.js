@@ -86,6 +86,13 @@ function checkIfExistTirocinio() {
     },
     success: (response) => {
       response.forEach((x) => {
+        let oreTotali = x.oreTotali;
+        let oreSvolte = x.oreSvolte;
+        let percentage = parseInt(oreSvolte / oreTotali * 100);
+        $("#percentoOreSvolte").attr("data-value", percentage);
+        updateValueSpinner();
+        $("#oreFatte").html(timeConvert(oreSvolte));
+        $("#oreTotali").html(timeConvert(oreTotali));
         let email = x.azienda.email;
         $(".btn-open-req[data-email='" + email + "']")
         .parent()
