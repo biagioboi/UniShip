@@ -33,8 +33,8 @@
                         <thead>
                         <tr>
                             <th>Data</th>
-                            <th>ore svolte</th>
-                            <th>attivita</th>
+                            <th>Ore svolte</th>
+                            <th>Attivit&agrave;</th>
                         </tr>
                         </thead>
                         <tbody>
