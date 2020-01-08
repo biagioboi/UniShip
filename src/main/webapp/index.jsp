@@ -159,6 +159,16 @@ String tipo = (String) session.getAttribute("tipo");
               &nbsp;Tirocinanti
             </a>
           </li>
+          <% } else if (tipo.equals("ufficio_carriere")) { %>
+          <li class="nav-item">
+            <a id="pills-view-richiesteufficio" class="nav-link active" data-toggle="pill"
+               href="#pills-richiesteufficio"
+               role="tab" aria-controls="pills-richiesteufficio" aria-selected="true">
+              <i class="fas fa-tasks"></i>
+              &nbsp;Richieste
+            </a>
+          </li>
+
           <% } %>
 
           <li class="nav-item">
@@ -192,6 +202,8 @@ String tipo = (String) session.getAttribute("tipo");
           <% } else if (tipo.equals("azienda")) {%>
           <%@ include file="GUIAzienda/viewRequestsAvailability.jsp" %>
           <%@ include file="GUIAzienda/viewRegister.jsp" %>
+          <% } else if (tipo.equals("ufficio_carriere")) {%>
+          <%@ include file="GUICarrierOffice/viewRequestProgettoF.jsp" %>
           <% } %>
 
           <div class="tab-pane fade" id="pills-tirocini" role="tabpanel"
@@ -347,6 +359,8 @@ String tipo = (String) session.getAttribute("tipo");
 <script src="js/studente.js"></script>
 <% } else if (tipo.equals("azienda")) { %>
 <script src="js/azienda.js"></script>
+<% } else if (tipo.equals("ufficio_carriere")) { %>
+<script src="js/ufficio.js"></script>
 <% } %>
 
 </body>

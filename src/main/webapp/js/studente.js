@@ -1,5 +1,5 @@
 $(() => {
-  chargeTableAziendeContent();
+  chargeTableAziendeContent(checkIfExistTirocinio);
 
   $('#richiediDisponibilitaModal').on('show.bs.modal', (e) => {
     var email = $(e.relatedTarget).data('email');
@@ -33,7 +33,6 @@ $(() => {
     });
   });
 
-  checkIfExistTirocinio();
 
   chargeTableTirocini();
 
@@ -45,7 +44,7 @@ $(() => {
   });
 });
 
-function chargeTableAziendeContent() {
+function chargeTableAziendeContent(callback) {
   $.ajax({
     url: 'HandleUserServlet',
     type: 'POST',
@@ -59,7 +58,7 @@ function chargeTableAziendeContent() {
         let riga = "<td>" + azienda.nome + "</td>" +
             "<td>" + azienda.partitaIva + "</td>" +
             "<td>" + azienda.indirizzo + "</td>" +
-            "<td>" + azienda.numeroDipendenti + "</td>"
+            "<td>" + azienda.numeroDipendenti + "</td>";
         if (richiesta == null) {
           riga += "<td class='text-center'>" +
               "<button  class='btn btn-success btn-open-req' data-toggle=\"modal\" "
@@ -71,6 +70,8 @@ function chargeTableAziendeContent() {
         $("#tableAziendePresenti > tbody:last-child")
         .append("<tr>" + riga + "</tr>");
       });
+      callback();
+
 
     }
   });
@@ -91,11 +92,13 @@ function checkIfExistTirocinio() {
         .parent()
         .remove();
       });
+      $("#tableAziendePresenti").fadeIn();
     }
   });
 }
 
 function chargeTableTirocini() {
+  $("#richiesteTirocinioStudente > tbody:last-child").html("");
   $.ajax({
     url: 'TirocinioServlet',
     type: 'POST',
@@ -105,7 +108,7 @@ function chargeTableTirocini() {
     success: (response) => {
       response.forEach((x) => {
         let link = "";
-        if (x.stato == "Da Valutare") {
+        if (x.stato == "Non completo") {
           x.stato = "Carica/Scarica PDF";
           link = "data-idtirocinio = \"" + x.id + "\""
               + " data-toggle='modal' "
@@ -138,6 +141,15 @@ function caricaAllegato() {
     contentType: false,
     data: form,
     success: (response) => {
+      if (response.status == 200) {
+        $("#messaggioSuccessoBody").html(response.description);
+        $("#messaggioSuccesso").toast('show');
+        $("#caricaScaricaPDFModal").modal('toggle');
+        chargeTableTirocini();
+      } else {
+        $("#messaggioErroreBody").html(response.description);
+        $("#messaggioErrore").toast('show');
+      }
     }
   });
 }

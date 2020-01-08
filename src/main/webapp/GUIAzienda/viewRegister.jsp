@@ -1,7 +1,7 @@
 <div class="tab-pane fade" id="pills-tirocinanti" role="tabpanel"
      aria-labelledby="pills-view-aziende">
     <div class="table-responsive font-size-sm">
-        <table id="tableStudentiTirocinio" class="table table-hover mb-0 ">
+        <table id="tableStudentiTirocinio" class="table table-hover mb-0" style="display: none;">
             <thead>
             <tr>
                 <th>Matricola</th>
@@ -29,7 +29,7 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive font-size-sm">
-                    <table id="tableOreSvolte" class="table table-hover mb-0 min-size-td">
+                    <table id="tableOreSvolte" class="table table-hover mb-0 min-size-td" style="display: none;">
                         <thead>
                         <tr>
                             <th>Data</th>

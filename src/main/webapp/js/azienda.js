@@ -47,6 +47,12 @@ $(() => {
               + "<td>" + attivita + "</td>";
           $("#tableOreSvolte > tbody:last-child").append("<tr>" + riga + "</tr>");
         });
+        if (!exist) {
+          $("#tableOreSvolte")
+          .html("<tr><td style='text-align: center;' class='mt-2'>" +
+              "Non sono presenti attivit&agrave;.</td></tr>");
+        }
+        $("#tableOreSvolte").fadeIn();
       }
     });
   });
@@ -240,22 +246,33 @@ function caricaStudenti() {
     success: (response) => {
       let exist = false;
       response.forEach((e) => {
-        let studente = e.studente;
-        let riga = "<td>" + studente.matricola + "</td>"
-            + "<td>" + studente.nome + "</td>"
-            + "<td>" + studente.cognome + "</td>"
-            + "<td>" + studente.codiceFiscale + "</td>"
-            + "<td class='text-center'>"
-            + " <button class=\"btn btn-success\" data-toggle=\"modal\" "
-            + "         data-nomestudente = \""
-            +  studente.nome + " " + studente.cognome + "\" "
-            + "         data-matricolastudente = \"" + studente.matricola + "\" "
-            + "         data-idtirocinio=\"" + e.id + "\" "
-            + "         data-target=\"#aggiungiOreModal\"> "
-            + "         Aggiungi ore "
-            + "</button>"
-            + "</td>";
-        $("#tableStudentiTirocinio > tbody:last-child").append("<tr>" + riga + "</tr>");
+        if (e.stato == "Accettato") {
+          exist = true;
+          let studente = e.studente;
+          let riga = "<td>" + studente.matricola + "</td>"
+              + "<td>" + studente.nome + "</td>"
+              + "<td>" + studente.cognome + "</td>"
+              + "<td>" + studente.codiceFiscale + "</td>"
+              + "<td class='text-center'>"
+              + " <button class=\"btn btn-success\" data-toggle=\"modal\" "
+              + "         data-nomestudente = \""
+              + studente.nome + " " + studente.cognome + "\" "
+              + "         data-matricolastudente = \"" + studente.matricola
+              + "\" "
+              + "         data-idtirocinio=\"" + e.id + "\" "
+              + "         data-target=\"#aggiungiOreModal\"> "
+              + "         Aggiungi ore "
+              + "</button>"
+              + "</td>";
+          $("#tableStudentiTirocinio > tbody:last-child").append(
+              "<tr>" + riga + "</tr>");
+        }
+        if (!exist) {
+          $("#tableStudentiTirocinio")
+          .html("<tr><td style='text-align: center;' class='mt-2'>" +
+              "Non sono presenti studenti.</td></tr>");
+        }
+        $("#tableStudentiTirocinio").fadeIn();
       })
     }
   });

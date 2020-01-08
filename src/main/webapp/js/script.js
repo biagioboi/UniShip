@@ -35,8 +35,6 @@ $(function () {
     $("#toggle-sidebar").toggleClass("toggled");
   });
 
-  /*disabilito perchè volevo provare il toast della registrazione fallita*/
-  $('.toast').toast('show');
 
   restyleBadge();
 

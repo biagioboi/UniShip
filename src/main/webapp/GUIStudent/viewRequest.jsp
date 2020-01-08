@@ -36,7 +36,7 @@
                         <input type="hidden" id="idtirocinio" name="tirocinio" value="">
                         <div class="form-group">
                             <label for="custom-file-input">Carica il file :</label>
-                            <input type="file" class="form-control-file" id="custom-file-input">
+                            <input type="file" class="form-control-file" id="custom-file-input" name="file" accept="application/pdf">
                         </div>
                     </form>
                 </div>

@@ -1,7 +1,7 @@
 <div class="tab-pane fade show active" id="pills-aziende" role="tabpanel"
      aria-labelledby="pills-view-aziende">
     <div class="table-responsive font-size-sm">
-        <table id="tableAziendePresenti" class="table table-hover mb-0 ">
+        <table id="tableAziendePresenti" class="table table-hover mb-0" style="display: none;">
             <thead>
             <tr>
                 <th>Nome</th>

@@ -144,8 +144,6 @@ public class PdfServlet extends HttpServlet {
       }
 
       Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-      String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName()
-          .toString(); // MSIE fix.
 
       String path = this.getClass().getClassLoader().getResource("").getPath();
       String fullPath = URLDecoder.decode(path, "UTF-8");
@@ -156,7 +154,8 @@ public class PdfServlet extends HttpServlet {
       if (!directory.exists()) {
         directory.mkdir();
       }
-      path += "/" + fileName;
+
+      path += "/" + tirocinio.getId() + "_" + tirocinio.getAzienda().getPartitaIva() + "_" + tirocinio.getStudente().getMatricola() + ".pdf";
 
       InputStream fileContent = filePart.getInputStream();
       byte[] buffer = new byte[fileContent.available()];
@@ -165,7 +164,12 @@ public class PdfServlet extends HttpServlet {
       OutputStream outStream = new FileOutputStream(path);
       outStream.write(buffer);
 
-      return true;
+      outStream.close();
+
+      tirocinio.setStato(Tirocinio.DA_VALUTARE);
+      tirocinio.setPath(path);
+
+      return tirocinioDao.doChange(tirocinio);
 
 
     } catch (SQLException | IOException e) {
@@ -422,7 +426,7 @@ public class PdfServlet extends HttpServlet {
       Tirocinio tirocinio = new Tirocinio();
       tirocinio.setStudente(studente);
       tirocinio.setAzienda(azienda);
-      tirocinio.setStato(Tirocinio.DA_VALUTARE);
+      tirocinio.setStato(Tirocinio.NON_COMPLETO);
       tirocinio.setPath(path);
       tirocinio.setOreSvolte(0);
       tirocinio.setOreTotali(25 * 60 * Integer.parseInt(numeroCfu));
