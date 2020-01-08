@@ -62,7 +62,8 @@ function chargeTableAziendeContent() {
             "<td>" + azienda.numeroDipendenti + "</td>"
         if (richiesta == null) {
           riga += "<td class='text-center'>" +
-              "<button  class='btn btn-success btn-open-req' " +
+              "<button  class='btn btn-success btn-open-req' data-toggle=\"modal\" " +
+              "data-target='#richiediDisponibilitaModal' " +
               "data-nome=\"" + azienda.nome + "\" data-email= \"" +
                azienda.email + "\">" + "Richiedi </button></td>";
         }
