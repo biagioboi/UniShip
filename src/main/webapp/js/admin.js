@@ -6,14 +6,14 @@ $(() => {
     var nome = $(e.relatedTarget).data('nome');
     $("#linkPDF").attr("href", "PdfServlet?tirocinio=" + tirocinio);
     $("#valutaTirocinio").attr("idtirocinio", tirocinio);
-    $("#nomeStudenteUfficio").html(nome);
+    $("#nomeStudenteAdmin").html(nome);
 
   });
 
 });
 
 function chargeTableTirocini() {
-  $("#richiesteTirocinioUfficio > tbody:last-child").html("");
+  $("#richiesteTirocinioAdmin > tbody:last-child").html("");
   $.ajax({
     url: 'TirocinioServlet',
     type: 'POST',
@@ -25,7 +25,7 @@ function chargeTableTirocini() {
       response.forEach((x) => {
         let link = "";
         exist = true;
-        if (x.stato == "Da Valutare") {
+        if (x.stato == "Da Convalidare") {
           x.stato = "Valuta";
           link = "data-idtirocinio = \"" + x.id + "\""
               + " data-nome='" + x.studente.matricola + " - " + x.studente.nome + " " + x.studente.cognome + "' "
@@ -40,12 +40,12 @@ function chargeTableTirocini() {
             + "<td><span class='addbadge badge pointer' " + link + " >"
             + x.stato + "</span></td>"
             + "<td>" + x.motivazioni + "</td>";
-        $("#richiesteTirocinioUfficio > tbody:last-child").append(
+        $("#richiesteTirocinioAdmin > tbody:last-child").append(
             "<tr>" + riga + "</tr>");
         restyleBadge();
       });
       if (!exist) {
-        $("#richiesteTirocinioUfficio > tbody:last-child")
+        $("#richiesteTirocinioAdmin > tbody:last-child")
         .html("<tr><td style='text-align: center;' class='mt-2'>" +
             "Non sono presenti richieste.</td></tr>");
       }

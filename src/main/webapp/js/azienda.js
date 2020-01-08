@@ -47,11 +47,6 @@ $(() => {
               + "<td>" + attivita + "</td>";
           $("#tableOreSvolte > tbody:last-child").append("<tr>" + riga + "</tr>");
         });
-        if (!exist) {
-          $("#tableOreSvolte")
-          .html("<tr><td style='text-align: center;' class='mt-2'>" +
-              "Non sono presenti attivit&agrave;.</td></tr>");
-        }
         $("#tableOreSvolte").fadeIn();
       }
     });
@@ -246,7 +241,7 @@ function caricaStudenti() {
     success: (response) => {
       let exist = false;
       response.forEach((e) => {
-        if (e.stato == "Accettato") {
+        if (e.stato == "Accettata") {
           exist = true;
           let studente = e.studente;
           let riga = "<td>" + studente.matricola + "</td>"
