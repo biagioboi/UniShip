@@ -1,7 +1,6 @@
 package applicationlogic.tirociniomanagment;
 
 import com.google.gson.Gson;
-import com.itextpdf.io.util.FileUtil;
 import com.itextpdf.text.DocumentException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -14,7 +13,6 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -49,8 +47,6 @@ import storage.interfaces.RichiestaDisponibilitaInterface;
 import storage.interfaces.StudenteInterface;
 import storage.interfaces.TirocinioInterface;
 import storage.interfaces.UtenteInterface;
-import sun.misc.IOUtils;
-import sun.nio.ch.IOUtil;
 
 //todo : da cambiare il nome sulla documetazione in createPdf aggiungere i metodi e costante
 @WebServlet("/PdfServlet")
