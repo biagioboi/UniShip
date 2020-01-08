@@ -320,7 +320,7 @@ String tipo = (String) session.getAttribute("tipo");
   <div class="toast-box">
 
     <!-- Then put toasts within -->
-    <div id="messaggioSuccesso" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true"
+    <div id="messaggioSuccesso" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true"
          data-delay="5000">
       <div class="toast-header">
         <span class="circle bg-success"></span>
@@ -335,7 +335,7 @@ String tipo = (String) session.getAttribute("tipo");
       </div>
     </div>
 
-    <div id="messaggioErrore" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true"
+    <div id="messaggioErrore" class="toast fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true"
          data-delay="5000">
       <div class="toast-header">
         <span class="circle bg-danger"></span>

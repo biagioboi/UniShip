@@ -44,7 +44,7 @@ CREATE TABLE tirocinio(
     ore_totali double(8, 2) NOT NULL, # modificato da date a time in quanto tiene traccia solo delle ore
     tutor_esterno varchar(50) NOT NULL,
     ore_svolte double(8, 2), # modificato da date a time in quanto tiene traccia solo delle ore
-    path varchar(100),
+    path varchar(300),
     motivazioni varchar(100),
     stato enum(
         'Non completo',

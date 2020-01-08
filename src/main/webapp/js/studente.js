@@ -33,7 +33,6 @@ $(() => {
     });
   });
 
-
   chargeTableTirocini();
 
   $("#caricaScaricaPDFModal").on('show.bs.modal', (e) => {
@@ -61,17 +60,20 @@ function chargeTableAziendeContent(callback) {
             "<td>" + azienda.numeroDipendenti + "</td>";
         if (richiesta == null) {
           riga += "<td class='text-center'>" +
-              "<button  class='btn btn-success btn-open-req' data-toggle=\"modal\" "
-              +
+              "<button  class='btn btn-success btn-open-req'"
+              + " data-toggle=\"modal\" " +
               "data-target='#richiediDisponibilitaModal' " +
               "data-nome=\"" + azienda.nome + "\" data-email= \"" +
               azienda.email + "\">" + "Richiedi </button></td>";
+        } else {
+          riga += "<td class='text-center'>" +
+              "<button  class='btn btn-success' disabled"
+              + ">Richiesta inviata</button></td>";
         }
         $("#tableAziendePresenti > tbody:last-child")
         .append("<tr>" + riga + "</tr>");
       });
       callback();
-
 
     }
   });
