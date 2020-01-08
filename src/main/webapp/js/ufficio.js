@@ -13,7 +13,7 @@ $(() => {
 });
 
 function chargeTableTirocini() {
-  $("#richiesteTirocinioStudente > tbody:last-child").html("");
+  $("#richiesteTirocinioUfficio > tbody:last-child").html("");
   $.ajax({
     url: 'TirocinioServlet',
     type: 'POST',
@@ -47,5 +47,28 @@ function chargeTableTirocini() {
 }
 
 function respondTirocinio(how) {
+  let motivazioni = $("#motivazioniValidazioneTirocinio").html();
+  let tirocinio = $("#valutaTirocinio").attr("idtirocinio");
+  $.ajax({
+    url: 'TirocinioServlet',
+    type: 'POST',
+    data: {
+      motivazioni : motivazioni,
+      tirocinio: tirocinio,
+      risposta: how,
+      action: 'validateInternship'
+    },
+    success: (response) => {
+      if (response.status == 200) {
+        $("#messaggioSuccessoBody").html(response.description);
+        $("#messaggioSuccesso").toast('show');
+        $("#valutaTirocinio").modal('toggle');
+        chargeTableTirocini();
+      } else {
+        $("#messaggioErroreBody").html(response.description);
+        $("#messaggioErrore").toast('show');
+      }
+    }
 
+  });
 }

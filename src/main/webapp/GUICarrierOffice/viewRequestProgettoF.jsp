@@ -30,10 +30,15 @@
             </div>
             <div class="modal-body">
                 <h6> Puoi scaricare il file da <a id="linkPDF" href="">qui</a></h6>
+                <div class="form-group">
+                    <label for="motivazioniValidazioneTirocinio" class="col-form-label">Motivazioni:</label>
+                    <textarea class="form-control" id="motivazioniValidazioneTirocinio"></textarea>
+                </div>
             </div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="respondTirocinio('accetta');">Accetta</button>
-                <button type="button" class="btn btn-danger" onclick="respondTirocinio('rifiuta');">Rifiuta</button>
+                <button type="button" class="btn btn-success" onclick="respondTirocinio('Accettata');">Accetta</button>
+                <button type="button" class="btn btn-danger" onclick="respondTirocinio('Rifiutata');">Rifiuta</button>
             </div>
         </div>
     </div>

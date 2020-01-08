@@ -54,6 +54,9 @@ public class TirocinioServlet extends HttpServlet {
           if (user.getTipo().equals(Utente.ADMIN) || user.getTipo()
               .equals(Utente.UFFICIO_CARRIERE)) {
             validateInternship(request, response);
+            result.put("status", "200");
+            result.put("description", "Richiesta inoltrata.");
+            out.println(obj.toJson(result));
           } else {
             result.put("status", "403");
             result.put("description", "Not Authorized");
@@ -127,6 +130,8 @@ public class TirocinioServlet extends HttpServlet {
 
   private boolean validateInternship(HttpServletRequest request, HttpServletResponse response) {
 
+    Utente user = (Utente) request.getSession().getAttribute("utente");
+
     String id = request.getParameter("tirocinio");
     if (id == null || id.length() < 1) {
       throw new IllegalArgumentException("id non valido.");
@@ -143,7 +148,11 @@ public class TirocinioServlet extends HttpServlet {
       Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(id));
 
       if (risposta.equals(Tirocinio.ACCETTATA)) {
-        tirocinio.setStato(Tirocinio.ACCETTATA);
+        if (user.getTipo().equals(Utente.ADMIN)) {
+          tirocinio.setStato(Tirocinio.ACCETTATA);
+        } else {
+          tirocinio.setStato(Tirocinio.DA_CONVALIDARE);
+        }
       } else {
 
         String motivazioni = request.getParameter("motivazioni");
