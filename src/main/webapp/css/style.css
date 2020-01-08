@@ -28,12 +28,14 @@
 
 
 /* Home page css */
-
+.pointer {
+  cursor: pointer !important;
+}
 html {
   font-family: 'Roboto', sans-serif;;
 }
 
-/* #e65c23: rosso - #faaf18: giallo - #68c7b3: turchese - #45c2e6: azzurro - #87c23f: verde */
+
 /*togle button*/
 
 .primary-color {

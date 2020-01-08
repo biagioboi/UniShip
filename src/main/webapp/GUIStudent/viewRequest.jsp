@@ -19,7 +19,7 @@
 
 <div idtirocinio="" class="modal fade" id="caricaScaricaPDFModal" tabindex="-1" role="dialog"
      aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Carica PDF</h5>
@@ -28,18 +28,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                    <a style="cursor: pointer;" id="linkPDF" href="">Scarica PDF</a>
-                    <div class="form-row">
-                        <form id="formUploadPDF">
-                            <input type="hidden" name="action" value="uploadPdf">
-                            <input type="hidden" id="idtirocinio" name="tirocinio" value="">
-                            <input type="file" class="custom-file-input" id="file" aria-describedby="file" name="file">
-                            <label class="custom-file-label" for="file">Scegli...</label>
-                        </form>
-                    </div>
+                <h6> Puoi scaricare il file da <a id="linkPDF" href="">qui</a></h6>
+                <hr>
+                <div class="form-row">
+                    <form id="formUploadPDF">
+                        <input type="hidden" name="action" value="uploadPdf">
+                        <input type="hidden" id="idtirocinio" name="tirocinio" value="">
+                        <div class="form-group">
+                            <label for="custom-file-input">Carica il file :</label>
+                            <input type="file" class="form-control-file" id="custom-file-input">
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="caricaAllegato();">Accetta</button>
+                <button type="button" class="btn btn-success" onclick="caricaAllegato();">Accetta
+                </button>
             </div>
         </div>
     </div>

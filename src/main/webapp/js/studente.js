@@ -7,7 +7,7 @@ $(() => {
     $("#richiediDisponibilitaModal").attr("emailtarget", email);
   });
 
-  $("#btnSendRequest").click(function(e){
+  $("#btnSendRequest").click(function (e) {
     let email = $("#richiediDisponibilitaModal").attr("emailtarget");
     let motivazioni = $("#messaggio").val();
     $.ajax({
@@ -56,22 +56,23 @@ function chargeTableAziendeContent() {
       response.forEach((x) => {
         let azienda = x.key;
         let richiesta = x.value;
-        let riga =  "<td>" + azienda.nome + "</td>" +
+        let riga = "<td>" + azienda.nome + "</td>" +
             "<td>" + azienda.partitaIva + "</td>" +
             "<td>" + azienda.indirizzo + "</td>" +
             "<td>" + azienda.numeroDipendenti + "</td>"
         if (richiesta == null) {
           riga += "<td class='text-center'>" +
-              "<button  class='btn btn-success btn-open-req' data-toggle=\"modal\" " +
+              "<button  class='btn btn-success btn-open-req' data-toggle=\"modal\" "
+              +
               "data-target='#richiediDisponibilitaModal' " +
               "data-nome=\"" + azienda.nome + "\" data-email= \"" +
-               azienda.email + "\">" + "Richiedi </button></td>";
+              azienda.email + "\">" + "Richiedi </button></td>";
         }
         $("#tableAziendePresenti > tbody:last-child")
         .append("<tr>" + riga + "</tr>");
       });
 
-      }
+    }
   });
 }
 
@@ -94,7 +95,7 @@ function checkIfExistTirocinio() {
   });
 }
 
-function chargeTableTirocini(){
+function chargeTableTirocini() {
   $.ajax({
     url: 'TirocinioServlet',
     type: 'POST',
@@ -115,17 +116,18 @@ function chargeTableTirocini(){
         }
         let riga = "<td>" + x.studente.matricola + "</td>"
             + "<td>" + x.azienda.nome + "</td>"
-            + "<td><span class='addbadge badge' " + link + " >"
+            + "<td><span class='addbadge badge pointer' " + link + " >"
             + x.stato + "</span></td>"
             + "<td>" + x.motivazioni + "</td>";
-        $("#richiesteTirocinioStudente > tbody:last-child").append("<tr>" + riga + "</tr>");
+        $("#richiesteTirocinioStudente > tbody:last-child").append(
+            "<tr>" + riga + "</tr>");
         restyleBadge();
       });
     }
   });
 }
 
-function caricaAllegato(){
+function caricaAllegato() {
   let tirocinio = $("#caricaScaricaPDFModal").attr("idtirocinio");
   let form = new FormData(document.getElementById("formUploadPDF"));
   $.ajax({

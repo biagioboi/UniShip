@@ -139,7 +139,7 @@ public class RegistroServlet extends HttpServlet {
 
       double minutes = 0;
       String[] split = ore.split(":");
-      minutes += Double.parseDouble(split[0])*60;
+      minutes += Double.parseDouble(split[0]) * 60;
       minutes += Double.parseDouble(split[1]);
       attivita.setOreSvolte(minutes);
       tirocinio.setOreSvolte(tirocinio.getOreSvolte() + minutes);
