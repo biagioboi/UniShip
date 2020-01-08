@@ -31,7 +31,9 @@
                     <a style="cursor: pointer;" id="linkPDF" href="">Scarica PDF</a>
                     <div class="form-row">
                         <form id="formUploadPDF">
-                            <input type="file" class="custom-file-input" id="file" aria-describedby="file" name="fileUpload">
+                            <input type="hidden" name="action" value="uploadPdf">
+                            <input type="hidden" id="idtirocinio" name="tirocinio" value="">
+                            <input type="file" class="custom-file-input" id="file" aria-describedby="file" name="file">
                             <label class="custom-file-label" for="file">Scegli...</label>
                         </form>
                     </div>

@@ -41,6 +41,7 @@ $(() => {
     var tirocinio = $(e.relatedTarget).data('idtirocinio');
     $("#linkPDF").attr("href", "PdfServlet?tirocinio=" + tirocinio);
     $("#caricaScaricaPDFModal").attr("idtirocinio", tirocinio);
+    $("#idtirocinio").val(tirocinio);
   });
 });
 
