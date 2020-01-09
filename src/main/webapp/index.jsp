@@ -141,6 +141,14 @@ String tipo = (String) session.getAttribute("tipo");
               &nbsp;Richieste
             </a>
           </li>
+          <li class="nav-item">
+            <a id="pills-view-registro" class="nav-link" data-toggle="pill"
+               href="#pills-registro"
+               role="tab" aria-controls="pills-registro" aria-selected="false">
+              <i class="fas fa-business-time"></i>
+              &nbsp;Registro
+            </a>
+          </li>
 
           <% } else if (tipo.equals("azienda")) { %>
           <li class="nav-item">
@@ -179,14 +187,7 @@ String tipo = (String) session.getAttribute("tipo");
           </li>
           <% } %>
 
-          <li class="nav-item">
-            <a id="pills-view-registro" class="nav-link" data-toggle="pill"
-               href="#pills-registro"
-               role="tab" aria-controls="pills-registro" aria-selected="false">
-              <i class="fas fa-business-time"></i>
-              &nbsp;Registro
-            </a>
-          </li>
+
 
 
 
@@ -207,6 +208,7 @@ String tipo = (String) session.getAttribute("tipo");
           <% if (tipo.equals("studente")) {%>
           <%@ include file="GUIStudent/viewCompanies.jsp" %>
           <%@ include file="GUIStudent/viewRequest.jsp" %>
+          <%@ include file="GUIStudent/viewRegister.jsp" %>
           <% } else if (tipo.equals("azienda")) {%>
           <%@ include file="GUIAzienda/viewRequestsAvailability.jsp" %>
           <%@ include file="GUIAzienda/viewRegister.jsp" %>
@@ -273,35 +275,6 @@ String tipo = (String) session.getAttribute("tipo");
             </div>
           </div>
 
-          <div class="tab-pane fade" id="pills-registro" role="tabpanel"
-               aria-labelledby="pills-view-registro">
-            <div class="table-responsive font-size-sm min-size-td">
-              <table class="table table-hover mb-0 ">
-                <thead>
-                <tr>
-                  <th>Data</th>
-                  <th>ore svolte</th>
-                  <th>attivita</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>AZIENDA 1</td>
-                  <td>0515252</td>
-                  <td>It is a long established fact that a reader will be distracted by the readable
-                    content of a page when looking at its layout. The point of using Lorem Ipsum is
-                    that it has a more-or-less normal distribution of letters, as opposed to using
-                    'Content here, content here', making it look like readable English. Many desktop
-                    publishing packages and web page editors now use Lorem Ipsum as their default
-                    model text, and a search for 'lorem ipsum' will uncover many web sites still in
-                    their infancy. Various versions have evolved over the years, sometimes by
-                    accident, sometimes on purpose (injected humour and the like).
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
 
 
         </div>

@@ -35,6 +35,7 @@ $(() => {
 
   chargeTableTirocini();
 
+
   $("#caricaScaricaPDFModal").on('show.bs.modal', (e) => {
     var tirocinio = $(e.relatedTarget).data('idtirocinio');
     $("#linkPDF").attr("href", "PdfServlet?tirocinio=" + tirocinio);
@@ -87,7 +88,9 @@ function checkIfExistTirocinio() {
       action: 'viewInternship'
     },
     success: (response) => {
+      let extist = false;
       response.forEach((x) => {
+        exist = true;
         let oreTotali = x.oreTotali;
         let oreSvolte = x.oreSvolte;
         let percentage = parseInt(oreSvolte / oreTotali * 100);
@@ -100,7 +103,15 @@ function checkIfExistTirocinio() {
         .parent()
         .parent()
         .remove();
+        if (x.stato == "Accettata") {
+          caricaAttivitaRegistro(x.id);
+        } else {
+          caricaAttivitaRegistro(null);
+        }
       });
+      if (!extist) {
+        caricaAttivitaRegistro(null);
+      }
       $("#tableAziendePresenti").fadeIn();
     }
   });
@@ -115,7 +126,9 @@ function chargeTableTirocini() {
       action: 'viewInternship'
     },
     success: (response) => {
+      let exist = false;
       response.forEach((x) => {
+        exist = true;
         let link = "";
         if (x.stato == "Non completo") {
           x.stato = "Carica/Scarica PDF";
@@ -135,6 +148,11 @@ function chargeTableTirocini() {
             "<tr>" + riga + "</tr>");
         restyleBadge();
       });
+      if (!exist) {
+        $("#richiesteTirocinioStudente")
+        .html("<tr><td style='text-align: center;' class='mt-2'>" +
+            "Non sono presenti richieste.</td></tr>");
+      }
     }
   });
 }
@@ -161,4 +179,37 @@ function caricaAllegato() {
       }
     }
   });
+}
+
+function caricaAttivitaRegistro(what) {
+  if (what == null) {
+    $("#attivitaRegistroStudente")
+    .html("<tr><td style='text-align: center;' class='mt-2'>" +
+        "Non sono presenti tirocini in corso.</td></tr>");
+    return;
+  }
+  $.ajax({
+    url: 'RegistroServlet',
+    type: 'POST',
+    data: {
+      action: 'viewRegister',
+      tirocinio: what
+    },
+    success: (response) => {
+      let exist = false;
+      response.forEach((e) => {
+        exist = true;
+        let riga = "<td>" + e.data + "</td>" +
+                   "<td>" + timeConvert(e.oreSvolte) + "</td>" +
+                   "<td>" + e.attivita + "</td>";
+        $("#attivitaRegistroStudente > tbody:last-child")
+        .append("<tr>" + riga + "</tr>");
+      });
+      if (!exist) {
+        $("#attivitaRegistroStudente")
+        .html("<tr><td style='text-align: center;' class='mt-2'>" +
+            "Non sono presenti attivit&agrave;.</td></tr>");
+      }
+    }
+  })
 }
