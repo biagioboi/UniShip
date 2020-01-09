@@ -149,7 +149,14 @@ String tipo = (String) session.getAttribute("tipo");
               &nbsp;Registro
             </a>
           </li>
-
+          <li class="nav-item">
+            <a id="pills-view-tirociniStudente" class="nav-link" data-toggle="pill"
+               href="#pills-tirociniStudente"
+               role="tab" aria-controls="pills-tirociniStudente" aria-selected="false">
+              <i class="fas fa-file"></i>
+              &nbsp;Tirocini
+            </a>
+          </li>
           <% } else if (tipo.equals("azienda")) { %>
           <li class="nav-item">
             <a id="pills-view-richiesteAzienda" class="nav-link active" data-toggle="pill"
@@ -160,11 +167,11 @@ String tipo = (String) session.getAttribute("tipo");
             </a>
           </li>
           <li class="nav-item">
-            <a id="pills-view-tirocinanti" class="nav-link" data-toggle="pill"
-               href="#pills-tirocinanti"
-               role="tab" aria-controls="pills-tirocinanti" aria-selected="false">
-              <i class="fas fa-user-clock"></i>
-              &nbsp;Tirocinanti
+            <a id="pills-view-tirocini" class="nav-link" data-toggle="pill"
+               href="#pills-tirocini"
+               role="tab" aria-controls="pills-tirocini" aria-selected="false">
+              <i class="fas fa-file"></i>
+              &nbsp;Tirocini
             </a>
           </li>
           <% } else if (tipo.equals("ufficio_carriere")) { %>
@@ -189,18 +196,6 @@ String tipo = (String) session.getAttribute("tipo");
 
 
 
-
-
-          <li class="nav-item">
-            <a id="pills-view-tirocini" class="nav-link" data-toggle="pill"
-               href="#pills-tirocini"
-               role="tab" aria-controls="pills-tirocini" aria-selected="false">
-              <i class="fas fa-file"></i>
-              &nbsp;Tirocini
-            </a>
-          </li>
-
-
         </ul>
         <div class="tab-content" id="pills-tabContent">
           <!-- qui dobbiamo mettere un solo grande if che a seconda di chi è loggato fa gli
@@ -209,9 +204,9 @@ String tipo = (String) session.getAttribute("tipo");
           <%@ include file="GUIStudent/viewCompanies.jsp" %>
           <%@ include file="GUIStudent/viewRequest.jsp" %>
           <%@ include file="GUIStudent/viewRegister.jsp" %>
+          <%@ include file="GUIStudent/viewTirocini.jsp" %>
           <% } else if (tipo.equals("azienda")) {%>
           <%@ include file="GUIAzienda/viewRequestsAvailability.jsp" %>
-          <%@ include file="GUIAzienda/viewRegister.jsp" %>
           <%@ include file="GUIAzienda/viewTirocini.jsp" %>
           <% } else if (tipo.equals("ufficio_carriere")) {%>
           <%@ include file="GUICarrierOffice/viewRequestProgettoF.jsp" %>

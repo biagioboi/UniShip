@@ -24,7 +24,11 @@ $(() => {
         if (response.status == 200) {
           $("#messaggioSuccessoBody").html(response.description);
           $("#messaggioSuccesso").toast('show');
-          $(".btn-open-req[data-email='" + email + "']").fadeOut('500');
+          $(".btn-open-req[data-email='" + email + "']").parent().html(
+                "<button  class='btn btn-success' disabled"
+                + ">Richiesta inviata</button>"
+          );
+          chargeAvailabilityRequest();
         } else {
           $("#messaggioErroreBody").html(response.description);
           $("#messaggioErrore").toast('show');
@@ -35,6 +39,7 @@ $(() => {
 
   chargeTableTirocini();
 
+  chargeAvailabilityRequest();
 
   $("#caricaScaricaPDFModal").on('show.bs.modal', (e) => {
     var tirocinio = $(e.relatedTarget).data('idtirocinio');
@@ -118,7 +123,7 @@ function checkIfExistTirocinio() {
 }
 
 function chargeTableTirocini() {
-  $("#richiesteTirocinioStudente > tbody:last-child").html("");
+  $("#tableTirociniStudente > tbody:last-child").html("");
   $.ajax({
     url: 'TirocinioServlet',
     type: 'POST',
@@ -139,17 +144,19 @@ function chargeTableTirocini() {
         if (x.motivazioni == null) {
           x.motivazioni = "Non disponibili.";
         }
-        let riga = "<td>" + x.studente.matricola + "</td>"
-            + "<td>" + x.azienda.nome + "</td>"
+        let riga = "<td>" + x.azienda.nome + "</td>"
+            + `<td>${x.tutorEsterno}</td>`
+            + `<td>${timeConvert(x.oreSvolte)}</td>`
+            + `<td>${timeConvert(x.oreTotali)}</td>`
             + "<td><span class='addbadge badge pointer' " + link + " >"
             + x.stato + "</span></td>"
             + "<td>" + x.motivazioni + "</td>";
-        $("#richiesteTirocinioStudente > tbody:last-child").append(
+        $("#tableTirociniStudente > tbody:last-child").append(
             "<tr>" + riga + "</tr>");
         restyleBadge();
       });
       if (!exist) {
-        $("#richiesteTirocinioStudente")
+        $("#tableTirociniStudente")
         .html("<tr><td style='text-align: center;' class='mt-2'>" +
             "Non sono presenti richieste.</td></tr>");
       }
@@ -200,8 +207,8 @@ function caricaAttivitaRegistro(what) {
       response.forEach((e) => {
         exist = true;
         let riga = "<td>" + e.data + "</td>" +
-                   "<td>" + timeConvert(e.oreSvolte) + "</td>" +
-                   "<td>" + e.attivita + "</td>";
+            "<td>" + timeConvert(e.oreSvolte) + "</td>" +
+            "<td>" + e.attivita + "</td>";
         $("#attivitaRegistroStudente > tbody:last-child")
         .append("<tr>" + riga + "</tr>");
       });
@@ -210,6 +217,37 @@ function caricaAttivitaRegistro(what) {
         .html("<tr><td style='text-align: center;' class='mt-2'>" +
             "Non sono presenti attivit&agrave;.</td></tr>");
       }
+    }
+  })
+}
+
+function chargeAvailabilityRequest() {
+  $("#richiesteDisponibilitaStudente > tbody:last-child").html("");
+  $("#richiesteDisponibilitaStudente > thead").fadeIn();
+  $.ajax({
+    url: 'RichiestaDServlet',
+    type: 'POST',
+    data: {
+      action: 'viewRequest'
+    },
+    success: (response) => {
+      let exist = false;
+      response.forEach((e) => {
+        exist = true;
+        let riga = `<td>${e.azienda.nome}</td>` +
+                   `<td><span class='addbadge badge pointer'>${e.stato}</span></td>` +
+                   `<td>${e.motivazioni}</td>`;
+        $("#richiesteDisponibilitaStudente > tbody:last-child")
+        .append("<tr>" + riga + "</tr>");
+      });
+      if (!exist) {
+        $("#richiesteDisponibilitaStudente > thead").fadeOut();
+        $("#richiesteDisponibilitaStudente > tbody:last-child")
+        .html("<tr><td style='text-align: center;' class='mt-2'>" +
+            "Non sono presenti richieste.</td></tr>");
+        return;
+      }
+      restyleBadge();
     }
   })
 }

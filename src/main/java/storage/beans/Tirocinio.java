@@ -26,7 +26,7 @@ public class Tirocinio {
     this.id = id;
     this.stato = stato;
     this.oreTotali = oreTotali;
-    this.turorEsterno = turorEsterno;
+    this.tutorEsterno = turorEsterno;
     this.oreSvolte = oreSvolte;
     this.path = path;
     this.studente = studente;
@@ -59,11 +59,11 @@ public class Tirocinio {
   }
 
   public String getTurorEsterno() {
-    return turorEsterno;
+    return tutorEsterno;
   }
 
   public void setTurorEsterno(String turorEsterno) {
-    this.turorEsterno = turorEsterno;
+    this.tutorEsterno = turorEsterno;
   }
 
   public double getOreSvolte() {
@@ -109,7 +109,7 @@ public class Tirocinio {
   private int id;
   private String stato;
   private double oreTotali;
-  private String turorEsterno;
+  private String tutorEsterno;
   private double oreSvolte;
   private String motivazioni;
   private String path;

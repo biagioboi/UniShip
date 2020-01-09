@@ -46,14 +46,13 @@ $(() => {
           let riga = "<td>" + data + "</td>"
               + "<td>" + oreSvolte + "</td>"
               + "<td>" + attivita + "</td>";
-          $("#tableOreSvolte > tbody:last-child").append("<tr>" + riga + "</tr>");
+          $("#tableOreSvolte > tbody:last-child").append(
+              "<tr>" + riga + "</tr>");
         });
         $("#tableOreSvolte").fadeIn();
       }
     });
   });
-
-
 
   $("#btnInviaProgettoF").click(() => {
     let emailStudente = $("#compilaProgettoFormativoModal").attr("emailtarget");
@@ -104,7 +103,7 @@ $(() => {
     });
   });
 
-  $("#formAddActivity").submit((e)=> {
+  $("#formAddActivity").submit((e) => {
     e.preventDefault();
     let ore = $("#ore").val();
     let data = $("#giorno").val();
@@ -213,9 +212,14 @@ function rispondiRichiesta(how) {
         $("#messaggioSuccessoBody").html(response.description);
         $("#messaggioSuccesso").toast('show');
         let email = emailStudente;
-        let matricola = $(".btn-respond[data-emailstudente='" + emailStudente + "']").attr("data-matricolastudente");
-        let nome = $(".btn-respond[data-emailstudente='" + emailStudente + "']").attr("data-nomestudente");
-        $(".btn-respond[data-emailstudente='" + emailStudente + "']").parent().html(
+        let matricola = $(
+            ".btn-respond[data-emailstudente='" + emailStudente + "']").attr(
+            "data-matricolastudente");
+        let nome = $(
+            ".btn-respond[data-emailstudente='" + emailStudente + "']").attr(
+            "data-nomestudente");
+        $(".btn-respond[data-emailstudente='" + emailStudente
+            + "']").parent().html(
             "<button class=\"btn btn-success btn-respond\" " +
             "data-nomestudente = \"" + nome + "\" " +
             "data-matricolastudente = \"" + matricola + "\" " +
@@ -284,14 +288,41 @@ function caricaTirocini() {
       action: 'viewInternship'
     },
     success: (response) => {
-      console.log(response);
+      response.forEach((e) => {
+        let nomeStudente = `${e.studente.nome} ${e.studente.cognome}`;
+        let azienda = `${e.azienda.nome}`;
+        let tutor = `${e.tutorEsterno}`;
+        let oreSvolte = `${timeConvert(e.oreSvolte)}`;
+        let oreTotali = `${timeConvert(e.oreTotali)}`;
+        let stato = `${e.stato}`;
+        let riga = `<td>${nomeStudente}</td><td>${azienda}</td>` +
+            `<td>${tutor}</td><td>${oreSvolte}</td>` +
+            `<td>${oreTotali}</td><td><span class="addbadge badge">${stato}</span></td>`;
+        if (e.stato == "Accettata") {
+          riga += "<td class='text-center'>"
+              + " <button class=\"btn btn-success btn-sm\" data-toggle=\"modal\" "
+              + `         data-nomestudente = \"${nomeStudente}\" `
+              + `         data-matricolastudente = \"${e.studente.matricola}\" `
+              + `         data-idtirocinio=\"${e.id}\" `
+              + "         data-target=\"#aggiungiOreModal\"> "
+              + "         Aggiungi ore "
+              + "</button>"
+              + "</td>";
+        } else {
+          riga += "<td></td>";
+        }
+        $("#tableTirociniAzienda > tbody:last-child").append(
+            `<tr>${riga}</tr>`);
+      });
+      restyleBadge();
     }
   });
 }
 
 function dateConverter(date) {
-  let mesi = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
-  let mese = parseInt(date.substr(5, 2))-1;
+  let mesi = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set",
+    "ott", "nov", "dic"];
+  let mese = parseInt(date.substr(5, 2)) - 1;
   let giorno = date.substr(8, 2);
   let anno = date.substr(0, 4);
   return mesi[mese] + " " + giorno + ", " + anno;
