@@ -90,7 +90,8 @@ $(() => {
         $("#compilaProgettoFormativoModal").modal('toggle');
 
         if (response.status == 200) {
-          $("#richiesta" + emailStudente).remove();
+          $("#tableRichiesteDisponibilita").fadeOut();
+          caricaRichieste();
           $("#messaggioSuccessoBody").html(response.description);
           $("#messaggioSuccesso").toast('show');
 
@@ -135,6 +136,7 @@ $(() => {
 });
 
 function caricaRichieste() {
+  $("#tableRichiesteDisponibilita > tbody:last-child").html("");
   $.ajax({
     url: 'RichiestaDServlet',
     type: 'POST',
@@ -177,7 +179,7 @@ function caricaRichieste() {
                 "</td>";
           }
           $("#tableRichiesteDisponibilita > tbody:last-child")
-          .append("<tr id='richiesta" + studente.email + "'>" + riga + "</tr>");
+          .append("<tr email='" + studente.email + "'>" + riga + "</tr>");
         }
       });
       if (!exist) {

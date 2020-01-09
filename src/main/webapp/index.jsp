@@ -41,8 +41,7 @@ String tipo = (String) session.getAttribute("tipo");
         <p id="numeroMatricola" class="card-text text-center font-italic">0512106666</p>
         <hr>
         <!-- Some Text -->
-        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos,
-          adipisci</p>
+        <p class="text-centr"></p>
       </div>
 
     </div>
