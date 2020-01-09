@@ -4,6 +4,7 @@ $(() => {
 
   caricaStudenti();
 
+  caricaTirocini();
 
   $('#rispondiDisponibilitaModal').on('show.bs.modal', (e) => {
     var matricola = $(e.relatedTarget).data('matricolastudente');
@@ -264,17 +265,29 @@ function caricaStudenti() {
           $("#tableStudentiTirocinio > tbody:last-child").append(
               "<tr>" + riga + "</tr>");
         }
-        if (!exist) {
-          $("#tableStudentiTirocinio")
-          .html("<tr><td style='text-align: center;' class='mt-2'>" +
-              "Non sono presenti studenti.</td></tr>");
-        }
-        $("#tableStudentiTirocinio").fadeIn();
-      })
+      });
+      if (!exist) {
+        $("#tableStudentiTirocinio")
+        .html("<tr><td style='text-align: center;' class='mt-2'>" +
+            "Non sono presenti studenti.</td></tr>");
+      }
+      $("#tableStudentiTirocinio").fadeIn();
     }
   });
 }
 
+function caricaTirocini() {
+  $.ajax({
+    url: 'TirocinioServlet',
+    type: 'POST',
+    data: {
+      action: 'viewInternship'
+    },
+    success: (response) => {
+      console.log(response);
+    }
+  });
+}
 
 function dateConverter(date) {
   let mesi = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
@@ -283,3 +296,4 @@ function dateConverter(date) {
   let anno = date.substr(0, 4);
   return mesi[mese] + " " + giorno + ", " + anno;
 }
+

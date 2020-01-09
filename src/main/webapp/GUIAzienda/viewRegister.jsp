@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<div idtirocinio ="" class="modal fade" id="aggiungiOreModal" tabindex="-1" role="dialog"
+<div idtirocinio="" class="modal fade" id="aggiungiOreModal" tabindex="-1" role="dialog"
      aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
