@@ -94,6 +94,7 @@ $(() => {
           caricaRichieste();
           $("#messaggioSuccessoBody").html(response.description);
           $("#messaggioSuccesso").toast('show');
+          caricaTirocini();
 
         } else {
           $("#messaggioErroreBody").html(response.description);
@@ -292,7 +293,11 @@ function caricaTirocini() {
       action: 'viewInternship'
     },
     success: (response) => {
+      $("#tableTirociniAzienda > thead").fadeIn();
+      $("#tableTirociniAzienda > tbody:last-child").html("");
+      let exist = false;
       response.forEach((e) => {
+        exist = true;
         let nomeStudente = `${e.studente.nome} ${e.studente.cognome}`;
         let azienda = `${e.azienda.nome}`;
         let tutor = `${e.tutorEsterno}`;
@@ -318,7 +323,13 @@ function caricaTirocini() {
         $("#tableTirociniAzienda > tbody:last-child").append(
             `<tr>${riga}</tr>`);
       });
-      restyleBadge();
+      if (!exist) {
+        $("#tableTirociniAzienda > thead").fadeOut();
+        $("#tableTirociniAzienda > tbody:last-child").append(
+            `<tr><td colspan="6" class="text-center">Non sono presenti tirocini.</td></tr>`);
+      } else {
+        restyleBadge();
+      }
     }
   });
 }
