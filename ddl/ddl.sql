@@ -5,7 +5,7 @@ USE uniship;
 CREATE TABLE utente(
     email varchar(50) primary key,
     nome varchar(30) NOT NULL,
-    password varchar(60) NOT NULL,
+    password varchar(300) NOT NULL,
     tipo enum(
         'admin',
         'ufficio_carriere',

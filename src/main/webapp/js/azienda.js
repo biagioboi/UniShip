@@ -218,17 +218,21 @@ function rispondiRichiesta(how) {
         let nome = $(
             ".btn-respond[data-emailstudente='" + emailStudente + "']").attr(
             "data-nomestudente");
-        $(".btn-respond[data-emailstudente='" + emailStudente
-            + "']").parent().html(
-            "<button class=\"btn btn-success btn-respond\" " +
-            "data-nomestudente = \"" + nome + "\" " +
-            "data-matricolastudente = \"" + matricola + "\" " +
-            "data-emailstudente = \"" + email + "\" " +
-            "data-toggle=\"modal\" " +
-            "data-target=\"#compilaProgettoFormativoModal\">Compila Progetto F."
-            +
-            "</button>"
-        );
+        if (how == "Accettata") {
+          $(".btn-respond[data-emailstudente='" + emailStudente
+              + "']").parent().html(
+              "<button class=\"btn btn-success btn-respond\" " +
+              "data-nomestudente = \"" + nome + "\" " +
+              "data-matricolastudente = \"" + matricola + "\" " +
+              "data-emailstudente = \"" + email + "\" " +
+              "data-toggle=\"modal\" " +
+              "data-target=\"#compilaProgettoFormativoModal\">Compila Progetto F."
+              +
+              "</button>"
+          );
+        } else {
+          caricaRichieste();
+        }
 
       } else {
         $("#messaggioErroreBody").html(response.description);
