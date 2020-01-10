@@ -27,6 +27,7 @@ import storage.beans.Utente;
 import storage.dao.AziendaDao;
 import storage.dao.RichiestaDisponibilitaDao;
 import storage.dao.StudenteDao;
+import storage.interfaces.AziendaInterface;
 
 //TODO: Aggiungere retrieve free companies all'ODD
 // ho aggiunto il metodo retrieve free companies
@@ -107,7 +108,7 @@ public class HandleUserServlet extends HttpServlet {
     } else if (!email.matches("[0-9a-zA-Z.]+@[a-z.]+.[a-z]+")) {
       throw new IllegalArgumentException("Email not valid");
     }
-    AziendaDao dao = new AziendaDao();
+    AziendaInterface dao = new AziendaDao();
 
     if (dao.doRetrieveByKey(email) != null) {
       throw new IllegalArgumentException("Email already registered");
@@ -125,10 +126,6 @@ public class HandleUserServlet extends HttpServlet {
     String piva = request.getParameter("piva");
     if (!piva.matches("[0-9]{11}")) {
       throw new IllegalArgumentException("Partita IVA invalid.");
-    }
-
-    if (dao.doRetrieveByPiva(piva) != null) {
-      throw new IllegalArgumentException("Patita IVA already registered.");
     }
 
     String indirizzo = request.getParameter("indirizzo");
@@ -157,15 +154,8 @@ public class HandleUserServlet extends HttpServlet {
       throw new IllegalArgumentException("numeroDipendenti invalid.");
     }
 
-    //TODO: Add password to TCD
-    String password = request.getParameter("password");
-    if (password.length() < 8) {
-      throw new IllegalArgumentException("Password too short.");
-    } else if (!password.matches("[0-9a-zA-Z]{8,}")) {
-      throw new IllegalArgumentException("Password invalid.");
-    }
-
-    password = PasswordHash.createHash(password);
+    //TODO autogenerazione della password e invio tramite mail
+    String password = PasswordHash.createHash("password");
 
     Azienda azienda = new Azienda(email, nome, password, piva, indirizzo, rappresentante, codAteco,
         Integer.parseInt(numeroDipendenti));

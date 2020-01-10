@@ -42,6 +42,27 @@ $(() => {
     });
   });
 
+  $("#formAddAzienda").submit((e) => {
+    e.preventDefault();
+    $.ajax({
+      url: 'HandleUserServlet',
+      type: 'POST',
+      data: {
+        email: $("#email").val(),
+        nome: $("#nomeAzienda").val(),
+        piva: $("#partitaIva").val(),
+        indirizzo: $("#indirizzo").val(),
+        rappresentante: $("#nomeRappresentante").val(),
+        codAteco: $("#codiceAteco").val(),
+        numeroDipendenti: $("#numDipendenti").val(),
+        action: 'addCompany'
+      },
+      success: (response) => {
+        console.log(response);
+      }
+    });
+  })
+
 });
 
 function chargeTableTirocini() {

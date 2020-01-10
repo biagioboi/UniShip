@@ -207,11 +207,6 @@ public class AziendaDao implements AziendaInterface {
     return rs != 0;
   }
 
-  //TODO: Implement doRetrieveByPiva and add to documentation
-  public Azienda doRetrieveByPiva(String piva) throws SQLException {
-    throw new NotImplementedException();
-  }
-
   private static UtenteDao utenteDao = new UtenteDao();
 
   public static final String RETRIVE_BY_KEY =
@@ -219,7 +214,7 @@ public class AziendaDao implements AziendaInterface {
   public static final String RETRIVE_ALL = "SELECT * FROM azienda NATURAL JOIN utente;";
 
   public static final String SAVE =
-      "INSERT INTO studente (email, partita_iva, indirizzo, rappresentante,codice_ateco,"
+      "INSERT INTO azienda (email, partita_iva, indirizzo, rappresentante,codice_ateco,"
           + "numero_dipendenti) VALUES (?,?,?,?,?,?)";
   public static final String CHANGE =
       "UPDATE azienda SET partita_iva = ?, indirizzo = ?, rappresentante = ?, codice_ateco = ?"
