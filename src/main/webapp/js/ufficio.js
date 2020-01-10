@@ -58,7 +58,14 @@ $(() => {
         action: 'addCompany'
       },
       success: (response) => {
-        console.log(response);
+        if (response.status == 200) {
+          $("#formAddAzienda").trigger('reset');
+          $("#messaggioSuccessoBody").html("Azienda aggiunta con successo.");
+          $("#messaggioSuccesso").toast('show');
+        } else {
+          $("#messaggioErroreBody").html(response.description);
+          $("#messaggioErrore").toast('show');
+        }
       }
     });
   })
