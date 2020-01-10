@@ -2,5 +2,5 @@ language: java
 services:
   - mysql
 before_install:
-  - mysql -e "USE mysql; UPDATE user SET authentication_string=PASSWORD('root') WHERE user='root'; FLUSH PRIVILEGES;"
   - mysql -u root --default-character-set=utf8 < ddl/ddl.sql
+  - mysql -e "USE mysql; UPDATE user SET authentication_string=PASSWORD('root') WHERE user='root'; FLUSH PRIVILEGES;"
