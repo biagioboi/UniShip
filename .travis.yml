@@ -4,4 +4,4 @@ services:
 before_script:
   - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
 before_install:
-  - mysql -u root --default-character-set=utf8 baladay < scripts/bd.sql
+  - mysql -u root --default-character-set=utf8 baladay < ddl/ddl.sql
