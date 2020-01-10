@@ -3,5 +3,4 @@ services:
   - mysql
 before_install:
   - mysql -e 'USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n'
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS uniship;'
-  - mysql -u root --default-character-set=utf8 uniship < ddl/ddl.sql
+  - mysql -u root --default-character-set=utf8 < ddl/ddl.sql
