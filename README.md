@@ -1,4 +1,4 @@
-# UniShip
+# UniShip [![Build Status](https://travis-ci.com/b14s199/UniShip.svg?branch=master)](https://travis-ci.com/b14s199/UniShip) 
 ### Progetto di Ingegneria del Software @ UNISA A.A 2019/20
 ### Prof.ssa Filomena Ferrucci
 
