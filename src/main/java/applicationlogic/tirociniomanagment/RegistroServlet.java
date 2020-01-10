@@ -144,6 +144,10 @@ public class RegistroServlet extends HttpServlet {
       attivita.setOreSvolte(minutes);
       tirocinio.setOreSvolte(tirocinio.getOreSvolte() + minutes);
 
+      if (tirocinio.getOreSvolte() >= tirocinio.getOreTotali()) {
+        tirocinio.setStato(Tirocinio.DA_VALUTARE);
+      }
+
       attivita.setData(Date.valueOf(data));
       attivita.setAttivita(descrizione);
 

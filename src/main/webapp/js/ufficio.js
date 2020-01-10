@@ -94,7 +94,7 @@ function chargeTableTirocini() {
               + " data-target='#valutaTirocinio'";
         }
         let btn = "<td></td>";
-        if (x.stato == "Da Valutare" || x.stato == "Accettata") {
+        if ((x.stato == "Valuta" && x.oreSvolte >= x.oreTotali) || x.stato == "Accettata") {
           btn = `<td class='text-center'><button class='btn btn-success btn-sm' ` +
               `data-toggle='modal' ` +
               `data-nomestudente='${x.studente.nome} ${x.studente.cognome}' ` +
