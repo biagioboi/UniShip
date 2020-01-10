@@ -79,27 +79,6 @@ String tipo = (String) session.getAttribute("tipo");
     </div>
     <% } %>
 
-    <div class="card info-card rounded-lg m-3 p-2">
-
-      <!-- Background color -->
-      <div class="card-up pr-1">
-        <img src="images/uniLogo.png" alt="logo">
-      </div>
-
-      <!-- Content -->
-      <div class="card-body">
-        <!-- Name -->
-        <h4 class="card-title text-center font-weight-bold">Mario Rossi</h4>
-        <p class="card-text text-center font-italic">0512106666</p>
-        <hr>
-        <!-- Some Text -->
-        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos,
-          adipisci</p>
-      </div>
-
-    </div>
-
-
   </nav>
   <!-- page-content  -->
   <main class="page-content">
@@ -206,8 +185,7 @@ String tipo = (String) session.getAttribute("tipo");
 
         </ul>
         <div class="tab-content" id="pills-tabContent">
-          <!-- qui dobbiamo mettere un solo grande if che a seconda di chi è loggato fa gli
-          include, per il momento lascio così e poi si modifica -->
+
           <% if (tipo.equals("studente")) {%>
           <%@ include file="GUIStudent/viewCompanies.jsp" %>
           <%@ include file="GUIStudent/viewRequest.jsp" %>
@@ -223,15 +201,16 @@ String tipo = (String) session.getAttribute("tipo");
           <%@ include file="GUIAdmin/viewRequestProgettoF.jsp" %>
           <% } %>
 
-
-
-
-
         </div>
       </div>
     </div>
+
     <% if (tipo.equals("azienda")) { %>
-      <%@ include file="GUIAzienda/formProgettoF.jsp" %>
+    <%@ include file="GUIAzienda/formProgettoF.jsp" %>
+    <% } else if (tipo.equals("ufficio_carriere")) { %>
+    <%@ include file="GUICarrierOffice/viewRegister.jsp" %>
+    <% } else if (tipo.equals("admin")) { %>
+    <%@ include file="GUIAdmin/viewRegister.jsp" %>
     <% } %>
 
   </main>
@@ -253,7 +232,6 @@ String tipo = (String) session.getAttribute("tipo");
         </button>
       </div>
       <div id="messaggioSuccessoBody" class="toast-body">
-        Ciao, sono un messaggio di successo e scompariro' tra 5 secondi
       </div>
     </div>
 
@@ -268,7 +246,6 @@ String tipo = (String) session.getAttribute("tipo");
         </button>
       </div>
       <div id="messaggioErroreBody" class="toast-body">
-        Ciao, sono un messaggio di errore e scompariro' tra 5 secondi
       </div>
     </div>
   </div>
