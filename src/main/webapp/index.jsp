@@ -195,10 +195,10 @@ String tipo = (String) session.getAttribute("tipo");
           <%@ include file="GUIAzienda/viewRequestsAvailability.jsp" %>
           <%@ include file="GUIAzienda/viewTirocini.jsp" %>
           <% } else if (tipo.equals("ufficio_carriere")) {%>
-          <%@ include file="GUICarrierOffice/viewRequestProgettoF.jsp" %>
+          <%@ include file="GUICarrierOffice/viewRequestTirocini.jsp" %>
           <%@ include file="GUICarrierOffice/formAddCompany.jsp" %>
           <% } else if (tipo.equals("admin")) {%>
-          <%@ include file="GUIAdmin/viewRequestProgettoF.jsp" %>
+          <%@ include file="GUIAdmin/viewRequestTirocini.jsp" %>
           <% } %>
 
         </div>
