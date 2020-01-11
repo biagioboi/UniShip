@@ -69,11 +69,11 @@ public class RichiestaDServlet extends HttpServlet {
 
         } else if (action.equals("viewAllRequest")) {
 
-          out.println(obj.toJson(viewAllAvailabilityRequest(request,response)));
+          out.println(obj.toJson(viewAllAvailabilityRequest(request, response)));
 
         } else if (action.equals("viewRequest")) {
 
-          out.println(obj.toJson(viewAvailabilityRequest(request,response)));
+          out.println(obj.toJson(viewAvailabilityRequest(request, response)));
 
         } else if (action.equals("respondRequest")) {
 
@@ -125,14 +125,18 @@ public class RichiestaDServlet extends HttpServlet {
       Utente user = (Utente) request.getSession().getAttribute("utente");
       Studente studente = studenteDao.doRetrieveByKey(user.getEmail());
       Azienda azienda = aziendaDao.doRetrieveByKey(emailAzienda);
+
+      RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
+      if (richiestaDao.doRetrieveByKey(studente, azienda) != null) {
+        throw new IllegalArgumentException("E' gia' presente una richiesta.");
+      }
+
       RichiestaDisponibilita richiesta = new RichiestaDisponibilita();
 
       richiesta.setMotivazioni(messaggio);
       richiesta.setAzienda(azienda);
       richiesta.setStudente(studente);
       richiesta.setStato(RichiestaDisponibilita.VALUTAZIONE);
-
-      RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
 
       return richiestaDao.doSave(richiesta);
 
@@ -224,7 +228,11 @@ public class RichiestaDServlet extends HttpServlet {
       Utente user = (Utente) request.getSession().getAttribute("utente");
       Studente studente = studenteDao.doRetrieveByKey(emailStudente);
       Azienda azienda = aziendaDao.doRetrieveByKey(user.getEmail());
+
       RichiestaDisponibilita richiesta = richiestaDao.doRetrieveByKey(studente, azienda);
+      if (richiesta == null) {
+        throw new IllegalArgumentException("Richiesta non trovata.");
+      }
 
       richiesta.setMotivazioni(motivazioni);
       if (risposta.equals(RichiestaDisponibilita.ACCETTATA)) {
