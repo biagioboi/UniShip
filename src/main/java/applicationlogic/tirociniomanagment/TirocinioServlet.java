@@ -149,7 +149,11 @@ public class TirocinioServlet extends HttpServlet {
 
       if (risposta.equals(Tirocinio.ACCETTATA)) {
         if (user.getTipo().equals(Utente.ADMIN)) {
-          tirocinio.setStato(Tirocinio.ACCETTATA);
+          if (tirocinio.getOreSvolte() >= tirocinio.getOreTotali()) {
+            tirocinio.setStato(Tirocinio.ACCETTATA);
+          } else {
+            tirocinio.setStato(Tirocinio.IN_CORSO);
+          }
         } else {
           tirocinio.setStato(Tirocinio.DA_CONVALIDARE);
         }

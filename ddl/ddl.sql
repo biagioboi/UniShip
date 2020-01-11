@@ -50,6 +50,7 @@ CREATE TABLE tirocinio(
         'Non completo',
         'Da Valutare',
         'Da Convalidare',
+        'In corso',
         'Rifiutata',
         'Accettata') NOT NULL,
 	studente varchar(50) NOT NULL,

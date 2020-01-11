@@ -2,8 +2,6 @@ $(() => {
 
   caricaRichieste();
 
-  caricaStudenti();
-
   caricaTirocini();
 
   $('#rispondiDisponibilitaModal').on('show.bs.modal', (e) => {
@@ -124,6 +122,7 @@ $(() => {
         $("#aggiungiOreModal").modal('toggle');
         if (response.status == 200) {
           document.getElementById("formAddActivity").reset();
+          caricaTirocini();
           $("#messaggioSuccessoBody").html(response.description);
           $("#messaggioSuccesso").toast('show');
         } else {
@@ -243,48 +242,6 @@ function rispondiRichiesta(how) {
   });
 }
 
-function caricaStudenti() {
-  $.ajax({
-    url: 'TirocinioServlet',
-    type: 'POST',
-    data: {
-      action: 'viewInternship'
-    },
-    success: (response) => {
-      let exist = false;
-      response.forEach((e) => {
-        if (e.stato == "Accettata") {
-          exist = true;
-          let studente = e.studente;
-          let riga = "<td>" + studente.matricola + "</td>"
-              + "<td>" + studente.nome + "</td>"
-              + "<td>" + studente.cognome + "</td>"
-              + "<td>" + studente.codiceFiscale + "</td>"
-              + "<td class='text-center'>"
-              + " <button class=\"btn btn-success\" data-toggle=\"modal\" "
-              + "         data-nomestudente = \""
-              + studente.nome + " " + studente.cognome + "\" "
-              + "         data-matricolastudente = \"" + studente.matricola
-              + "\" "
-              + "         data-idtirocinio=\"" + e.id + "\" "
-              + "         data-target=\"#aggiungiOreModal\"> "
-              + "         Aggiungi ore "
-              + "</button>"
-              + "</td>";
-          $("#tableStudentiTirocinio > tbody:last-child").append(
-              "<tr>" + riga + "</tr>");
-        }
-      });
-      if (!exist) {
-        $("#tableStudentiTirocinio")
-        .html("<tr><td style='text-align: center;' class='mt-2'>" +
-            "Non sono presenti studenti.</td></tr>");
-      }
-      $("#tableStudentiTirocinio").fadeIn();
-    }
-  });
-}
-
 function caricaTirocini() {
   $.ajax({
     url: 'TirocinioServlet',
@@ -307,7 +264,7 @@ function caricaTirocini() {
         let riga = `<td>${nomeStudente}</td><td>${azienda}</td>` +
             `<td>${tutor}</td><td>${oreSvolte}</td>` +
             `<td>${oreTotali}</td><td><span class="addbadge badge">${stato}</span></td>`;
-        if (e.stato == "Accettata") {
+        if (e.stato == "In corso") {
           riga += "<td class='text-center'>"
               + " <button class=\"btn btn-success btn-sm\" data-toggle=\"modal\" "
               + `         data-nomestudente = \"${nomeStudente}\" `

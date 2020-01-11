@@ -93,7 +93,7 @@ function checkIfExistTirocinio() {
       action: 'viewInternship'
     },
     success: (response) => {
-      let extist = false;
+      let exist = false;
       response.forEach((x) => {
         exist = true;
         let oreTotali = x.oreTotali;
@@ -108,13 +108,13 @@ function checkIfExistTirocinio() {
         .parent()
         .parent()
         .remove();
-        if (x.stato == "Accettata") {
+        if (x.stato == "In corso" && x.oreSvolte != 0) {
           caricaAttivitaRegistro(x.id);
         } else {
           caricaAttivitaRegistro(null);
         }
       });
-      if (!extist) {
+      if (!exist) {
         caricaAttivitaRegistro(null);
       }
       $("#tableAziendePresenti").fadeIn();

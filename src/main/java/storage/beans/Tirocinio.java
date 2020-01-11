@@ -119,6 +119,7 @@ public class Tirocinio {
   public static final String NON_COMPLETO = "Non completo";
   public static final String DA_VALUTARE = "Da valutare";
   public static final String DA_CONVALIDARE = "Da Convalidare";
+  public static final String IN_CORSO = "In corso";
   public static final String RIFIUTATA = "Rifiutata";
   public static final String ACCETTATA = "Accettata";
 
