@@ -40,43 +40,43 @@ public class TirocinioServlet extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Gson obj = new GsonBuilder().serializeNulls().create();
-    response.setContentType("application/json");
-    Utente user = (Utente) request.getSession().getAttribute("utente");
+
+    HttpSession session = request.getSession();
+    Utente user = (Utente) session.getAttribute("utente");
+    String login = (String) session.getAttribute("login");
+
+    if (login == null || !login.equals("si") || user == null) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      return;
+    }
+
+    String action = request.getParameter("action");
+    Gson obj = new Gson();
     Map<String, String> result = new HashMap<>();
 
-    if (user == null) {
-      result.put("status", "403");
-      result.put("description", "Not Authorized");
-      out.println(obj.toJson(result));
-    } else {
+    PrintWriter out = response.getWriter();
+    response.setContentType("application/json");
+
+    if (action != null) {
+
       try {
-        String action = request.getParameter("action");
 
         if (action.equals("validateInternship")) {
-          if (user.getTipo().equals(Utente.ADMIN) || user.getTipo()
-              .equals(Utente.UFFICIO_CARRIERE)) {
-            validateInternship(request, response);
+
+          if (validateInternship(request, response)) {
             result.put("status", "200");
-            result.put("description", "Richiesta inoltrata.");
-            out.println(obj.toJson(result));
+            result.put("description", "Risposta inviata.");
           } else {
-            result.put("status", "403");
-            result.put("description", "Not Authorized");
-            out.println(obj.toJson(result));
+            result.put("status", "400");
+            result.put("description", "Errore generico.");
           }
-        } else if (action.equals("viewInternship")) {
-          List<Tirocinio> tirocini = viewInternship(request, response);
-          out.println(obj.toJson(tirocini));
-        } else if (action.equals("changeState")) {
-          changeState(request, response);
-        } else if (action.equals("viewInternshipByFilter")) {
-          out.println(obj.toJson(viewInternshipByFilter(request, response)));
-        } else {
-          result.put("status", "400");
-          result.put("description", "Invalid Request");
+
           out.println(obj.toJson(result));
+
+        } else if (action.equals("viewInternship")) {
+          out.println(obj.toJson(viewInternship(request, response)));
+        }else if (action.equals("viewInternshipByFilter")) {
+          out.println(obj.toJson(viewInternshipByFilter(request, response)));
         }
       } catch (IllegalArgumentException e) {
         result.put("status", "422");
@@ -84,10 +84,12 @@ public class TirocinioServlet extends HttpServlet {
         out.println(obj.toJson(result));
       } catch (Exception ex) {
         result.put("status", "422");
-        result.put("description", "Generic error.");
+        result.put("description", "Errore generico.");
         out.println(obj.toJson(result));
       }
+
     }
+
   }
 
   private ArrayList<Tirocinio> viewInternship(HttpServletRequest request,
@@ -122,11 +124,6 @@ public class TirocinioServlet extends HttpServlet {
     }
 
     return null;
-
-  }
-
-  private void changeState(HttpServletRequest request, HttpServletResponse response) {
-    // TODO: implement viewInternshipByFilter
 
   }
 
@@ -202,6 +199,10 @@ public class TirocinioServlet extends HttpServlet {
 
     Utente user = (Utente) request.getSession().getAttribute("utente");
 
+    if (!user.getTipo().equals(Utente.UFFICIO_CARRIERE) && !user.getTipo().equals(Utente.ADMIN)) {
+      throw new IllegalArgumentException("Non puoi validare questo tirocinio.");
+    }
+
     String id = request.getParameter("tirocinio");
     if (id == null || id.length() < 1) {
       throw new IllegalArgumentException("id non valido.");
@@ -224,7 +225,8 @@ public class TirocinioServlet extends HttpServlet {
           } else {
             tirocinio.setStato(Tirocinio.IN_CORSO);
           }
-        } else {
+
+        } else if (user.getTipo().equals(Utente.UFFICIO_CARRIERE)) {
           tirocinio.setStato(Tirocinio.DA_CONVALIDARE);
         }
       } else {

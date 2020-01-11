@@ -93,6 +93,14 @@ public class RegistroServlet extends HttpServlet {
     try {
 
       Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(tirocinioId));
+
+      Utente user = (Utente) request.getSession().getAttribute("utente");
+
+      if (!tirocinio.getAzienda().getEmail().equals(user.getEmail()) && !tirocinio.getStudente()
+          .getEmail().equals(user.getEmail())) {
+        throw new IllegalArgumentException("Non puoi accedere a queste informazioni.");
+      }
+
       return attivitaDao.doRetrieveByTirocinio(tirocinio);
 
     } catch (SQLException e) {
@@ -131,6 +139,19 @@ public class RegistroServlet extends HttpServlet {
     try {
 
       Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(tirocinioId));
+
+      Utente user = (Utente) request.getSession().getAttribute("utente");
+
+      if (!tirocinio.getAzienda().getEmail().equals(user.getEmail()) && !tirocinio.getStudente()
+          .getEmail().equals(user.getEmail())) {
+        throw new IllegalArgumentException("Non puoi aggiungere attivita a questo tirocinio.");
+      }
+
+      if (tirocinio.getOreSvolte() >= tirocinio.getOreTotali()) {
+        throw new IllegalArgumentException(
+            "Non puoi aggiungere altre attivita ad questo tirocinio.");
+      }
+
       AttivitaRegistro attivita = new AttivitaRegistro();
       attivita.setTirocinio(tirocinio);
 
