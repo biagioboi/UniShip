@@ -2,16 +2,8 @@ package applicationlogic.usersmanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
@@ -45,8 +37,8 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Email too short\",\"status\":\"422\"}" + "\r\n",
-        response.getContentAsString());
+    assertEquals("{\"description\":\"Email too short\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
   }
 
   @Test
@@ -64,8 +56,8 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Email too long\",\"status\":\"422\"}" + "\r\n",
-        response.getContentAsString());
+    assertEquals("{\"description\":\"Email too long\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
   }
 
   @Test
@@ -82,8 +74,8 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Email not valid\",\"status\":\"422\"}" + "\r\n",
-        response.getContentAsString());
+    assertEquals("{\"description\":\"Email not valid\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
   }
 
   @Test
@@ -100,8 +92,8 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Email already register.\",\"status\":\"422\"}" + "\r\n",
-        response.getContentAsString());
+    assertEquals("{\"description\":\"Email already register.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
   }
 
   @Test
@@ -237,7 +229,7 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Cognome too short.\",\"status\":\"422\"}" + "\r\n",
+    assertEquals("{\"description\":\"Cognome too long.\",\"status\":\"422\"}" + "\r\n",
         response.getContentAsString());
   }
 
@@ -255,7 +247,7 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Cognome too short.\",\"status\":\"422\"}" + "\r\n",
+    assertEquals("{\"description\":\"Cognome invalid.\",\"status\":\"422\"}" + "\r\n",
         response.getContentAsString());
   }
 }
