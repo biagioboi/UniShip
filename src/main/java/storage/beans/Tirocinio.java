@@ -112,7 +112,7 @@ public class Tirocinio {
   private String tutorEsterno;
   private double oreSvolte;
   private String motivazioni;
-  private String path;
+  private transient String path;
   private Studente studente;
   private Azienda azienda;
 

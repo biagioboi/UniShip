@@ -170,7 +170,7 @@ public class TirocinioServlet extends HttpServlet {
        *
        * */
       String emailStudente = request.getParameter("studente");
-      if (emailStudente != null && emailStudente.length() != 0 ) {
+      if (emailStudente != null && emailStudente.length() != 0) {
         if (!utenteDao.doCheckRegister(emailStudente)) {
           throw new IllegalArgumentException("Studente non prensente nel sistema.");
         }
@@ -179,7 +179,7 @@ public class TirocinioServlet extends HttpServlet {
       }
 
       String emailAzienda = request.getParameter("azienda");
-      if (emailAzienda != null && emailAzienda.length() != 0 ) {
+      if (emailAzienda != null && emailAzienda.length() != 0) {
 
         if (!utenteDao.doCheckRegister(emailAzienda)) {
           throw new IllegalArgumentException("Azienda non prensente nel sistema.");
