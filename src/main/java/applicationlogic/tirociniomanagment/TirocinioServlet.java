@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +24,11 @@ import storage.beans.Utente;
 import storage.dao.AziendaDao;
 import storage.dao.StudenteDao;
 import storage.dao.TirocinioDao;
+import storage.dao.UtenteDao;
 import storage.interfaces.AziendaInterface;
 import storage.interfaces.StudenteInterface;
 import storage.interfaces.TirocinioInterface;
+import storage.interfaces.UtenteInterface;
 
 @WebServlet("/TirocinioServlet")
 public class TirocinioServlet extends HttpServlet {
@@ -89,6 +93,9 @@ public class TirocinioServlet extends HttpServlet {
   private ArrayList<Tirocinio> viewInternship(HttpServletRequest request,
       HttpServletResponse response) {
 
+    // se e' una azienda o uno studente ritorna i tirocini in cui
+    // compaiono altrimenti ritorna tutti i tirocini
+
     Utente user = (Utente) request.getSession().getAttribute("utente");
 
     try {
@@ -123,9 +130,72 @@ public class TirocinioServlet extends HttpServlet {
 
   }
 
-  private void viewInternshipByFilter(HttpServletRequest request, HttpServletResponse response) {
-    // TODO: implement viewInternshipByFilter
+  private ArrayList<Tirocinio> viewInternshipByFilter(HttpServletRequest request,
+      HttpServletResponse response) {
 
+    Utente user = (Utente) request.getSession().getAttribute("utente");
+    if (!user.getTipo().equals(Utente.UFFICIO_CARRIERE) || !user.getTipo().equals(Utente.ADMIN)) {
+      throw new IllegalArgumentException("Non puoi accedere a queste informazioni.");
+    }
+
+    String stato = request.getParameter("stato");
+
+    if (stato == null || stato.equals("tutti") || stato.equals(Tirocinio.ACCETTATA)
+        || stato.equals(Tirocinio.DA_VALUTARE) || stato.equals(Tirocinio.DA_CONVALIDARE)
+        || stato.equals(Tirocinio.NON_COMPLETO) || stato.equals(Tirocinio.RIFIUTATA)
+        || stato.equals(Tirocinio.IN_CORSO)) {
+
+      throw new IllegalArgumentException("Inserire uno stato valido.");
+    }
+
+    try {
+      TirocinioInterface tirocinioDao = new TirocinioDao();
+
+      ArrayList<Tirocinio> result = tirocinioDao.doRetrieveAll();
+
+      /*
+       * se lo stato e' diverso da tutti , rimuovo tutti i tirocini
+       * che hanno uno stato diverso da quello voluto
+       *
+       * */
+      if (!stato.equals("tutti")) {
+        result.removeIf((t -> !t.getStato().equals(stato)));
+      }
+
+      UtenteInterface utenteDao = new UtenteDao();
+
+      /*
+       * se l'email dello studente e' diverso da null ,controllo che lo studente esista e
+       * rimuovo tutti i tirocini che hanno uno studente diverso da quello voluto
+       *
+       * */
+      String emailStudente = request.getParameter("studente");
+      if (emailStudente != null) {
+        if (!utenteDao.doCheckRegister(emailStudente)) {
+          throw new IllegalArgumentException("Studente non prensente nel sistema.");
+        }
+
+        result.removeIf((t -> !t.getStudente().getEmail().equals(emailStudente)));
+      }
+
+      String emailAzienda = request.getParameter("azienda");
+      if (emailAzienda != null) {
+
+        if (!utenteDao.doCheckRegister(emailAzienda)) {
+          throw new IllegalArgumentException("Azienda non prensente nel sistema.");
+        }
+
+        result.removeIf((t -> !t.getAzienda().getEmail().equals(emailAzienda)));
+      }
+
+      return result;
+
+
+    } catch (SQLException e) {
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+    }
+
+    return null;
   }
 
   private boolean validateInternship(HttpServletRequest request, HttpServletResponse response) {
