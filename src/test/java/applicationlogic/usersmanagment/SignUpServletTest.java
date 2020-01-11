@@ -175,7 +175,7 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Nome too long.\",\"status\":\"422\"}" + "\r\n",
+    assertEquals("{\"description\":\"Nome too long.\",\"status\":\"422\"}",
         response.getContentAsString().trim());
   }
 
