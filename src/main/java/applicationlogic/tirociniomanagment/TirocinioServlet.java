@@ -75,7 +75,7 @@ public class TirocinioServlet extends HttpServlet {
 
         } else if (action.equals("viewInternship")) {
           out.println(obj.toJson(viewInternship(request, response)));
-        }else if (action.equals("viewInternshipByFilter")) {
+        } else if (action.equals("viewInternshipByFilter")) {
           out.println(obj.toJson(viewInternshipByFilter(request, response)));
         }
       } catch (IllegalArgumentException e) {
