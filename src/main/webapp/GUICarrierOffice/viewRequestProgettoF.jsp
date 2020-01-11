@@ -2,9 +2,9 @@
      aria-labelledby="pills-view-richiesteufficio">
 
     <div class="d-flex justify-content-end pb-3">
-        <div class="form-inline my-2">
+        <div id ="formShowintership" class="form-inline my-2">
             <label class="mr-3" for="order-sort">Stato : </label>
-            <select class="form-control custom-select mr-3" id="order-sort">
+            <select class="form-control custom-select mr-3" id="stato">
                 <option>Tutti</option>
                 <option>Non completo</option>
                 <option>Da valutare</option>
@@ -13,10 +13,8 @@
                 <option>Rifiutata</option>
                 <option>Accettata</option>
             </select>
-            <label class="mr-3" for="inizio"> Da: </label>
-            <input class="form-control mr-3" type="date" value="2011-08-19" id="inizio">
-            <label class="mr-3" for="fine"> Fino ad: </label>
-            <input class="form-control mr-3" type="date" value="2011-08-19" id="fine">
+            <input class="form-control mr-3" type="text" placeholder="Email azienda" id="azienda">
+            <input class="form-control mr-3" type="text" placeholder="Email studente" id="studente">
             <input type="submit" value="filtra" class="btn btn-success">
         </div>
     </div>

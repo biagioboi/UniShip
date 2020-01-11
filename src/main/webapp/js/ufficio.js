@@ -70,6 +70,23 @@ $(() => {
     });
   })
 
+  $("#formShowintership").submit((e) => {
+    e.preventDefault();
+    $.ajax({
+      url: 'TirocinioServlet',
+      type: 'POST',
+      data: {
+        studente: $("#studente").val(),
+        azienda: $("#azienda").val(),
+        stato: $("#stato").val(),
+        action: 'viewInternshipByFilter'
+      },
+      success: (response) => {
+        console.log(response);
+      }
+    });
+  })
+
 });
 
 function chargeTableTirocini() {
