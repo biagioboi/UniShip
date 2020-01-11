@@ -1,22 +1,22 @@
-
 <div class="tab-pane fade show active" id="pills-richiesteufficio" role="tabpanel"
      aria-labelledby="pills-view-richiesteufficio">
 
-    <div class="col-12 mt-2 mb-2">
-        <div class="row">
-            <div class="col-md-5 form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password"
-                       placeholder="Password" required>
-
-            </div>
-            <div class="col-md-5">
-                ciao
-            </div>
-            <div class="col-md-2">
-                ciao
-            </div>
-
+    <div class="d-flex justify-content-end pb-3">
+        <div class="form-inline my-2">
+            <label class="mr-3" for="order-sort">Stato : </label>
+            <select class="form-control custom-select mr-3" id="order-sort">
+                <option>Tutti</option>
+                <option>Non completo</option>
+                <option>Da valutare</option>
+                <option>Da convalidare</option>
+                <option>Rifiutata</option>
+                <option>Accettata</option>
+            </select>
+            <label class="mr-3" for="inizio"> Da: </label>
+            <input class="form-control mr-3" type="date" value="2011-08-19" id="inizio">
+            <label class="mr-3" for="fine"> Fino ad: </label>
+            <input class="form-control mr-3" type="date" value="2011-08-19" id="fine">
+            <input type="submit" value="filtra" class="btn btn-success">
         </div>
     </div>
 
@@ -40,8 +40,6 @@
 </div>
 
 
-
-
 <div idtirocinio="" class="modal fade" id="valutaTirocinio" tabindex="-1" role="dialog"
      aria-hidden="true">
     <div class="modal-dialog " role="document">
@@ -55,14 +53,19 @@
             <div class="modal-body">
                 <h6> Puoi scaricare il file da <a id="linkPDF" href="">qui</a></h6>
                 <div class="form-group">
-                    <label for="motivazioniValidazioneTirocinio" class="col-form-label">Motivazioni:</label>
+                    <label for="motivazioniValidazioneTirocinio"
+                           class="col-form-label">Motivazioni:</label>
                     <textarea class="form-control" id="motivazioniValidazioneTirocinio"></textarea>
                 </div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="respondTirocinio('Accettata');">Accetta</button>
-                <button type="button" class="btn btn-danger" onclick="respondTirocinio('Rifiutata');">Rifiuta</button>
+                <button type="button" class="btn btn-success"
+                        onclick="respondTirocinio('Accettata');">Accetta
+                </button>
+                <button type="button" class="btn btn-danger"
+                        onclick="respondTirocinio('Rifiutata');">Rifiuta
+                </button>
             </div>
         </div>
     </div>
