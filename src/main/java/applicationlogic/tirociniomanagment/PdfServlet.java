@@ -13,7 +13,6 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -143,8 +142,6 @@ public class PdfServlet extends HttpServlet {
         throw new IllegalArgumentException("Non puoi accedere a questo tirocinio.");
       }
 
-      Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-
       String path = this.getClass().getClassLoader().getResource("").getPath();
       String fullPath = URLDecoder.decode(path, "UTF-8");
 
@@ -155,8 +152,11 @@ public class PdfServlet extends HttpServlet {
         directory.mkdir();
       }
 
-      path += "/" + tirocinio.getId() + "_" + tirocinio.getAzienda().getPartitaIva() + "_" + tirocinio.getStudente().getMatricola() + ".pdf";
+      path +=
+          "/" + tirocinio.getId() + "_" + tirocinio.getAzienda().getPartitaIva() + "_" + tirocinio
+              .getStudente().getMatricola() + ".pdf";
 
+      Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
       InputStream fileContent = filePart.getInputStream();
       byte[] buffer = new byte[fileContent.available()];
       fileContent.read(buffer);
