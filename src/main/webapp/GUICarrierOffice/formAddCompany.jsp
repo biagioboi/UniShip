@@ -14,8 +14,8 @@
                            placeholder="Partita IVA" required>
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Email"
-                           required>
+                    <input type="email" class="form-control" name="email" id="email"
+                           placeholder="Email" required>
                 </div>
                 <div class="form-group col-md-6 col-sm-12">
                     <input type="text" class="form-control" name="indirizzo" id="indirizzo"
@@ -30,7 +30,8 @@
                            placeholder="Codice ATECO" required>
                 </div>
                 <div class="form-group col-md-3 col-sm-6">
-                    <input type="number" class="form-control" name="numDipendenti" id="numDipendenti"
+                    <input type="number" class="form-control" name="numDipendenti"
+                           id="numDipendenti"
                            placeholder="Numero Dipendenti" required>
                 </div>
                 <div class="col-12">
