@@ -8,6 +8,7 @@
                 <option>Tutti</option>
                 <option>Non completo</option>
                 <option>Da valutare</option>
+                <option>In corso</option>
                 <option>Da convalidare</option>
                 <option>Rifiutata</option>
                 <option>Accettata</option>
