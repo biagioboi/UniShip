@@ -2,8 +2,8 @@
      aria-labelledby="pills-view-richiesteufficio">
 
     <div class="d-flex justify-content-end pb-3">
-        <div id ="formShowintership" class="form-inline my-2">
-            <label class="mr-3" for="order-sort">Stato : </label>
+        <form id ="formShowintership" class="form-inline my-2">
+            <label class="mr-3" for="stato">Stato : </label>
             <select class="form-control custom-select mr-3" id="stato">
                 <option>Tutti</option>
                 <option>Non completo</option>
@@ -16,7 +16,7 @@
             <input class="form-control mr-3" type="text" placeholder="Email azienda" id="azienda">
             <input class="form-control mr-3" type="text" placeholder="Email studente" id="studente">
             <input type="submit" value="filtra" class="btn btn-success">
-        </div>
+        </form>
     </div>
 
     <div class="table-responsive font-size-sm">

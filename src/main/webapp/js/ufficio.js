@@ -72,6 +72,7 @@ $(() => {
 
   $("#formShowintership").submit((e) => {
     e.preventDefault();
+    console.log("hey");
     $.ajax({
       url: 'TirocinioServlet',
       type: 'POST',

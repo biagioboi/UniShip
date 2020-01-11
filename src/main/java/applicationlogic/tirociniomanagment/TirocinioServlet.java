@@ -72,7 +72,7 @@ public class TirocinioServlet extends HttpServlet {
         } else if (action.equals("changeState")) {
           changeState(request, response);
         } else if (action.equals("viewInternshipByFilter")) {
-          viewInternshipByFilter(request, response);
+          out.println(obj.toJson(viewInternshipByFilter(request, response)));
         } else {
           result.put("status", "400");
           result.put("description", "Invalid Request");
@@ -134,16 +134,16 @@ public class TirocinioServlet extends HttpServlet {
       HttpServletResponse response) {
 
     Utente user = (Utente) request.getSession().getAttribute("utente");
-    if (!user.getTipo().equals(Utente.UFFICIO_CARRIERE) || !user.getTipo().equals(Utente.ADMIN)) {
+    if (!user.getTipo().equals(Utente.UFFICIO_CARRIERE) && !user.getTipo().equals(Utente.ADMIN)) {
       throw new IllegalArgumentException("Non puoi accedere a queste informazioni.");
     }
 
     String stato = request.getParameter("stato");
 
-    if (stato == null || stato.equals("tutti") || stato.equals(Tirocinio.ACCETTATA)
-        || stato.equals(Tirocinio.DA_VALUTARE) || stato.equals(Tirocinio.DA_CONVALIDARE)
-        || stato.equals(Tirocinio.NON_COMPLETO) || stato.equals(Tirocinio.RIFIUTATA)
-        || stato.equals(Tirocinio.IN_CORSO)) {
+    if (stato == null && !stato.equals("Tutti") && !stato.equals(Tirocinio.ACCETTATA)
+        && !stato.equals(Tirocinio.DA_VALUTARE) && !stato.equals(Tirocinio.DA_CONVALIDARE)
+        && !stato.equals(Tirocinio.NON_COMPLETO) && !stato.equals(Tirocinio.RIFIUTATA)
+        && !stato.equals(Tirocinio.IN_CORSO)) {
 
       throw new IllegalArgumentException("Inserire uno stato valido.");
     }
@@ -158,7 +158,7 @@ public class TirocinioServlet extends HttpServlet {
        * che hanno uno stato diverso da quello voluto
        *
        * */
-      if (!stato.equals("tutti")) {
+      if (!stato.equals("Tutti")) {
         result.removeIf((t -> !t.getStato().equals(stato)));
       }
 
@@ -170,7 +170,7 @@ public class TirocinioServlet extends HttpServlet {
        *
        * */
       String emailStudente = request.getParameter("studente");
-      if (emailStudente != null) {
+      if (emailStudente != null && emailStudente.length() != 0 ) {
         if (!utenteDao.doCheckRegister(emailStudente)) {
           throw new IllegalArgumentException("Studente non prensente nel sistema.");
         }
@@ -179,7 +179,7 @@ public class TirocinioServlet extends HttpServlet {
       }
 
       String emailAzienda = request.getParameter("azienda");
-      if (emailAzienda != null) {
+      if (emailAzienda != null && emailAzienda.length() != 0 ) {
 
         if (!utenteDao.doCheckRegister(emailAzienda)) {
           throw new IllegalArgumentException("Azienda non prensente nel sistema.");
