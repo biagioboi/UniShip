@@ -110,8 +110,8 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Password too short.\",\"status\":\"422\"}" + "\r\n",
-        response.getContentAsString());
+    assertEquals("{\"description\":\"Password too short.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
   }
 
   @Test
@@ -128,8 +128,8 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Password invalid.\",\"status\":\"422\"}" + "\r\n",
-        response.getContentAsString());
+    assertEquals("{\"description\":\"Password invalid.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
   }
 
   @Test
@@ -156,8 +156,8 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Nome too short.\",\"status\":\"422\"}" + "\r\n",
-        response.getContentAsString());
+    assertEquals("{\"description\":\"Nome too short.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
   }
 
 
@@ -176,7 +176,7 @@ class SignUpServletTest extends Mockito {
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
     assertEquals("{\"description\":\"Nome too long.\",\"status\":\"422\"}" + "\r\n",
-        response.getContentAsString());
+        response.getContentAsString().trim());
   }
 
   @Test
@@ -193,8 +193,8 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Nome invalid.\",\"status\":\"422\"}" + "\r\n",
-        response.getContentAsString());
+    assertEquals("{\"description\":\"Nome invalid.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
   }
 
   @Test
@@ -211,8 +211,8 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Cognome too short.\",\"status\":\"422\"}" + "\r\n",
-        response.getContentAsString());
+    assertEquals("{\"description\":\"Cognome too short.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
   }
 
   @Test
@@ -229,8 +229,8 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Cognome too long.\",\"status\":\"422\"}" + "\r\n",
-        response.getContentAsString());
+    assertEquals("{\"description\":\"Cognome too long.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
   }
 
   @Test
@@ -247,7 +247,7 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Cognome invalid.\",\"status\":\"422\"}" + "\r\n",
-        response.getContentAsString());
+    assertEquals("{\"description\":\"Cognome invalid.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
   }
 }
