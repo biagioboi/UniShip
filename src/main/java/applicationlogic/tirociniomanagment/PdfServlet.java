@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -145,7 +146,7 @@ public class PdfServlet extends HttpServlet {
       String path = this.getClass().getClassLoader().getResource("").getPath();
       String fullPath = URLDecoder.decode(path, "UTF-8");
 
-      path = fullPath.split("/WEB-INF/classes/")[0] + "/uploaded";
+      path = fullPath + "uploaded";
       //make directory if doesn't exist
       File directory = new File(path);
       if (!directory.exists()) {
@@ -157,6 +158,14 @@ public class PdfServlet extends HttpServlet {
               .getStudente().getMatricola() + ".pdf";
 
       Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
+
+      String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName()
+          .toString();
+      String exstetion = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+      if (!exstetion.equals("pdf")) {
+        throw new IllegalArgumentException("Estensione non valida.");
+      }
       InputStream fileContent = filePart.getInputStream();
       byte[] buffer = new byte[fileContent.available()];
       fileContent.read(buffer);

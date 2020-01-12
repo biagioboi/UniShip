@@ -6,10 +6,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.Collection;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,7 +20,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import storage.beans.Azienda;
 import storage.beans.Studente;
 import storage.beans.Tirocinio;
@@ -27,8 +29,9 @@ import applicationlogic.DBOperation;
 public class PdfServletTest extends Mockito {
 
   private MockHttpServletResponse response;
-  private MockMultipartHttpServletRequest request;
+  private HttpServletRequest request;
   private PdfServlet servlet;
+  private HttpSession session;
 
 
   private static Tirocinio tirocinio;
@@ -76,11 +79,13 @@ public class PdfServletTest extends Mockito {
   @BeforeEach
   void carica() {
     servlet = new PdfServlet();
-    request = new MockMultipartHttpServletRequest();
+    request = mock(HttpServletRequest.class,Mockito.CALLS_REAL_METHODS);
+    session = mock(HttpSession.class,Mockito.CALLS_REAL_METHODS);
     response = new MockHttpServletResponse();
 
-    request.getSession().setAttribute("utente", studente);
-    request.getSession().setAttribute("login", "si");
+    when(request.getSession()).thenReturn(session);
+    when(request.getSession().getAttribute("utente")).thenReturn(studente);
+    when(request.getSession().getAttribute("login")).thenReturn("si");
 
 
   }
@@ -88,18 +93,27 @@ public class PdfServletTest extends Mockito {
   @Test
   public void TC_5_01() throws ServletException, IOException {
 
-    InputStream file = mock(InputStream.class);
-    Part part = mock(Part.class);
-    when(part.getInputStream()).thenReturn(file);
-    when(part.getSize()).thenReturn(0L);
+    // prendo la path della root della cartella resources per i test.
+    ClassLoader classLoader = getClass().getClassLoader();
+    URL resource = classLoader.getResource("prova.txt");
+
+    // Apro il file
+    File file = new File(resource.getFile());
+    InputStream stream = new FileInputStream(file);
+    Part part = mock(Part.class, Mockito.CALLS_REAL_METHODS);
+    when(part.getInputStream()).thenReturn(stream);
+    when(part.getSize()).thenReturn(10L);
+    when(part.getSubmittedFileName()).thenReturn("prova.txt");
+
+    when(request.getParameter("action")).thenReturn("uploadPdf");
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
     when(request.getPart("file")).thenReturn(part);
 
 
-    request.addParameter("action", "uploadPdf");
-    request.addParameter("tirocinio", String.valueOf(tirocinio.getId()));
-
     servlet.doPost(request, response);
-    System.out.println(response.getContentAsString());
+    assertEquals("{\"description\":\"Estensione non valida.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+
   }
 
 
