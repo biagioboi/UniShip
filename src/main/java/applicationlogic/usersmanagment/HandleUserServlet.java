@@ -110,58 +110,57 @@ public class HandleUserServlet extends HttpServlet {
       throws Exception {
     String email = request.getParameter("email");
     if (email.length() == 0) {
-      throw new IllegalArgumentException("Email too short");
+      throw new IllegalArgumentException("Email troppo corta");
     } else if (email.length() > 50) {
-      throw new IllegalArgumentException("Email too long");
+      throw new IllegalArgumentException("Email troppo lunga");
     } else if (!email.matches("[0-9a-zA-Z.]+@[a-z.]+.[a-z]+")) {
-      throw new IllegalArgumentException("Email not valid");
+      throw new IllegalArgumentException("Email non valida");
     }
     AziendaInterface dao = new AziendaDao();
 
     if (dao.doRetrieveByKey(email) != null) {
-      throw new IllegalArgumentException("Email already registered");
+      throw new IllegalArgumentException("Email gia' registrata");
     }
 
     String nome = request.getParameter("nome");
     if (nome.length() == 0) {
-      throw new IllegalArgumentException("Nome too short.");
+      throw new IllegalArgumentException("Nome troppo corto.");
     } else if (nome.length() > 30) {
-      throw new IllegalArgumentException("Nome too long.");
+      throw new IllegalArgumentException("Nome troppo lungo.");
     } else if (!nome.matches("[a-zA-Z .&'-]+")) {
-      throw new IllegalArgumentException("Nome invalid.");
+      throw new IllegalArgumentException("Nome invalido.");
     }
 
     String piva = request.getParameter("piva");
     if (!piva.matches("[0-9]{11}")) {
-      throw new IllegalArgumentException("Partita IVA invalid.");
+      throw new IllegalArgumentException("Partita IVA invalida.");
     }
 
     String indirizzo = request.getParameter("indirizzo");
     if (indirizzo.length() == 0) {
-      throw new IllegalArgumentException("Indirizzo too short.");
+      throw new IllegalArgumentException("Indirizzo troppo piccolo.");
     } else if (!indirizzo.matches("[A-z 0-9,]+")) {
-      throw new IllegalArgumentException("Indirizzo invalid.");
+      throw new IllegalArgumentException("Indirizzo non valido.");
     }
 
     String rappresentante = request.getParameter("rappresentante");
     if (rappresentante.length() == 0) {
-      throw new IllegalArgumentException("rappresentante too short.");
+      throw new IllegalArgumentException("Rappresentante troppo piccolo.");
     } else if (!rappresentante.matches("[A-z ]+")) {
-      throw new IllegalArgumentException("rappresentante invalid.");
+      throw new IllegalArgumentException("Rappresentante non valido.");
     }
 
     String codAteco = request.getParameter("codAteco");
     if (codAteco.length() == 0) {
       throw new IllegalArgumentException("Codice ateco too short.");
     } else if (!codAteco.matches("[A-Z0-9.]+")) {
-      throw new IllegalArgumentException("Codice ateco invalid.");
+      throw new IllegalArgumentException("Codice ateco non valido.");
     }
 
     String numeroDipendenti = request.getParameter("numeroDipendenti");
     if (!numeroDipendenti.matches("[0-9]+")) {
-      throw new IllegalArgumentException("numeroDipendenti invalid.");
+      throw new IllegalArgumentException("Numero dipendenti non e' valido.");
     }
-
 
     //Invio email con le credenziali
 
@@ -179,18 +178,21 @@ public class HandleUserServlet extends HttpServlet {
         });
 
     Message message = new MimeMessage(session);
-    message.setFrom(new InternetAddress("from@gmail.com"));
+    message.setFrom(new InternetAddress(USERNAME_EMAIL));
     message.setRecipients(
         Message.RecipientType.TO,
         InternetAddress.parse(email)
     );
-    message.setSubject("Testing Gmail TLS");
-    message.setText("Dear Boi Biagio,"
-        + "\n\n Please do not spam my email!");
+    String newPassword = PasswordHash.generatePassword();
+    message.setSubject("Registrazione UniShip");
+    message.setText("La registrazione alla piattaforma UniShip e' andata a buon fine."
+        + "\n\nLe vostre credenziali sono : \nEmail: l'email fornita all'ufficio carriere\n"
+        + "Password : " + newPassword
+        + "\n\nQUESTA EMAIL E' STATA AUTOGENERATA, NON RISPONDERE A QUESTA EMAIL.");
 
     Transport.send(message);
 
-    String password = PasswordHash.createHash("password");
+    String password = PasswordHash.createHash(newPassword);
     Azienda azienda = new Azienda(email, nome, password, piva, indirizzo, rappresentante, codAteco,
         Integer.parseInt(numeroDipendenti));
 
