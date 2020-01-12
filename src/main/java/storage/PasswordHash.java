@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Random;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
@@ -12,7 +13,7 @@ import javax.crypto.spec.PBEKeySpec;
  *
  * @author havoc AT defuse.ca
  * @see <a href="http://crackstation.net/hashing-security.htm">Original
- * website</a>
+ *     website</a>
  */
 public final class PasswordHash {
 
@@ -65,6 +66,7 @@ public final class PasswordHash {
   /**
    * This is an utility class. So no constructor should be used.
    */
+
   private PasswordHash() {
   }
 
@@ -91,7 +93,7 @@ public final class PasswordHash {
    * @param password the password to hash
    * @return a salted PBKDF2 hash of the password
    * @throws NoSuchAlgorithmException the no such algorithm exception
-   * @throws InvalidKeySpecException  the invalid key spec exception
+   * @throws InvalidKeySpecException the invalid key spec exception
    */
   public static String createHash(final char[] password)
       throws NoSuchAlgorithmException, InvalidKeySpecException {
@@ -113,7 +115,7 @@ public final class PasswordHash {
    * @param goodHash the hash of the valid password
    * @return true if the password is correct, false if not
    * @throws NoSuchAlgorithmException the no such algorithm exception
-   * @throws InvalidKeySpecException  the invalid key spec exception
+   * @throws InvalidKeySpecException the invalid key spec exception
    */
   public static boolean validatePassword(final String password,
       final String goodHash)
@@ -128,7 +130,7 @@ public final class PasswordHash {
    * @param goodHash the hash of the valid password
    * @return true if the password is correct, false if not
    * @throws NoSuchAlgorithmException the no such algorithm exception
-   * @throws InvalidKeySpecException  the invalid key spec exception
+   * @throws InvalidKeySpecException the invalid key spec exception
    */
   public static boolean validatePassword(final char[] password,
       final String goodHash)
@@ -166,13 +168,13 @@ public final class PasswordHash {
   /**
    * Computes the PBKDF2 hash of a password.
    *
-   * @param password   the password to hash.
-   * @param salt       the salt
+   * @param password the password to hash.
+   * @param salt the salt
    * @param iterations the iteration count (slowness factor)
-   * @param bytes      the length of the hash to compute in bytes
+   * @param bytes the length of the hash to compute in bytes
    * @return the PBDKF2 hash of the password
    * @throws NoSuchAlgorithmException the no such algorithm exception
-   * @throws InvalidKeySpecException  the invalid key spec exception
+   * @throws InvalidKeySpecException the invalid key spec exception
    */
   private static byte[] pbkdf2(final char[] password, final byte[] salt,
       final int iterations, final int bytes)
@@ -214,4 +216,29 @@ public final class PasswordHash {
       return hex;
     }
   }
+
+  /**
+   * Make a password of 8 random element.
+   *s
+   * @return a string of 8 element
+   */
+
+  public static String generatePassword() {
+
+    Random random = new Random();
+    String result = "";
+
+    while (result.length() != 9) {
+      result += PASSWORD_STRING.charAt(random.nextInt(PASSWORD_STRING.length()));
+    }
+
+    return result;
+
+  }
+
+  /*
+  * Constant for generatePassword algorithm.
+  * */
+  public static final String PASSWORD_STRING =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 }
