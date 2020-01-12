@@ -217,6 +217,11 @@ public final class PasswordHash {
     }
   }
 
+  /**
+   * Make a password of 8 random element.
+   *s
+   * @return a string of 8 element
+   */
 
   public static String generatePassword() {
 
@@ -231,6 +236,9 @@ public final class PasswordHash {
 
   }
 
+  /*
+  * Constant for generatePassword algorithm.
+  * */
   public static final String PASSWORD_STRING =
       "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 }

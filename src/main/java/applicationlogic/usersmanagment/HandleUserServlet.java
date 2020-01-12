@@ -406,6 +406,6 @@ public class HandleUserServlet extends HttpServlet {
 
   }
 
-  public final static String USERNAME_EMAIL = "uniship.info@gmail.com";
-  public final static String PASSWORD_EMAIL = "uniship2020";
+  public static final String USERNAME_EMAIL = "uniship.info@gmail.com";
+  public static final String PASSWORD_EMAIL = "uniship2020";
 }
