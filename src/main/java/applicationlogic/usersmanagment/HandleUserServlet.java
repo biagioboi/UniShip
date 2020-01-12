@@ -12,7 +12,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import javafx.util.Pair;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.naming.AuthenticationException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -154,9 +162,35 @@ public class HandleUserServlet extends HttpServlet {
       throw new IllegalArgumentException("numeroDipendenti invalid.");
     }
 
-    //TODO autogenerazione della password e invio tramite mail
-    String password = PasswordHash.createHash("password");
 
+    //Invio email con le credenziali
+
+    Properties prop = new Properties();
+    prop.put("mail.smtp.host", "smtp.gmail.com");
+    prop.put("mail.smtp.port", "587");
+    prop.put("mail.smtp.auth", "true");
+    prop.put("mail.smtp.starttls.enable", "true"); //TLS
+
+    Session session = Session.getInstance(prop,
+        new javax.mail.Authenticator() {
+          protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication(USERNAME_EMAIL, PASSWORD_EMAIL);
+          }
+        });
+
+    Message message = new MimeMessage(session);
+    message.setFrom(new InternetAddress("from@gmail.com"));
+    message.setRecipients(
+        Message.RecipientType.TO,
+        InternetAddress.parse(email)
+    );
+    message.setSubject("Testing Gmail TLS");
+    message.setText("Dear Boi Biagio,"
+        + "\n\n Please do not spam my email!");
+
+    Transport.send(message);
+
+    String password = PasswordHash.createHash("password");
     Azienda azienda = new Azienda(email, nome, password, piva, indirizzo, rappresentante, codAteco,
         Integer.parseInt(numeroDipendenti));
 
@@ -371,4 +405,7 @@ public class HandleUserServlet extends HttpServlet {
     return result;
 
   }
+
+  public final static String USERNAME_EMAIL = "uniship.info@gmail.com";
+  public final static String PASSWORD_EMAIL = "uniship2020";
 }
