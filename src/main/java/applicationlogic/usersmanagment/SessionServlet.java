@@ -102,15 +102,21 @@ public class SessionServlet extends HttpServlet {
 
     try {
       if (email.length() < 1) {
-        throw new IllegalArgumentException("Email too short.");
+        throw new IllegalArgumentException("Email troppo corta.");
       } else if (email.length() > 50) {
-        throw new IllegalArgumentException("Email too long.");
+        throw new IllegalArgumentException("Email troppo lunga.");
       } else if (!utenteDao.doCheckRegister(email)) {
-        throw new IllegalArgumentException("Email not exist.");
+        throw new IllegalArgumentException("Email non presente.");
+      }
+
+      if (password.length() < 8) {
+        throw new IllegalArgumentException("Password troppo corta.");
+      } else if (!password.matches("[0-9a-zA-Z ]{8,}")) {
+        throw new IllegalArgumentException("Formato password non valido.");
       }
 
       if (!(utenteDao.doCheckLogin(email, password))) {
-        throw new IllegalArgumentException("Credential not valid.");
+        throw new IllegalArgumentException("Credenziali non valide.");
       } else {
         return utenteDao.doRetrieveByKey(email);
       }
