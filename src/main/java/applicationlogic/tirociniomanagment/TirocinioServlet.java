@@ -137,10 +137,10 @@ public class TirocinioServlet extends HttpServlet {
 
     String stato = request.getParameter("stato");
 
-    if (stato == null && !stato.equals("Tutti") && !stato.equals(Tirocinio.ACCETTATA)
+    if (stato == null || (!stato.equals("Tutti") && !stato.equals(Tirocinio.ACCETTATA)
         && !stato.equals(Tirocinio.DA_VALUTARE) && !stato.equals(Tirocinio.DA_CONVALIDARE)
         && !stato.equals(Tirocinio.NON_COMPLETO) && !stato.equals(Tirocinio.RIFIUTATA)
-        && !stato.equals(Tirocinio.IN_CORSO)) {
+        && !stato.equals(Tirocinio.IN_CORSO))) {
 
       throw new IllegalArgumentException("Inserire uno stato valido.");
     }

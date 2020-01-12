@@ -1,6 +1,7 @@
 package storage.beans;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class Studente extends Utente {
 
@@ -89,6 +90,19 @@ public class Studente extends Utente {
   public void setCognome(String cognome) {
     this.cognome = cognome;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Studente studente = (Studente) o;
+    return Objects.equals(codiceFiscale, studente.codiceFiscale);
+  }
+
 
   private String codiceFiscale;
   private String matricola;

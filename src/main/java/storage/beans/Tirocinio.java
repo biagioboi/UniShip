@@ -2,6 +2,7 @@ package storage.beans;
 
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 /*CAMBIAMENTO: INSERITE STRINGHE FINAL PER LO STATO*/
 
@@ -104,6 +105,18 @@ public class Tirocinio {
 
   public void setMotivazioni(String motivazioni) {
     this.motivazioni = motivazioni;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Tirocinio tirocinio = (Tirocinio) o;
+    return id == tirocinio.id;
   }
 
   private int id;
