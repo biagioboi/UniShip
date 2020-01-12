@@ -101,10 +101,14 @@ function timeConvert(n) {
 function updateValueSpinner() {
   $(".progress").each(function () {
 
-    var value = $(this).attr('data-value');
-    var left = $(this).find('.progress-left .progress-bar');
-    var right = $(this).find('.progress-right .progress-bar');
+    let value = $(this).attr('data-value');
+    let left = $(this).find('.progress-left .progress-bar');
+    let right = $(this).find('.progress-right .progress-bar');
     $("#percentoTotale").html(value);
+
+    if(value > 100){
+      value = 100;
+    }
 
     if (value > 0) {
       right.css("transition", "all linear 2s");

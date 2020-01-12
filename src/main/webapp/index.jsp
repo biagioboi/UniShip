@@ -48,7 +48,7 @@ String tipo = (String) session.getAttribute("tipo");
 
     <% if (tipo.equals("studente")) { %>
     <div id="progress-cicle" class="bg-white rounded-lg p-5 shadow m-3">
-      <h2 class="h6 font-weight-bold text-center mb-4">Total overdue</h2>
+      <h2 class="h6 font-weight-bold text-center mb-4">Overview</h2>
       <!-- Progress bar 4 -->
       <div class="progress mx-auto" data-value='0' id="percentoOreSvolte">
                 <span class="progress-left">

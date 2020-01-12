@@ -87,7 +87,7 @@ function chargeTableTirocini() {
       });
       if (!exist) {
         $("#richiesteTirocinioAdmin > tbody:last-child")
-        .html("<tr><td style='text-align: center;' class='mt-2'>" +
+        .html("<tr><td style='text-align: center;' colspan='100%' class='mt-2'>" +
             "Non sono presenti richieste.</td></tr>");
       }
 

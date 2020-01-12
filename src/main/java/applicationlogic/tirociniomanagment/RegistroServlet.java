@@ -96,9 +96,11 @@ public class RegistroServlet extends HttpServlet {
 
       Utente user = (Utente) request.getSession().getAttribute("utente");
 
-      if (!tirocinio.getAzienda().getEmail().equals(user.getEmail()) && !tirocinio.getStudente()
-          .getEmail().equals(user.getEmail())) {
-        throw new IllegalArgumentException("Non puoi accedere a queste informazioni.");
+      if (!user.getTipo().equals(Utente.UFFICIO_CARRIERE) && !user.getTipo().equals(Utente.ADMIN)) {
+        if (!tirocinio.getAzienda().getEmail().equals(user.getEmail()) && !tirocinio.getStudente()
+            .getEmail().equals(user.getEmail())) {
+          throw new IllegalArgumentException("Non puoi accedere a queste informazioni.");
+        }
       }
 
       return attivitaDao.doRetrieveByTirocinio(tirocinio);
