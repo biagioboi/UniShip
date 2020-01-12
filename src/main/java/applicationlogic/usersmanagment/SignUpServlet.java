@@ -110,7 +110,7 @@ public class SignUpServlet extends HttpServlet {
       String codiceFiscale = request.getParameter("codiceFiscale");
       if (codiceFiscale.compareTo("") != 0) {
         if (codiceFiscale.length() != 16) {
-          throw new IllegalArgumentException("Codice Fiscale too short.");
+          throw new IllegalArgumentException("Codice Fiscale lenght invalid.");
         } else if (!codiceFiscale
             .matches("^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$")) {
           throw new IllegalArgumentException("Codice Fiscale invalid.");
@@ -119,14 +119,14 @@ public class SignUpServlet extends HttpServlet {
 
       String matricola = request.getParameter("matricola");
       if (matricola.length() != 10) {
-        throw new IllegalArgumentException("Matricola too short.");
+        throw new IllegalArgumentException("Matricola lenght invalid.");
       } else if (!matricola.matches("[0-9]{10}")) {
         throw new IllegalArgumentException("Matricola invalid.");
       }
 
       String dataDiNascita = request.getParameter("dataDiNascita");
       if (dataDiNascita.length() != 10) {
-        throw new IllegalArgumentException("Data di nascita too short.");
+        throw new IllegalArgumentException("Data di nascita lenght invalid.");
       } else if (!dataDiNascita.matches(
           "([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))")) {
         throw new IllegalArgumentException("Data di nascita invalid.");

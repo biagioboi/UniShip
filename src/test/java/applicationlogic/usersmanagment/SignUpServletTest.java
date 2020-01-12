@@ -250,4 +250,220 @@ class SignUpServletTest extends Mockito {
     assertEquals("{\"description\":\"Cognome invalid.\",\"status\":\"422\"}",
         response.getContentAsString().trim());
   }
+
+  @Test
+  public void TC_1_15() throws ServletException, IOException {
+    request.setParameter("action", "signup");
+    request.setParameter("nome", "Mario");
+    request.setParameter("cognome", "Rossi");
+    request.setParameter("email", "m.rossi@studenti.unisa.it");
+    request.setParameter("password", "password");
+    request.setParameter("codiceFiscale", "MRORSS98A05H703CCC");
+    request.setParameter("matricola", "0512005120");
+    request.setParameter("dataDiNascita", "1998-01-05");
+    request.setParameter("cittadinanza", "Italia");
+    request.setParameter("residenza", "Via Roma 8, Napoli");
+    request.setParameter("numero", "3335858581");
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Codice Fiscale lenght invalid.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void TC_1_16() throws ServletException, IOException {
+    request.setParameter("action", "signup");
+    request.setParameter("nome", "Mario");
+    request.setParameter("cognome", "Rossi");
+    request.setParameter("email", "m.rossi@studenti.unisa.it");
+    request.setParameter("password", "password");
+    request.setParameter("codiceFiscale", "MRORSS98A057703C");
+    request.setParameter("matricola", "0512005120");
+    request.setParameter("dataDiNascita", "1998-01-05");
+    request.setParameter("cittadinanza", "Italia");
+    request.setParameter("residenza", "Via Roma 8, Napoli");
+    request.setParameter("numero", "3335858581");
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Codice Fiscale invalid.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void TC_1_17() throws ServletException, IOException {
+    request.setParameter("action", "signup");
+    request.setParameter("nome", "Mario");
+    request.setParameter("cognome", "Rossi");
+    request.setParameter("email", "m.rossi@studenti.unisa.it");
+    request.setParameter("password", "password");
+    request.setParameter("codiceFiscale", "MRORSS98A05H703C");
+    request.setParameter("matricola", "05120051205");
+    request.setParameter("dataDiNascita", "1998-01-05");
+    request.setParameter("cittadinanza", "Italia");
+    request.setParameter("residenza", "Via Roma 8, Napoli");
+    request.setParameter("numero", "3335858581");
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Matricola lenght invalid.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void TC_1_18() throws ServletException, IOException {
+    request.setParameter("action", "signup");
+    request.setParameter("nome", "Mario");
+    request.setParameter("cognome", "Rossi");
+    request.setParameter("email", "m.rossi@studenti.unisa.it");
+    request.setParameter("password", "password");
+    request.setParameter("codiceFiscale", "MRORSS98A05H703C");
+    request.setParameter("matricola", "o51200512o");
+    request.setParameter("dataDiNascita", "1998-01-05");
+    request.setParameter("cittadinanza", "Italia");
+    request.setParameter("residenza", "Via Roma 8, Napoli");
+    request.setParameter("numero", "3335858581");
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Matricola invalid.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void TC_1_19() throws ServletException, IOException {
+    request.setParameter("action", "signup");
+    request.setParameter("nome", "Mario");
+    request.setParameter("cognome", "Rossi");
+    request.setParameter("email", "m.rossi@studenti.unisa.it");
+    request.setParameter("password", "password");
+    request.setParameter("codiceFiscale", "MRORSS98A05H703C");
+    request.setParameter("matricola", "0512005120");
+    request.setParameter("dataDiNascita", "19988-01-05");
+    request.setParameter("cittadinanza", "Italia");
+    request.setParameter("residenza", "Via Roma 8, Napoli");
+    request.setParameter("numero", "3335858581");
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Data di nascita lenght invalid.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void TC_1_20() throws ServletException, IOException {
+    request.setParameter("action", "signup");
+    request.setParameter("nome", "Mario");
+    request.setParameter("cognome", "Rossi");
+    request.setParameter("email", "m.rossi@studenti.unisa.it");
+    request.setParameter("password", "password");
+    request.setParameter("codiceFiscale", "MRORSS98A05H703C");
+    request.setParameter("matricola", "0512005120");
+    request.setParameter("dataDiNascita", "1998-13-05");
+    request.setParameter("cittadinanza", "Italia");
+    request.setParameter("residenza", "Via Roma 8, Napoli");
+    request.setParameter("numero", "3335858581");
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Data di nascita invalid.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void TC_1_21() throws ServletException, IOException {
+    request.setParameter("action", "signup");
+    request.setParameter("nome", "Mario");
+    request.setParameter("cognome", "Rossi");
+    request.setParameter("email", "m.rossi@studenti.unisa.it");
+    request.setParameter("password", "password");
+    request.setParameter("codiceFiscale", "MRORSS98A05H703C");
+    request.setParameter("matricola", "0512005120");
+    request.setParameter("dataDiNascita", "1998-01-05");
+    request.setParameter("cittadinanza", "");
+    request.setParameter("residenza", "Via Roma 8, Napoli");
+    request.setParameter("numero", "3335858581");
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Cittadinanza too short.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void TC_1_22() throws ServletException, IOException {
+    request.setParameter("action", "signup");
+    request.setParameter("nome", "Mario");
+    request.setParameter("cognome", "Rossi");
+    request.setParameter("email", "m.rossi@studenti.unisa.it");
+    request.setParameter("password", "password");
+    request.setParameter("codiceFiscale", "MRORSS98A05H703C");
+    request.setParameter("matricola", "0512005120");
+    request.setParameter("dataDiNascita", "1998-01-05");
+    request.setParameter("cittadinanza", "1tal1a");
+    request.setParameter("residenza", "Via Roma 8, Napoli");
+    request.setParameter("numero", "3335858581");
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Cittadinanza invalid.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void TC_1_23() throws ServletException, IOException {
+    request.setParameter("action", "signup");
+    request.setParameter("nome", "Mario");
+    request.setParameter("cognome", "Rossi");
+    request.setParameter("email", "m.rossi@studenti.unisa.it");
+    request.setParameter("password", "password");
+    request.setParameter("codiceFiscale", "MRORSS98A05H703C");
+    request.setParameter("matricola", "0512005120");
+    request.setParameter("dataDiNascita", "1998-01-05");
+    request.setParameter("cittadinanza", "Italia");
+    request.setParameter("residenza", "");
+    request.setParameter("numero", "3335858581");
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Residenza too short.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void TC_1_24() throws ServletException, IOException {
+    request.setParameter("action", "signup");
+    request.setParameter("nome", "Mario");
+    request.setParameter("cognome", "Rossi");
+    request.setParameter("email", "m.rossi@studenti.unisa.it");
+    request.setParameter("password", "password");
+    request.setParameter("codiceFiscale", "MRORSS98A05H703C");
+    request.setParameter("matricola", "0512005120");
+    request.setParameter("dataDiNascita", "1998-01-05");
+    request.setParameter("cittadinanza", "Italia");
+    request.setParameter("residenza", "Via Roma 8/Napoli");
+    request.setParameter("numero", "3335858581");
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Residenza invalid.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void TC_1_25() throws ServletException, IOException {
+    request.setParameter("action", "signup");
+    request.setParameter("nome", "Mario");
+    request.setParameter("cognome", "Rossi");
+    request.setParameter("email", "m.rossi@studenti.unisa.it");
+    request.setParameter("password", "password");
+    request.setParameter("codiceFiscale", "MRORSS98A05H703C");
+    request.setParameter("matricola", "0512005120");
+    request.setParameter("dataDiNascita", "1998-01-05");
+    request.setParameter("cittadinanza", "Italia");
+    request.setParameter("residenza", "Via Roma 8, Napoli");
+    request.setParameter("numero", "33358cinque8581");
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Numero invalid.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void TC_1_26() throws ServletException, IOException {
+    request.setParameter("action", "signup");
+    request.setParameter("nome", "Mario");
+    request.setParameter("cognome", "Rossi");
+    request.setParameter("email", "m.rossi@studenti.unisa.it");
+    request.setParameter("password", "password");
+    request.setParameter("codiceFiscale", "MRORSS98A05H703C");
+    request.setParameter("matricola", "0512005120");
+    request.setParameter("dataDiNascita", "1998-01-05");
+    request.setParameter("cittadinanza", "Italia");
+    request.setParameter("residenza", "Via Roma 8, Napoli");
+    request.setParameter("numero", "3335858581");
+    servlet.doPost(request, response);
+    assertEquals("{\"redirect\":\"index.jsp\",\"status\":\"302\"}",
+        response.getContentAsString().trim());
+  }
 }
