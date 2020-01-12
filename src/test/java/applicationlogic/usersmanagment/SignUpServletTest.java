@@ -3,18 +3,49 @@ package applicationlogic.usersmanagment;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import storage.DatabaseManager;
 
 class SignUpServletTest extends Mockito {
 
   private SignUpServlet servlet;
   private MockHttpServletRequest request;
   private MockHttpServletResponse response;
+
+  @AfterAll
+  static void cancellaUtente() throws IOException, SQLException {
+    PreparedStatement preparedStatement = null;
+    Connection connection = null;
+    int rs;
+
+    try {
+      connection = DatabaseManager.getConnection();
+      preparedStatement = connection.prepareStatement("DELETE FROM utente WHERE email = ?");
+      preparedStatement.setString(1, "m.rossi@studenti.unisa.it");
+
+      rs = preparedStatement.executeUpdate();
+
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        if (connection != null) {
+          connection.close();
+        }
+      }
+    }
+  }
 
   @BeforeEach
   void setUp() throws IOException {
