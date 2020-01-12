@@ -24,7 +24,7 @@ class SignUpServletTest extends Mockito {
   }
 
   @Test
-  public void TC_1_01() throws ServletException, IOException {
+  public void TC_3_01() throws ServletException, IOException {
     request.setParameter("action", "signup");
     request.setParameter("nome", "Mario");
     request.setParameter("cognome", "Rossi");

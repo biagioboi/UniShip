@@ -116,6 +116,14 @@ public class RichiestaDServlet extends HttpServlet {
       throw new IllegalArgumentException("Il messaggio non puo' essere vuoto");
     }
 
+    if (messaggio.length() > 200) {
+      throw new IllegalArgumentException("Il messaggio non puo' superare 200 caratteri");
+    }
+
+    if (!messaggio.matches("[a-zA-z 0-9,.]+")) {
+      throw new IllegalArgumentException("Messaggio non valido");
+    }
+
     try {
       UtenteInterface utenteDao = new UtenteDao();
       if (!utenteDao.doCheckRegister(emailAzienda)) {

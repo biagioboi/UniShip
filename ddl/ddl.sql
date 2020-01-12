@@ -71,7 +71,7 @@ create table richiestadisponibilita(
         'Valutazione',
         'Accettata',
         'Rifiutata') NOT NULL,
-    motivazioni varchar(100) NOT NULL,
+    motivazioni varchar(200) NOT NULL,
     primary key(studente,azienda),
     foreign key (studente) references studente(email)
         ON DELETE cascade
