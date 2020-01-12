@@ -2,15 +2,22 @@ package applicationlogic.tirociniomanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.text.ParseException;
+import java.util.Collection;
+import javax.servlet.ServletException;
+import javax.servlet.http.Part;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import storage.beans.Azienda;
 import storage.beans.Studente;
 import storage.beans.Tirocinio;
@@ -20,7 +27,7 @@ import applicationlogic.DBOperation;
 public class PdfServletTest extends Mockito {
 
   private MockHttpServletResponse response;
-  private MockHttpServletRequest request;
+  private MockMultipartHttpServletRequest request;
   private PdfServlet servlet;
 
 
@@ -64,6 +71,35 @@ public class PdfServletTest extends Mockito {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  @BeforeEach
+  void carica() {
+    servlet = new PdfServlet();
+    request = new MockMultipartHttpServletRequest();
+    response = new MockHttpServletResponse();
+
+    request.getSession().setAttribute("utente", studente);
+    request.getSession().setAttribute("login", "si");
+
+
+  }
+
+  @Test
+  public void TC_5_01() throws ServletException, IOException {
+
+    InputStream file = mock(InputStream.class);
+    Part part = mock(Part.class);
+    when(part.getInputStream()).thenReturn(file);
+    when(part.getSize()).thenReturn(0L);
+    when(request.getPart("file")).thenReturn(part);
+
+
+    request.addParameter("action", "uploadPdf");
+    request.addParameter("tirocinio", String.valueOf(tirocinio.getId()));
+
+    servlet.doPost(request, response);
+    System.out.println(response.getContentAsString());
   }
 
 

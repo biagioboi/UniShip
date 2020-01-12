@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import storage.DatabaseManager;
 import storage.beans.Azienda;
@@ -53,7 +54,7 @@ public class DBOperation {
     int rs;
 
     try {
-
+      connection = DatabaseManager.getConnection();
       preparedStatement = connection.prepareStatement(
           "INSERT INTO studente (email, cognome, codice_fiscale, matricola,data_di_nascita, cittadinanza,residenza,numero) VALUES (?,?,?,?,?,?,?,?)");
       ;
@@ -91,7 +92,7 @@ public class DBOperation {
       connection = DatabaseManager.getConnection();
       preparedStatement = connection
           .prepareStatement("INSERT INTO tirocinio (ore_totali, tutor_esterno, ore_svolte,"
-              + " path, stato, azienda, studente,motivazioni) VALUES (?, ?, ?, ?, ?, ? , ?, ?)");
+              + " path, stato, azienda, studente,motivazioni) VALUES (?, ?, ?, ?, ?, ? , ?, ?)", Statement.RETURN_GENERATED_KEYS);
       preparedStatement.setDouble(1, tirocinio.getOreTotali());
       preparedStatement.setString(2, tirocinio.getTurorEsterno());
       preparedStatement.setDouble(3, tirocinio.getOreSvolte());
