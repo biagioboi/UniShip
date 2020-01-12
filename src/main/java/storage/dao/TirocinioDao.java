@@ -250,7 +250,6 @@ public class TirocinioDao implements TirocinioInterface {
 
     try {
       connection = DatabaseManager.getConnection();
-      SimpleDateFormat df = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
       preparedStatement = connection.prepareStatement(SAVE);
       preparedStatement.setDouble(1, tirocinio.getOreTotali());
       preparedStatement.setString(2, tirocinio.getTurorEsterno());
