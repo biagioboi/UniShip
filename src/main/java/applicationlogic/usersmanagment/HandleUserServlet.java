@@ -136,6 +136,13 @@ public class HandleUserServlet extends HttpServlet {
       throw new IllegalArgumentException("Partita IVA invalida.");
     }
 
+    ArrayList<Azienda> aziende = dao.doRetrieveAll();
+    for (Azienda az : aziende) {
+      if (az.getPartitaIva().equals(piva)) {
+        throw new IllegalArgumentException("Partita IVA gia' presente.");
+      }
+    }
+
     String indirizzo = request.getParameter("indirizzo");
     if (indirizzo.length() == 0) {
       throw new IllegalArgumentException("Indirizzo troppo piccolo.");
@@ -152,14 +159,14 @@ public class HandleUserServlet extends HttpServlet {
 
     String codAteco = request.getParameter("codAteco");
     if (codAteco.length() == 0) {
-      throw new IllegalArgumentException("Codice ateco too short.");
+      throw new IllegalArgumentException("Codice ateco troppo corto.");
     } else if (!codAteco.matches("[A-Z0-9.]+")) {
       throw new IllegalArgumentException("Codice ateco non valido.");
     }
 
     String numeroDipendenti = request.getParameter("numeroDipendenti");
     if (!numeroDipendenti.matches("[0-9]+")) {
-      throw new IllegalArgumentException("Numero dipendenti non e' valido.");
+      throw new IllegalArgumentException("Numero dipendenti non valido.");
     }
 
     //Invio email con le credenziali

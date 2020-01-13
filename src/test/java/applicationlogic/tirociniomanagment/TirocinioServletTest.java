@@ -16,7 +16,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.mock.web.MockMultipartHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletRequest;
 import storage.beans.Azienda;
 import storage.beans.Studente;
 import storage.beans.Tirocinio;
@@ -25,7 +25,7 @@ import storage.beans.Utente;
 public class TirocinioServletTest extends Mockito {
 
   private MockHttpServletResponse response;
-  private MockMultipartHttpServletRequest request;
+  private MockHttpServletRequest request;
   private TirocinioServlet servlet;
 
   private static Tirocinio firstTirocinio;
@@ -101,7 +101,7 @@ public class TirocinioServletTest extends Mockito {
   @BeforeEach
   void carica() {
     servlet = new TirocinioServlet();
-    request = new MockMultipartHttpServletRequest();
+    request = new MockHttpServletRequest();
     response = new MockHttpServletResponse();
 
     request.getSession().setAttribute("utente", carrierOffice);
