@@ -66,15 +66,13 @@ public class PdfServletTest extends Mockito {
           az, "not extist");
       DBOperation.createTirocinio(tirocinio);
 
-
-
       secondAzienda = new Utente("info@provaaa.it", "Prova", "password", "azienda");
       DBOperation.createUtente(secondAzienda);
 
-      Azienda azi = new Azienda("info@provaaa.it", "Prova", "password", "03944080650", "via prova 2",
+      Azienda azi = new Azienda("info@provaaa.it", "Prova", "password", "03944080650",
+          "via prova 2",
           "pippo", "5485", 55);
       DBOperation.createAzienda(azi);
-
 
       ricDisp = new RichiestaDisponibilita("none", RichiestaDisponibilita.ACCETTATA, azi, st);
       DBOperation.createRichiestaDisponibilita(ricDisp);
@@ -293,10 +291,14 @@ public class PdfServletTest extends Mockito {
     when(request.getParameter("action")).thenReturn("createPdf");
     when(request.getParameter("cfu")).thenReturn("6");
     when(request.getParameter("sede")).thenReturn("Via Napoli 10, Roma");
-    when(request.getParameter("obiettivi")).thenReturn("Progettazione e creazione di un e-commerc?e funzionate");
-    when(request.getParameter("competenze")).thenReturn("Lo studente deve avere delle conoscenze in merito alla programmazione web");
-    when(request.getParameter("attivita")).thenReturn("Lo studente deve seguire dei corsi all'interno dell'azienda");
-    when(request.getParameter("modalita")).thenReturn("Lo studente deve seguire la routine di un dipendente della nostra azienda");
+    when(request.getParameter("obiettivi"))
+        .thenReturn("Progettazione e creazione di un e-commerc?e funzionate");
+    when(request.getParameter("competenze"))
+        .thenReturn("Lo studente deve avere delle conoscenze in merito alla programmazione web");
+    when(request.getParameter("attivita"))
+        .thenReturn("Lo studente deve seguire dei corsi all'interno dell'azienda");
+    when(request.getParameter("modalita"))
+        .thenReturn("Lo studente deve seguire la routine di un dipendente della nostra azienda");
     when(request.getParameter("dataInizio")).thenReturn("2020-02-03");
     when(request.getParameter("dataFine")).thenReturn("2020-03-03");
     when(request.getParameter("orario")).thenReturn("9-13 14-18 da Lunedì a Venerdì");
@@ -314,10 +316,13 @@ public class PdfServletTest extends Mockito {
     when(request.getParameter("action")).thenReturn("createPdf");
     when(request.getParameter("cfu")).thenReturn("6");
     when(request.getParameter("sede")).thenReturn("Via Napoli 10, Roma");
-    when(request.getParameter("obiettivi")).thenReturn("Progettazione e creazione di un e-commerce funzionate");
+    when(request.getParameter("obiettivi"))
+        .thenReturn("Progettazione e creazione di un e-commerce funzionate");
     when(request.getParameter("competenze")).thenReturn("");
-    when(request.getParameter("attivita")).thenReturn("Lo studente deve seguire dei corsi all'interno dell'azienda");
-    when(request.getParameter("modalita")).thenReturn("Lo studente deve seguire la routine di un dipendente della nostra azienda");
+    when(request.getParameter("attivita"))
+        .thenReturn("Lo studente deve seguire dei corsi all'interno dell'azienda");
+    when(request.getParameter("modalita"))
+        .thenReturn("Lo studente deve seguire la routine di un dipendente della nostra azienda");
     when(request.getParameter("dataInizio")).thenReturn("2020-02-03");
     when(request.getParameter("dataFine")).thenReturn("2020-03-03");
     when(request.getParameter("orario")).thenReturn("9-13 14-18 da Lunedì a Venerdì");
@@ -335,10 +340,14 @@ public class PdfServletTest extends Mockito {
     when(request.getParameter("action")).thenReturn("createPdf");
     when(request.getParameter("cfu")).thenReturn("6");
     when(request.getParameter("sede")).thenReturn("Via Napoli 10, Roma");
-    when(request.getParameter("obiettivi")).thenReturn("Progettazione e creazione di un e-commerce funzionate");
-    when(request.getParameter("competenze")).thenReturn("Lo studente deve avere delle conoscenze in ?merito alla programmazione web");
-    when(request.getParameter("attivita")).thenReturn("Lo studente deve seguire dei corsi all'interno dell'azienda");
-    when(request.getParameter("modalita")).thenReturn("Lo studente deve seguire la routine di un dipendente della nostra azienda");
+    when(request.getParameter("obiettivi"))
+        .thenReturn("Progettazione e creazione di un e-commerce funzionate");
+    when(request.getParameter("competenze"))
+        .thenReturn("Lo studente deve avere delle conoscenze in ?merito alla programmazione web");
+    when(request.getParameter("attivita"))
+        .thenReturn("Lo studente deve seguire dei corsi all'interno dell'azienda");
+    when(request.getParameter("modalita"))
+        .thenReturn("Lo studente deve seguire la routine di un dipendente della nostra azienda");
     when(request.getParameter("dataInizio")).thenReturn("2020-02-03");
     when(request.getParameter("dataFine")).thenReturn("2020-03-03");
     when(request.getParameter("orario")).thenReturn("9-13 14-18 da Lunedì a Venerdì");
@@ -356,10 +365,13 @@ public class PdfServletTest extends Mockito {
     when(request.getParameter("action")).thenReturn("createPdf");
     when(request.getParameter("cfu")).thenReturn("6");
     when(request.getParameter("sede")).thenReturn("Via Napoli 10, Roma");
-    when(request.getParameter("obiettivi")).thenReturn("Progettazione e creazione di un e-commerce funzionate");
-    when(request.getParameter("competenze")).thenReturn("Lo studente deve avere delle conoscenze in merito alla programmazione web");
+    when(request.getParameter("obiettivi"))
+        .thenReturn("Progettazione e creazione di un e-commerce funzionate");
+    when(request.getParameter("competenze"))
+        .thenReturn("Lo studente deve avere delle conoscenze in merito alla programmazione web");
     when(request.getParameter("attivita")).thenReturn("");
-    when(request.getParameter("modalita")).thenReturn("Lo studente deve seguire la routine di un dipendente della nostra azienda");
+    when(request.getParameter("modalita"))
+        .thenReturn("Lo studente deve seguire la routine di un dipendente della nostra azienda");
     when(request.getParameter("dataInizio")).thenReturn("2020-02-03");
     when(request.getParameter("dataFine")).thenReturn("2020-03-03");
     when(request.getParameter("orario")).thenReturn("9-13 14-18 da Lunedì a Venerdì");
@@ -467,7 +479,8 @@ public class PdfServletTest extends Mockito {
     when(request.getParameter("polizza")).thenReturn("464612464");
     when(request.getParameter("studente")).thenReturn(studente.getEmail().toLowerCase());
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Formato della data di inizio non valido.\",\"status\":\"422\"}",
+    assertEquals(
+        "{\"description\":\"Formato della data di inizio non valido.\",\"status\":\"422\"}",
         response.getContentAsString().trim());
   }
 
@@ -542,7 +555,8 @@ public class PdfServletTest extends Mockito {
     when(request.getParameter("polizza")).thenReturn("464612464");
     when(request.getParameter("studente")).thenReturn(studente.getEmail().toLowerCase());
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Formato dell'orario di lavoro non valido.\",\"status\":\"422\"}",
+    assertEquals(
+        "{\"description\":\"Formato dell'orario di lavoro non valido.\",\"status\":\"422\"}",
         response.getContentAsString().trim().replace("\\u0027", "'"));
   }
 
@@ -617,7 +631,8 @@ public class PdfServletTest extends Mockito {
     when(request.getParameter("polizza")).thenReturn("");
     when(request.getParameter("studente")).thenReturn(studente.getEmail().toLowerCase());
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Inserire la polizza assicurativa infortuni.\",\"status\":\"422\"}",
+    assertEquals(
+        "{\"description\":\"Inserire la polizza assicurativa infortuni.\",\"status\":\"422\"}",
         response.getContentAsString().trim());
   }
 
@@ -642,7 +657,8 @@ public class PdfServletTest extends Mockito {
     when(request.getParameter("polizza")).thenReturn("4646?12464");
     when(request.getParameter("studente")).thenReturn(studente.getEmail().toLowerCase());
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Formato della polizza assicurativa infortuni non valido.\",\"status\":\"422\"}",
+    assertEquals(
+        "{\"description\":\"Formato della polizza assicurativa infortuni non valido.\",\"status\":\"422\"}",
         response.getContentAsString().trim());
   }
 

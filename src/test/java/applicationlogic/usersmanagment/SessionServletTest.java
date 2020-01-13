@@ -75,7 +75,8 @@ public class SessionServletTest extends Mockito {
 
   @Test
   public void TC_6_02() throws ServletException, IOException {
-    request.setParameter("email", "m.rossim.rossim.rossim.rossim.rossim.rossim.rossim.rossi@studenti.unisa.it");
+    request.setParameter("email",
+        "m.rossim.rossim.rossim.rossim.rossim.rossim.rossim.rossi@studenti.unisa.it");
     request.setParameter("password", "password");
     request.setParameter("action", "logIn");
     servlet.doPost(request, response);

@@ -87,7 +87,8 @@ public class HandleUserServletTest extends Mockito {
   @Test
   public void TC_10_02() throws ServletException, IOException {
     request.setParameter("action", "addCompany");
-    request.setParameter("email", "infoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfo@crazytech.com");
+    request.setParameter("email",
+        "infoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfo@crazytech.com");
     request.setParameter("nome", "Crazy Tech srl");
     request.setParameter("piva", "03944080658");
     request.setParameter("indirizzo", "Via Napoli 10, Roma");

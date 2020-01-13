@@ -150,7 +150,7 @@ public class TirocinioServletTest extends Mockito {
     request.setParameter("stato", "In corso");
     servlet.doPost(request, response);
     Tirocinio tir[] = new Gson().fromJson(response.getContentAsString().trim(), Tirocinio[].class);
-    for (int x = 0; x<tir.length; x++) {
+    for (int x = 0; x < tir.length; x++) {
       assertEquals(secondTirocinio.equals(tir[x]), true);
     }
   }

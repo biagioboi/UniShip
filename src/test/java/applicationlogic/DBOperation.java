@@ -93,7 +93,8 @@ public class DBOperation {
       connection = DatabaseManager.getConnection();
       preparedStatement = connection
           .prepareStatement("INSERT INTO tirocinio (ore_totali, tutor_esterno, ore_svolte,"
-              + " path, stato, azienda, studente,motivazioni) VALUES (?, ?, ?, ?, ?, ? , ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                  + " path, stato, azienda, studente,motivazioni) VALUES (?, ?, ?, ?, ?, ? , ?, ?)",
+              Statement.RETURN_GENERATED_KEYS);
       preparedStatement.setDouble(1, tirocinio.getOreTotali());
       preparedStatement.setString(2, tirocinio.getTurorEsterno());
       preparedStatement.setDouble(3, tirocinio.getOreSvolte());
@@ -108,8 +109,7 @@ public class DBOperation {
       try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
         if (generatedKeys.next()) {
           tirocinio.setId(generatedKeys.getInt(1));
-        }
-        else {
+        } else {
           throw new SQLException("Creating user failed, no ID obtained.");
         }
       }
@@ -158,7 +158,8 @@ public class DBOperation {
     }
   }
 
-  public static void createRichiestaDisponibilita(RichiestaDisponibilita richiesta) throws SQLException {
+  public static void createRichiestaDisponibilita(RichiestaDisponibilita richiesta)
+      throws SQLException {
 
     PreparedStatement preparedStatement = null;
     int rs = 0;
@@ -219,7 +220,8 @@ public class DBOperation {
     int rs;
     try {
       connection = DatabaseManager.getConnection();
-      preparedStatement = connection.prepareStatement("DELETE FROM richiestadisponibilita WHERE studente = ? and azienda = ?");
+      preparedStatement = connection.prepareStatement(
+          "DELETE FROM richiestadisponibilita WHERE studente = ? and azienda = ?");
       preparedStatement.setString(1, richiesta.getStudente().getEmail().toLowerCase());
       preparedStatement.setString(2, richiesta.getAzienda().getEmail().toLowerCase());
 

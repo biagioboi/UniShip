@@ -277,7 +277,8 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Lunghezza del Codice Fiscale non valida.\",\"status\":\"422\"}",
+    assertEquals(
+        "{\"description\":\"Lunghezza del Codice Fiscale non valida.\",\"status\":\"422\"}",
         response.getContentAsString().trim());
   }
 
@@ -349,7 +350,8 @@ class SignUpServletTest extends Mockito {
     request.setParameter("residenza", "Via Roma 8, Napoli");
     request.setParameter("numero", "3335858581");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Lunghezza della data di nascita non valida.\",\"status\":\"422\"}",
+    assertEquals(
+        "{\"description\":\"Lunghezza della data di nascita non valida.\",\"status\":\"422\"}",
         response.getContentAsString().trim());
   }
 
