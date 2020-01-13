@@ -154,7 +154,7 @@ public class SignUpServlet extends HttpServlet {
       }
 
       Studente studente = new Studente(email, nome, password, codiceFiscale,
-          matricola,Date.valueOf(dataDiNascita), cittadinanza, residenza,
+          matricola, Date.valueOf(dataDiNascita), cittadinanza, residenza,
           numero, cognome);
       if (!studenteDao.doSave(studente)) {
         throw new RuntimeException("Errore sconosciuto.");
