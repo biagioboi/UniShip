@@ -195,7 +195,7 @@ $(() => {
   }
 
   function respondTirocinio(how) {
-    let motivazioni = $("#motivazioniValidazioneTirocinio").html();
+    let motivazioni = $("#motivazioniValidazioneTirocinio").val();
     let tirocinio = $("#valutaTirocinio").attr("idtirocinio");
     $.ajax({
       url: 'TirocinioServlet',
