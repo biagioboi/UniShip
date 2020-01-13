@@ -101,16 +101,13 @@ public class TirocinioServlet extends HttpServlet {
     Utente user = (Utente) request.getSession().getAttribute("utente");
 
     try {
-      TirocinioInterface tirocinioDao = new TirocinioDao();
       ArrayList<Tirocinio> result = null;
 
       if (user.getTipo().equals(Utente.AZIENDA)) {
-        AziendaInterface aziendaDao = new AziendaDao();
         Azienda azienda = aziendaDao.doRetrieveByKey(user.getEmail());
         result = tirocinioDao.doRetrieveByAzienda(azienda);
 
       } else if (user.getTipo().equals(Utente.STUDENTE)) {
-        StudenteInterface studenteDao = new StudenteDao();
         Studente studente = studenteDao.doRetrieveByKey(user.getEmail());
         result = tirocinioDao.doRetrieveByStudente(studente);
       } else {
@@ -146,7 +143,6 @@ public class TirocinioServlet extends HttpServlet {
     }
 
     try {
-      TirocinioInterface tirocinioDao = new TirocinioDao();
 
       ArrayList<Tirocinio> result = tirocinioDao.doRetrieveAll();
 
@@ -158,8 +154,6 @@ public class TirocinioServlet extends HttpServlet {
       if (!stato.equals("Tutti")) {
         result.removeIf((t -> !t.getStato().equals(stato)));
       }
-
-      UtenteInterface utenteDao = new UtenteDao();
 
       /*
        * se l'email dello studente e' diverso da null ,controllo che lo studente esista e
@@ -215,7 +209,6 @@ public class TirocinioServlet extends HttpServlet {
 
     try {
 
-      TirocinioInterface tirocinioDao = new TirocinioDao();
       Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(id));
 
       if (risposta.equals(Tirocinio.ACCETTATA)) {
@@ -248,4 +241,10 @@ public class TirocinioServlet extends HttpServlet {
     }
     return false;
   }
+
+  private static TirocinioInterface tirocinioDao = new TirocinioDao();
+  private static StudenteInterface studenteDao = new StudenteDao();
+  private static UtenteInterface utenteDao = new UtenteDao();
+  private static AziendaInterface aziendaDao = new AziendaDao();
+
 }
