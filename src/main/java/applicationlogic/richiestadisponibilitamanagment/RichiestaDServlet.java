@@ -130,7 +130,6 @@ public class RichiestaDServlet extends HttpServlet {
       Studente studente = studenteDao.doRetrieveByKey(user.getEmail());
       Azienda azienda = aziendaDao.doRetrieveByKey(emailAzienda);
 
-      RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
       if (richiestaDao.doRetrieveByKey(studente, azienda) != null) {
         throw new IllegalArgumentException("E' gia' presente una richiesta.");
       }
