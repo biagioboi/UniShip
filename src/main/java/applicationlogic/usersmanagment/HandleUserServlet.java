@@ -36,6 +36,8 @@ import storage.dao.AziendaDao;
 import storage.dao.RichiestaDisponibilitaDao;
 import storage.dao.StudenteDao;
 import storage.interfaces.AziendaInterface;
+import storage.interfaces.RichiestaDisponibilitaInterface;
+import storage.interfaces.StudenteInterface;
 
 //TODO: Aggiungere retrieve free companies all'ODD
 // ho aggiunto il metodo retrieve free companies
@@ -116,9 +118,9 @@ public class HandleUserServlet extends HttpServlet {
     } else if (!email.matches("[0-9a-zA-Z.]+@[a-z.]+.[a-z]+")) {
       throw new IllegalArgumentException("Email non valida");
     }
-    AziendaInterface dao = new AziendaDao();
 
-    if (dao.doRetrieveByKey(email) != null) {
+
+    if (aziendaDao.doRetrieveByKey(email) != null) {
       throw new IllegalArgumentException("Email gia' registrata");
     }
 
@@ -136,7 +138,7 @@ public class HandleUserServlet extends HttpServlet {
       throw new IllegalArgumentException("Partita IVA invalida.");
     }
 
-    ArrayList<Azienda> aziende = dao.doRetrieveAll();
+    ArrayList<Azienda> aziende = aziendaDao.doRetrieveAll();
     for (Azienda az : aziende) {
       if (az.getPartitaIva().equals(piva)) {
         throw new IllegalArgumentException("Partita IVA gia' presente.");
@@ -203,7 +205,7 @@ public class HandleUserServlet extends HttpServlet {
     Azienda azienda = new Azienda(email, nome, password, piva, indirizzo, rappresentante, codAteco,
         Integer.parseInt(numeroDipendenti));
 
-    return dao.doSave(azienda);
+    return aziendaDao.doSave(azienda);
   }
 
   private boolean changeCompanyData(HttpServletRequest request, HttpServletResponse response)
@@ -369,7 +371,7 @@ public class HandleUserServlet extends HttpServlet {
 
           Studente utente = new Studente(email, nome, password, codiceFiscale, matricola,
               Date.valueOf(dataDiNascita), cittadinanza, residenza, numero, cognome);
-          if ((new StudenteDao()).doSave(utente)) {
+          if (studenteDao.doSave(utente)) {
             JsonObject obj = new JsonObject();
             obj.put("status", "200");
             obj.put("description", "ok");
@@ -390,14 +392,12 @@ public class HandleUserServlet extends HttpServlet {
   private ArrayList<Pair> retrieveFreeCompanies(HttpServletRequest request,
       HttpServletResponse response) {
     ArrayList<Pair> result = new ArrayList<>();
-    RichiestaDisponibilitaDao richDisp = new RichiestaDisponibilitaDao();
-    AziendaDao azienda = new AziendaDao();
     Utente utente = (Utente) request.getSession().getAttribute("utente");
 
     try {
-      Studente studente = new StudenteDao().doRetrieveByKey(utente.getEmail());
-      ArrayList<RichiestaDisponibilita> richieste = richDisp.doRetrieveByStudente(studente);
-      ArrayList<Azienda> aziendeDispo = azienda.doRetrieveAll();
+      Studente studente = studenteDao.doRetrieveByKey(utente.getEmail());
+      ArrayList<RichiestaDisponibilita> richieste = richiestaDao.doRetrieveByStudente(studente);
+      ArrayList<Azienda> aziendeDispo = aziendaDao.doRetrieveAll();
       for (Azienda a : aziendeDispo) {
         RichiestaDisponibilita ri = null;
         for (RichiestaDisponibilita r : richieste) {
@@ -417,4 +417,8 @@ public class HandleUserServlet extends HttpServlet {
 
   public static final String USERNAME_EMAIL = "uniship.info@gmail.com";
   public static final String PASSWORD_EMAIL = "uniship2020";
+
+  private static AziendaInterface aziendaDao = new AziendaDao();
+  private static RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
+  private static StudenteInterface studenteDao = new StudenteDao();
 }
