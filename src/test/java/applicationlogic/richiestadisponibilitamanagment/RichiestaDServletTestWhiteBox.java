@@ -34,12 +34,19 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
 
 
   @BeforeEach
-  public void setUp() {
+  public void setUp() throws Exception {
     request = mock(HttpServletRequest.class);
     session = mock(HttpSession.class);
     dao = mock(RichiestaDisponibilitaDao.class);
     response = new MockHttpServletResponse();
+    setFinalStatic(servlet.getClass().getDeclaredField("richiestaDao"), dao);
 
+  }
+
+  @AfterEach
+  public void clean() throws Exception {
+    setFinalStatic(servlet.getClass().getDeclaredField("richiestaDao"),
+        new RichiestaDisponibilitaDao());
   }
 
   @BeforeEach
@@ -77,18 +84,18 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
   }
 
   @Test
-  public void Null() throws ServletException, Exception {
+  public void sendRequestFalse() throws ServletException,IOException {
 
     when(request.getSession()).thenReturn(session);
     when(session.getAttribute("utente")).thenReturn(utente);
     when(session.getAttribute("login")).thenReturn("si");
     when(request.getParameter("action")).thenReturn("sendRequest");
     when(request.getParameter("azienda")).thenReturn("info@clarotech.it");
-    when(request.getParameter("messaggio")).thenReturn("Sono interessato a svolgere il Tirocinio formativo presso di voi in quanto sono motivato dai vostri progetti.");
-    when(dao.doSave(any(RichiestaDisponibilita.class))).thenReturn(false);
-    setFinalStatic(servlet.getClass().getDeclaredField("richiestaDao"),dao);
+    when(request.getParameter("messaggio")).thenReturn(
+        "Sono interessato a svolgere il Tirocinio formativo presso di voi in quanto sono motivato dai vostri progetti.");
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Errore generico.\",\"status\":\"400\"}",response.getContentAsString().trim());
+    assertEquals("{\"description\":\"Errore generico.\",\"status\":\"400\"}",
+        response.getContentAsString().trim());
   }
 
 
@@ -102,7 +109,6 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
 
     field.set(null, newValue);
   }
-
 
 
 }
