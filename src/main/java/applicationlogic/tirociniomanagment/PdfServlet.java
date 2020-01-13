@@ -139,7 +139,7 @@ public class PdfServlet extends HttpServlet {
       HttpSession session = request.getSession();
       Utente user = (Utente) session.getAttribute("utente");
 
-      if (!tirocinio.getStudente().getEmail().equals(user.getEmail())) {
+      if (tirocinio == null || !tirocinio.getStudente().getEmail().equals(user.getEmail())) {
         throw new IllegalArgumentException("Non puoi accedere a questo tirocinio.");
       }
 

@@ -95,6 +95,32 @@ public class PdfServletTest extends Mockito {
 
     // prendo la path della root della cartella resources per i test.
     ClassLoader classLoader = getClass().getClassLoader();
+    URL resource = classLoader.getResource("prova.pdf");
+
+    // Apro il file
+    File file = new File(resource.getFile());
+    InputStream stream = new FileInputStream(file);
+    Part part = mock(Part.class, Mockito.CALLS_REAL_METHODS);
+    when(part.getInputStream()).thenReturn(stream);
+    when(part.getSize()).thenReturn(10L);
+    when(part.getSubmittedFileName()).thenReturn("prova.pdf");
+
+    when(request.getParameter("action")).thenReturn("uploadPdf");
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(999));
+    when(request.getPart("file")).thenReturn(part);
+
+
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Non puoi accedere a questo tirocinio.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+
+  }
+
+  @Test
+  public void TC_5_02() throws ServletException, IOException {
+
+    // prendo la path della root della cartella resources per i test.
+    ClassLoader classLoader = getClass().getClassLoader();
     URL resource = classLoader.getResource("prova.txt");
 
     // Apro il file
@@ -112,6 +138,34 @@ public class PdfServletTest extends Mockito {
 
     servlet.doPost(request, response);
     assertEquals("{\"description\":\"Estensione non valida.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+
+  }
+
+
+
+  @Test
+  public void TC_5_03() throws ServletException, IOException {
+
+    // prendo la path della root della cartella resources per i test.
+    ClassLoader classLoader = getClass().getClassLoader();
+    URL resource = classLoader.getResource("prova.pdf");
+
+    // Apro il file
+    File file = new File(resource.getFile());
+    InputStream stream = new FileInputStream(file);
+    Part part = mock(Part.class, Mockito.CALLS_REAL_METHODS);
+    when(part.getInputStream()).thenReturn(stream);
+    when(part.getSize()).thenReturn(10L);
+    when(part.getSubmittedFileName()).thenReturn("prova.pdf");
+
+    when(request.getParameter("action")).thenReturn("uploadPdf");
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getPart("file")).thenReturn(part);
+
+
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"file caricato con successo.\",\"status\":\"200\"}",
         response.getContentAsString().trim());
 
   }
