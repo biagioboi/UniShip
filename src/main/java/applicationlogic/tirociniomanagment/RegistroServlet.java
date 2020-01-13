@@ -83,9 +83,6 @@ public class RegistroServlet extends HttpServlet {
   private ArrayList<AttivitaRegistro> viewRegister(HttpServletRequest request,
       HttpServletResponse response) {
 
-    AttivitaRegistroInterface attivitaDao = new AttivitaRegistroDao();
-    TirocinioInterface tirocinioDao = new TirocinioDao();
-
     String tirocinioId = request.getParameter("tirocinio");
     if (tirocinioId == null || tirocinioId.equals("")) {
       throw new IllegalArgumentException("Tirocinio non valido");
@@ -114,9 +111,6 @@ public class RegistroServlet extends HttpServlet {
   }
 
   private boolean addActivity(HttpServletRequest request, HttpServletResponse response) {
-
-    AttivitaRegistroInterface attivitaDao = new AttivitaRegistroDao();
-    TirocinioInterface tirocinioDao = new TirocinioDao();
 
     String tirocinioId = request.getParameter("tirocinio");
     if (tirocinioId == null || tirocinioId.equals("") || !tirocinioId.matches("[0-9]+")) {
@@ -188,4 +182,7 @@ public class RegistroServlet extends HttpServlet {
 
     return false;
   }
+
+  AttivitaRegistroInterface attivitaDao = new AttivitaRegistroDao();
+  TirocinioInterface tirocinioDao = new TirocinioDao();
 }
