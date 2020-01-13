@@ -48,7 +48,6 @@ import storage.interfaces.StudenteInterface;
 import storage.interfaces.TirocinioInterface;
 import storage.interfaces.UtenteInterface;
 
-//todo : da cambiare il nome sulla documetazione in createPdf aggiungere i metodi e costante
 @WebServlet("/PdfServlet")
 @MultipartConfig
 public class PdfServlet extends HttpServlet {
@@ -133,7 +132,6 @@ public class PdfServlet extends HttpServlet {
     }
 
     try {
-      TirocinioInterface tirocinioDao = new TirocinioDao();
       Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(tirocinioId));
 
       HttpSession session = request.getSession();
@@ -197,7 +195,7 @@ public class PdfServlet extends HttpServlet {
     }
 
     try {
-      TirocinioInterface tirocinioDao = new TirocinioDao();
+
       Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(tirocinioId));
 
       HttpSession session = request.getSession();
@@ -357,9 +355,6 @@ public class PdfServlet extends HttpServlet {
     }
 
     try {
-      StudenteInterface studenteDao = new StudenteDao();
-      AziendaInterface aziendaDao = new AziendaDao();
-      UtenteInterface utenteDao = new UtenteDao();
 
       if (!utenteDao.doCheckRegister(emailStudente)) {
         throw new IllegalArgumentException("Email studente errata");
@@ -441,7 +436,6 @@ public class PdfServlet extends HttpServlet {
       tirocinio.setOreTotali(25 * 60 * Integer.parseInt(numeroCfu));
       tirocinio.setTurorEsterno(azienda.getRappresentante());
 
-      TirocinioInterface tirocinioDao = new TirocinioDao();
       tirocinioDao.doSave(tirocinio);
 
       //cancello la richiesta risponibilita relativa
@@ -470,4 +464,9 @@ public class PdfServlet extends HttpServlet {
   }
 
   private static final String UTF_8 = "UTF-8";
+
+  private static TirocinioInterface tirocinioDao = new TirocinioDao();
+  private static StudenteInterface studenteDao = new StudenteDao();
+  private static AziendaInterface aziendaDao = new AziendaDao();
+  private static UtenteInterface utenteDao = new UtenteDao();
 }
