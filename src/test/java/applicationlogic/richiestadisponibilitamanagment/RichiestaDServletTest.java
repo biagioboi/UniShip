@@ -31,8 +31,9 @@ public class RichiestaDServletTest extends Mockito {
       utente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password", "studente");
       DBOperation.createUtente(utente);
 
-      Date d= Date.valueOf("1998-06-01");
-      Studente studente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password", "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
+      Date d = Date.valueOf("1998-06-01");
+      Studente studente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
+          "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
       DBOperation.createStudente(studente);
 
     } catch (SQLException e) {
@@ -51,7 +52,7 @@ public class RichiestaDServletTest extends Mockito {
   }
 
   @AfterAll
-  static void cancellaUtente(){
+  static void cancellaUtente() {
     try {
       DBOperation.deleteUtente(utente.getEmail().toLowerCase());
     } catch (SQLException e) {
@@ -67,7 +68,8 @@ public class RichiestaDServletTest extends Mockito {
         "Sono interessato a svolgere il Tirocinio formativo presso di voi in quanto sono motivato dai vostri progetti.");
 
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Email della azienda non puo\\u0027 essere vuota\",\"status\":\"422\"}",
+    assertEquals(
+        "{\"description\":\"Email della azienda non puo\\u0027 essere vuota\",\"status\":\"422\"}",
         response.getContentAsString().trim());
   }
 
@@ -92,7 +94,8 @@ public class RichiestaDServletTest extends Mockito {
         "");
 
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Il messaggio non puo\\u0027 essere vuoto\",\"status\":\"422\"}",
+    assertEquals(
+        "{\"description\":\"Il messaggio non puo\\u0027 essere vuoto\",\"status\":\"422\"}",
         response.getContentAsString().trim());
   }
 
@@ -104,7 +107,8 @@ public class RichiestaDServletTest extends Mockito {
         "Sono interessato a svolgere il Tirocinio formativo presso di voi in quanto sono motivato dai vostri progetti ma purtroppo non riesco ad inserire tutte le motivazioni qui perchè sono inutili ulteriori parole.");
 
     servlet.doPost(request, response);
-    assertEquals("{\"description\":\"Il messaggio non puo\\u0027 superare 200 caratteri\",\"status\":\"422\"}",
+    assertEquals(
+        "{\"description\":\"Il messaggio non puo\\u0027 superare 200 caratteri\",\"status\":\"422\"}",
         response.getContentAsString().trim());
   }
 

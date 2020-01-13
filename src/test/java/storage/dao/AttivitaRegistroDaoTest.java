@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import storage.beans.AttivitaRegistro;
 
 class AttivitaRegistroDaoTest {
+
   private AttivitaRegistroDao attivitaRegistroDao = new AttivitaRegistroDao();
 
   @BeforeEach
