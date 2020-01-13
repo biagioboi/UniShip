@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import javafx.util.Pair;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +17,7 @@ import storage.dao.StudenteDao;
 import storage.dao.UtenteDao;
 import storage.interfaces.AziendaInterface;
 import storage.interfaces.StudenteInterface;
+import storage.interfaces.UtenteInterface;
 
 @WebServlet("/SessionServlet")
 public class SessionServlet extends HttpServlet {
@@ -41,11 +41,9 @@ public class SessionServlet extends HttpServlet {
       try {
 
         if (user.getTipo().equals(Utente.STUDENTE)) {
-          StudenteInterface studenteDao = new StudenteDao();
           response.getWriter().println(obj.toJson(studenteDao.doRetrieveByKey(user.getEmail())));
 
         } else if (user.getTipo().equals(Utente.AZIENDA)) {
-          AziendaInterface aziendaDao = new AziendaDao();
           response.getWriter().println(obj.toJson(aziendaDao.doRetrieveByKey(user.getEmail())));
         } else {
           response.getWriter().println(obj.toJson(user));
@@ -95,7 +93,6 @@ public class SessionServlet extends HttpServlet {
 
   private Utente login(HttpServletRequest request, HttpServletResponse response)
       throws RuntimeException {
-    UtenteDao utenteDao = new UtenteDao();
 
     String email = request.getParameter("email");
     String password = request.getParameter("password");
@@ -130,4 +127,8 @@ public class SessionServlet extends HttpServlet {
     HttpSession session = request.getSession(true);
     session.invalidate();
   }
+
+  private static AziendaInterface aziendaDao = new AziendaDao();
+  private static StudenteInterface studenteDao = new StudenteDao();
+  private static UtenteInterface utenteDao = new UtenteDao();
 }
