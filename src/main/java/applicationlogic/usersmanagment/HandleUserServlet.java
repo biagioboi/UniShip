@@ -60,7 +60,7 @@ public class HandleUserServlet extends HttpServlet {
 
       Utente user = (Utente) request.getSession().getAttribute("utente");
       if (user == null) {
-        throw new AuthenticationException("Not Authorized");
+        throw new AuthenticationException("Non autorizzato.");
       }
 
       String action = request.getParameter("action");
@@ -72,7 +72,7 @@ public class HandleUserServlet extends HttpServlet {
       if (action.equals("addCompany")) {
         if (!user.getTipo().equals(Utente.UFFICIO_CARRIERE) && !user.getTipo()
             .equals(Utente.ADMIN)) {
-          throw new AuthenticationException("Not Authorized");
+          throw new AuthenticationException("Non autorizzato.");
         } else if (addCompany(request, response)) {
           result.put("status", "200");
           // result.put("redirect", "index.jsp");
@@ -82,13 +82,13 @@ public class HandleUserServlet extends HttpServlet {
       } else if (action.equals("changeCompanyData")) {
         if (!user.getTipo().equals(Utente.UFFICIO_CARRIERE) && !user.getTipo()
             .equals(Utente.ADMIN) && !user.getEmail().equals(request.getParameter("azienda"))) {
-          throw new AuthenticationException("Not Authorized");
+          throw new AuthenticationException("Non autorizzato.");
         } else {
           throw new RuntimeException();
         }
       } else {
         result.put("status", "400");
-        result.put("description", "Invalid Request");
+        result.put("description", "Richiesta invalida.");
       }
 
     } catch (AuthenticationException e) {
@@ -99,7 +99,7 @@ public class HandleUserServlet extends HttpServlet {
       result.put("description", e.getMessage());
     } catch (Exception ex) {
       result.put("status", "422");
-      result.put("description", "Generic error.");
+      result.put("description", "Errore generico.");
     }
 
     out.println(obj.toJson(result));
