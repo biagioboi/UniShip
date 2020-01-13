@@ -18,6 +18,8 @@ import storage.beans.Studente;
 import storage.beans.Utente;
 import storage.dao.StudenteDao;
 import storage.dao.UtenteDao;
+import storage.interfaces.StudenteInterface;
+import storage.interfaces.UtenteInterface;
 
 @WebServlet("/SignUpServlet")
 public class SignUpServlet extends HttpServlet {
@@ -75,7 +77,7 @@ public class SignUpServlet extends HttpServlet {
         throw new IllegalArgumentException("Email troppo lunga.");
       } else if (!email.matches("[0-9a-zA-Z.]+@studenti.unisa.it")) {
         throw new IllegalArgumentException("Email non valida.");
-      } else if (new UtenteDao().doCheckRegister(email)) {
+      } else if (utenteDao.doCheckRegister(email)) {
         throw new IllegalArgumentException("Email gia' registrata.");
       }
 
@@ -151,16 +153,19 @@ public class SignUpServlet extends HttpServlet {
         throw new IllegalArgumentException("Numero invalido.");
       }
 
-      Studente utente = new Studente(email, nome, password, codiceFiscale,
+      Studente studente = new Studente(email, nome, password, codiceFiscale,
           matricola,Date.valueOf(dataDiNascita), cittadinanza, residenza,
           numero, cognome);
-      if (!(new StudenteDao()).doSave(utente)) {
+      if (!studenteDao.doSave(studente)) {
         throw new RuntimeException("Errore sconosciuto.");
       }
-      return utente;
+      return studente;
     } catch (SQLException ex) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
       return null;
     }
   }
+
+  private static StudenteInterface studenteDao = new StudenteDao();
+  private static UtenteInterface utenteDao = new UtenteDao();
 }
