@@ -119,29 +119,38 @@ public class RegistroServlet extends HttpServlet {
     TirocinioInterface tirocinioDao = new TirocinioDao();
 
     String tirocinioId = request.getParameter("tirocinio");
-    if (tirocinioId == null) {
-      throw new IllegalArgumentException("Tirocinio non valido");
+    if (tirocinioId == null || tirocinioId.equals("") || !tirocinioId.matches("[0-9]+")) {
+      throw new IllegalArgumentException("Formato del tirocinio non valido.");
     }
 
     String ore = request.getParameter("oreSvolte");
-    if (ore == null) {
+    if (ore == null || ore.equals("")) {
       throw new IllegalArgumentException("Le ore non possono essere vuote");
     }
 
     String data = request.getParameter("data");
     if (data == null) {
       throw new IllegalArgumentException("La data non puo' essere vuota");
+    } else if (!data.matches("([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))")) {
+      throw new IllegalArgumentException("Formato della data non valido");
     }
 
     String descrizione = request.getParameter("attivita");
-    if (descrizione == null) {
+    if (descrizione == null || descrizione.equals("")) {
       throw new IllegalArgumentException("La descrizione non puo' essere vuota");
+    } else if (descrizione.length() > 50) {
+      throw new IllegalArgumentException("Descrizione troppo lunga");
+    } else if (!descrizione.matches("[A-z 0-9,;.'-]+")) {
+      throw new IllegalArgumentException("Formato della descrizione non valido");
     }
 
     try {
 
       Tirocinio tirocinio = tirocinioDao.doRetrieveByKey(Integer.parseInt(tirocinioId));
 
+      if (tirocinio == null) {
+        throw new IllegalArgumentException("Tirocinio non valido.");
+      }
       Utente user = (Utente) request.getSession().getAttribute("utente");
 
       if (!tirocinio.getAzienda().getEmail().equals(user.getEmail()) && !tirocinio.getStudente()
