@@ -102,9 +102,6 @@ public class RichiestaDServlet extends HttpServlet {
   private boolean sendAvailabilityRequest(HttpServletRequest request,
       HttpServletResponse response) {
 
-    StudenteInterface studenteDao = new StudenteDao();
-    AziendaInterface aziendaDao = new AziendaDao();
-
     String emailAzienda = request.getParameter("azienda");
     String messaggio = request.getParameter("messaggio");
 
@@ -125,7 +122,6 @@ public class RichiestaDServlet extends HttpServlet {
     }
 
     try {
-      UtenteInterface utenteDao = new UtenteDao();
       if (!utenteDao.doCheckRegister(emailAzienda)) {
         throw new IllegalArgumentException("Email azienda errata");
       }
@@ -159,11 +155,8 @@ public class RichiestaDServlet extends HttpServlet {
       HttpServletRequest request, HttpServletResponse response) {
 
     Utente user = (Utente) request.getSession().getAttribute("utente");
-    AziendaInterface aziendaDao = new AziendaDao();
-    StudenteInterface studenteDao = new StudenteDao();
 
     try {
-      RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
       ArrayList<RichiestaDisponibilita> result = null;
 
       if (user.getTipo().equals(Utente.AZIENDA)) {
@@ -195,7 +188,6 @@ public class RichiestaDServlet extends HttpServlet {
     }
 
     try {
-      RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
       return richiestaDao.doRetrieveAll();
 
     } catch (SQLException e) {
@@ -224,10 +216,6 @@ public class RichiestaDServlet extends HttpServlet {
     }
 
     try {
-      StudenteInterface studenteDao = new StudenteDao();
-      AziendaInterface aziendaDao = new AziendaDao();
-      UtenteInterface utenteDao = new UtenteDao();
-      RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
 
       if (!utenteDao.doCheckRegister(emailStudente)) {
         throw new IllegalArgumentException("Email studente errata");
@@ -259,4 +247,9 @@ public class RichiestaDServlet extends HttpServlet {
     return false;
 
   }
+
+  private static StudenteInterface studenteDao = new StudenteDao();
+  private static AziendaInterface aziendaDao = new AziendaDao();
+  private static UtenteInterface utenteDao = new UtenteDao();
+  private static RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
 }
