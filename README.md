@@ -1,9 +1,9 @@
 # UniShip [![Build Status](https://travis-ci.com/b14s199/UniShip.svg?branch=master)](https://travis-ci.com/b14s199/UniShip) 
-
-<img src="https://i.ibb.co/NT1T5ct/logo.png" width="400" alt="UniShip Logo" align="center" />
 ### Progetto di Ingegneria del Software @ UNISA A.A 2019/20
 ### Prof.ssa Filomena Ferrucci
 
+
+<img src="https://i.ibb.co/NT1T5ct/logo.png" width="400" alt="UniShip Logo"style="text-align:center" />
 La piattaforma nasce per fornire uno strumento che possa permettere la comunicazione tra aziende e studenti di informatica dell’Università degli Studi di Salerno e per consentire all’Ufficio Carriere un processo senza perdita di informazioni ed efficiente.
 
 <h2>Membri del team:</h2>
