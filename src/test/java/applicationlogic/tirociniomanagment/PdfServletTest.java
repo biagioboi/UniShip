@@ -2,6 +2,7 @@ package applicationlogic.tirociniomanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import applicationlogic.TestingUtility;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

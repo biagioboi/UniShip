@@ -1,5 +1,6 @@
 package applicationlogic.tirociniomanagment;
 
+import applicationlogic.TestingUtility;
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
