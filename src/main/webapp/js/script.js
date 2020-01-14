@@ -67,6 +67,10 @@ function checkForLogin() {
           $("#numeroMatricola").html(partitaIva);
           $("#nomeUtente").html(`${nome}`);
 
+        } else {
+          let nome = response.nome;
+          $("#numeroMatricola").html("");
+          $("#nomeUtente").html(`${nome}`);
         }
       } else {
         location.href = 'signin.html';
