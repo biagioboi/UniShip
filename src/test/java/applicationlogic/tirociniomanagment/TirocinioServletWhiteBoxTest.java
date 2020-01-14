@@ -23,7 +23,7 @@ import storage.beans.Tirocinio;
 import storage.beans.Utente;
 import storage.dao.TirocinioDao;
 
-public class TirocinioServletTestWhiteBox extends Mockito {
+public class TirocinioServletWhiteBoxTest extends Mockito {
 
 
   private static Utente ufficioCarriere;
