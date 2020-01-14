@@ -1,6 +1,6 @@
 package applicationlogic.tirociniomanagment;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import applicationlogic.TestingUtility;
 import java.io.File;
@@ -26,7 +26,7 @@ import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
 
-public class PdfServletTest extends Mockito {
+public class PdfServletIT extends Mockito {
 
   private MockHttpServletResponse response;
   private HttpServletRequest request;
