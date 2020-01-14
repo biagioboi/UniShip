@@ -365,7 +365,7 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
     ArrayList<Tirocinio> result = new ArrayList<>();
     result.add(tirocinio);
 
-    assertEquals(new Gson().toJson(result).trim(), response.getContentAsString().trim());
+    assertEquals(new Gson().toJson(result), response.getContentAsString().trim());
   }
 
   @Test
@@ -383,7 +383,7 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
     ArrayList<Tirocinio> result = new ArrayList<>();
     result.add(tirocinio);
 
-    assertEquals(new Gson().toJson(result).trim(), response.getContentAsString().trim());
+    assertEquals(new Gson().toJson(result), response.getContentAsString().trim());
   }
 
   @Test
@@ -401,7 +401,7 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
     ArrayList<Tirocinio> result = new ArrayList<>();
     result.add(tirocinio);
 
-    assertEquals(new Gson().toJson(result).trim(), response.getContentAsString().trim());
+    assertEquals(new Gson().toJson(result), response.getContentAsString().trim());
   }
 
   @Test
@@ -435,6 +435,20 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
         response.getContentAsString().trim());
   }
 
+  @Test
+  public void viewInternshipByFilter1() throws IOException, ServletException, SQLException {
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(studente);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("action")).thenReturn("viewInternshipByFilter");
+
+    servlet.doPost(request, response);
+
+    assertEquals("{\"description\":\"Non puoi accedere a queste informazioni.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
 
 
 }

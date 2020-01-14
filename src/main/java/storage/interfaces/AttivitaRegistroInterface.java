@@ -15,6 +15,7 @@ public interface AttivitaRegistroInterface {
    *     di un tirocinio
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
    * @throws IllegalArgumentException nel caso in cui si passa un tirocinio == null.
+   *
    */
   ArrayList<AttivitaRegistro> doRetrieveByTirocinio(Tirocinio tirocinio) throws SQLException;
 

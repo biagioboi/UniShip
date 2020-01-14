@@ -17,6 +17,8 @@ public class Tirocinio {
    * @param oreSvolte le ore già svolte
    * @param path la path del PDF del Progetto Formativo
    * @param motivazioni le motivazioni di una eventuale rifiuta
+   * @param studente studente tirocinante
+   * @param azienda azienda ospitante
    */
   public Tirocinio(int id, String stato, double oreTotali, String turorEsterno,
       double oreSvolte, String path, Studente studente, Azienda azienda, String motivazioni) {
