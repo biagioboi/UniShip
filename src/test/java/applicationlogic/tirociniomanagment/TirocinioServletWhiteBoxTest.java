@@ -3,10 +3,12 @@ package applicationlogic.tirociniomanagment;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import applicationlogic.TestingUtility;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -153,14 +155,14 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
     when(session.getAttribute("login")).thenReturn("si");
     when(request.getParameter("action")).thenReturn("validateInternship");
 
-    servlet.doPost(request,response);
+    servlet.doPost(request, response);
 
     assertEquals("{\"description\":\"Non puoi validare questo tirocinio.\",\"status\":\"422\"}",
         response.getContentAsString().trim());
   }
 
   @Test
-  public void validateInternship() throws IOException, ServletException{
+  public void validateInternship() throws IOException, ServletException {
 
     when(request.getSession()).thenReturn(session);
     when(session.getAttribute("utente")).thenReturn(ufficioCarriere);
@@ -168,14 +170,14 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
 
     when(request.getParameter("action")).thenReturn("validateInternship");
     when(request.getParameter("tirocinio")).thenReturn(null);
-    servlet.doPost(request,response);
+    servlet.doPost(request, response);
     assertEquals("{\"description\":\"id non valido.\",\"status\":\"422\"}",
         response.getContentAsString().trim());
 
   }
 
   @Test
-  public void validateInternship2() throws IOException,ServletException{
+  public void validateInternship2() throws IOException, ServletException {
 
     when(request.getSession()).thenReturn(session);
     when(session.getAttribute("utente")).thenReturn(ufficioCarriere);
@@ -183,14 +185,14 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
 
     when(request.getParameter("action")).thenReturn("validateInternship");
     when(request.getParameter("tirocinio")).thenReturn(String.valueOf(-1));
-    servlet.doPost(request,response);
+    servlet.doPost(request, response);
     assertEquals("{\"description\":\"La risposta non puo' essere vuota\",\"status\":\"422\"}",
         response.getContentAsString().trim().replace("\\u0027", "'"));
 
   }
 
   @Test
-  public void validateInternship3() throws IOException, ServletException{
+  public void validateInternship3() throws IOException, ServletException {
 
     when(request.getSession()).thenReturn(session);
     when(session.getAttribute("utente")).thenReturn(ufficioCarriere);
@@ -200,14 +202,14 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
     when(request.getParameter("action")).thenReturn("validateInternship");
 
     when(request.getParameter("risposta")).thenReturn(null);
-    servlet.doPost(request,response);
+    servlet.doPost(request, response);
 
     assertEquals("{\"description\":\"La risposta non puo' essere vuota\",\"status\":\"422\"}",
         response.getContentAsString().trim().replace("\\u0027", "'"));
   }
 
   @Test
-  public void validateInternship4() throws IOException, ServletException{
+  public void validateInternship4() throws IOException, ServletException {
 
     when(request.getSession()).thenReturn(session);
     when(session.getAttribute("utente")).thenReturn(ufficioCarriere);
@@ -217,13 +219,13 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
     when(request.getParameter("action")).thenReturn("validateInternship");
 
     when(request.getParameter("risposta")).thenReturn("");
-    servlet.doPost(request,response);
+    servlet.doPost(request, response);
     assertEquals("{\"description\":\"La risposta non puo' essere vuota\",\"status\":\"422\"}",
         response.getContentAsString().trim().replace("\\u0027", "'"));
   }
 
   @Test
-  public void validateInternship5() throws IOException, ServletException{
+  public void validateInternship5() throws IOException, ServletException {
 
     when(request.getSession()).thenReturn(session);
     when(session.getAttribute("utente")).thenReturn(ufficioCarriere);
@@ -233,13 +235,13 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
     when(request.getParameter("action")).thenReturn("validateInternship");
 
     when(request.getParameter("risposta")).thenReturn(RichiestaDisponibilita.ACCETTATA);
-    servlet.doPost(request,response);
+    servlet.doPost(request, response);
     assertEquals("{\"description\":\"Risposta inviata.\",\"status\":\"200\"}",
         response.getContentAsString().trim().replace("\\u0027", "'"));
   }
 
   @Test
-  public void validateInternship6() throws IOException, ServletException{
+  public void validateInternship6() throws IOException, ServletException {
 
     when(request.getSession()).thenReturn(session);
     when(session.getAttribute("utente")).thenReturn(admin);
@@ -249,13 +251,13 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
     when(request.getParameter("action")).thenReturn("validateInternship");
 
     when(request.getParameter("risposta")).thenReturn(RichiestaDisponibilita.ACCETTATA);
-    servlet.doPost(request,response);
+    servlet.doPost(request, response);
     assertEquals("{\"description\":\"Risposta inviata.\",\"status\":\"200\"}",
         response.getContentAsString().trim().replace("\\u0027", "'"));
   }
 
   @Test
-  public void validateInternship7() throws IOException, ServletException,SQLException{
+  public void validateInternship7() throws IOException, ServletException, SQLException {
 
     TestingUtility.deleteTirocinio(tirocinio);
     tirocinio.setOreSvolte(tirocinio.getOreTotali());
@@ -269,12 +271,154 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
     when(request.getParameter("action")).thenReturn("validateInternship");
 
     when(request.getParameter("risposta")).thenReturn(RichiestaDisponibilita.ACCETTATA);
-    servlet.doPost(request,response);
+    servlet.doPost(request, response);
     assertEquals("{\"description\":\"Risposta inviata.\",\"status\":\"200\"}",
         response.getContentAsString().trim().replace("\\u0027", "'"));
   }
 
+  @Test
+  public void validateInternship8() throws IOException, ServletException, SQLException {
 
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(admin);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getParameter("action")).thenReturn("validateInternship");
+
+    when(request.getParameter("risposta")).thenReturn(RichiestaDisponibilita.RIFIUTATA);
+    when(request.getParameter("motivazioni")).thenReturn(null);
+
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"le motivazioni non possono essere vuote\",\"status\":\"422\"}",
+        response.getContentAsString().trim().replace("\\u0027", "'"));
+  }
+
+  @Test
+  public void validateInternship9() throws IOException, ServletException, SQLException {
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(admin);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getParameter("action")).thenReturn("validateInternship");
+
+    when(request.getParameter("risposta")).thenReturn(RichiestaDisponibilita.RIFIUTATA);
+    when(request.getParameter("motivazioni")).thenReturn("");
+
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"le motivazioni non possono essere vuote\",\"status\":\"422\"}",
+        response.getContentAsString().trim().replace("\\u0027", "'"));
+  }
+
+  @Test
+  public void validateInternship10() throws IOException, ServletException, SQLException {
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(admin);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getParameter("action")).thenReturn("validateInternship");
+
+    when(request.getParameter("risposta")).thenReturn(RichiestaDisponibilita.RIFIUTATA);
+    when(request.getParameter("motivazioni")).thenReturn("I dati non sono consistenti.");
+
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Risposta inviata.\",\"status\":\"200\"}",
+        response.getContentAsString().trim().replace("\\u0027", "'"));
+  }
+
+  @Test
+  public void validateInternship11() throws IOException, ServletException, SQLException {
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(admin);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getParameter("action")).thenReturn("validateInternship");
+
+    when(request.getParameter("risposta")).thenReturn(RichiestaDisponibilita.RIFIUTATA);
+    when(request.getParameter("motivazioni")).thenReturn("I dati non sono consistenti.");
+
+    doThrow(SQLException.class).when(dao).doChange(any(Tirocinio.class));
+
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Errore generico.\",\"status\":\"400\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void viewInternshipAzienda() throws IOException, ServletException, SQLException {
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(azienda);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("action")).thenReturn("viewInternship");
+
+
+    servlet.doPost(request, response);
+
+    ArrayList<Tirocinio> result = new ArrayList<>();
+    result.add(tirocinio);
+
+    assertEquals(new Gson().toJson(result), response.getContentAsString().trim());
+  }
+
+  @Test
+  public void viewInternshipStudente() throws IOException, ServletException, SQLException {
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(studente);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("action")).thenReturn("viewInternship");
+
+
+    servlet.doPost(request, response);
+
+    ArrayList<Tirocinio> result = new ArrayList<>();
+    result.add(tirocinio);
+
+    assertEquals(new Gson().toJson(result), response.getContentAsString().trim());
+  }
+
+  @Test
+  public void viewInternshipAdmin() throws IOException, ServletException, SQLException {
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(admin);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("action")).thenReturn("viewInternship");
+
+
+    servlet.doPost(request, response);
+
+    ArrayList<Tirocinio> result = new ArrayList<>();
+    result.add(tirocinio);
+
+    assertEquals(new Gson().toJson(result), response.getContentAsString().trim());
+  }
+
+  @Test
+  public void viewInternshipError() throws IOException, ServletException, SQLException {
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(admin);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("action")).thenReturn("viewInternship");
+
+    doThrow(SQLException.class).when(dao).doRetrieveAll();
+    servlet.doPost(request, response);
+
+    assertEquals("null",
+        response.getContentAsString().trim());
+  }
 
 
 }
