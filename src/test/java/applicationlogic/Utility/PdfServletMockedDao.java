@@ -1,7 +1,9 @@
 package applicationlogic.Utility;
 
+import applicationlogic.richiestadisponibilitamanagment.RichiestaDServlet;
 import applicationlogic.tirociniomanagment.PdfServlet;
 import storage.interfaces.AziendaInterface;
+import storage.interfaces.RichiestaDisponibilitaInterface;
 import storage.interfaces.StudenteInterface;
 import storage.interfaces.TirocinioInterface;
 import storage.interfaces.UtenteInterface;

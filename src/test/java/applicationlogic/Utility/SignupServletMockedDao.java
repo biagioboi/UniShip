@@ -1,5 +1,6 @@
 package applicationlogic.Utility;
 
+import applicationlogic.usersmanagment.SessionServlet;
 import applicationlogic.usersmanagment.SignUpServlet;
 import storage.interfaces.AziendaInterface;
 import storage.interfaces.StudenteInterface;
