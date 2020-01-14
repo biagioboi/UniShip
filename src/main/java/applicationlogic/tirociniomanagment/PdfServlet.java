@@ -64,7 +64,24 @@ public class PdfServlet extends HttpServlet {
       return;
     }
 
-    showPdf(request, response);
+    Gson obj = new Gson();
+    Map<String, String> result = new HashMap<>();
+
+    PrintWriter out = response.getWriter();
+    response.setContentType("application/json");
+
+    try {
+      if (!showPdf(request, response)) {
+        result.put("status", "400");
+        result.put("description", "Errore generico.");
+        out.println(obj.toJson(result));
+      }
+    } catch (IllegalArgumentException e) {
+      result.put("status", "422");
+      result.put("description", e.getMessage());
+
+      out.println(obj.toJson(result));
+    }
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -186,7 +203,7 @@ public class PdfServlet extends HttpServlet {
     return false;
   }
 
-  private void showPdf(HttpServletRequest request, HttpServletResponse response)
+  private boolean showPdf(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
 
     String tirocinioId = request.getParameter("tirocinio");
@@ -215,11 +232,8 @@ public class PdfServlet extends HttpServlet {
 
       String filePath = tirocinio.getPath(); //path assoluta
 
-      // if you want to use a relative path to context root:
-      String relativePath = getServletContext().getRealPath("");
-
       // obtains ServletContext
-      ServletContext context = getServletContext();
+      ServletContext context = request.getServletContext();
 
       // gets MIME type of the file
       String mimeType = context.getMimeType(filePath);
@@ -252,11 +266,14 @@ public class PdfServlet extends HttpServlet {
       inStream.close();
       outStream.close();
 
+      return true;
+
 
     } catch (SQLException e) {
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 
+    return false;
   }
 
   private boolean createPdf(HttpServletRequest request, HttpServletResponse response)
