@@ -34,8 +34,6 @@ import storage.interfaces.AziendaInterface;
 import storage.interfaces.RichiestaDisponibilitaInterface;
 import storage.interfaces.StudenteInterface;
 
-//TODO: Aggiungere retrieve free companies all'ODD
-// ho aggiunto il metodo retrieve free companies
 @WebServlet("/HandleUserServlet")
 public class HandleUserServlet extends HttpServlet {
 

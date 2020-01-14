@@ -146,12 +146,12 @@ class SignUpServletTest extends Mockito {
 
   @Test
   public void TC_1_07() throws ServletException, IOException {
-    //TODO: this one should be verified in javascript
+    //this one should be verified in javascript
   }
 
   @Test
   public void TC_1_08() throws ServletException, IOException {
-    //TODO: this one should be verified in javascript
+    //this one should be verified in javascript
   }
 
   @Test
