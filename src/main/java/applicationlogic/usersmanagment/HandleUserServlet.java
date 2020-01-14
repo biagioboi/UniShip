@@ -38,8 +38,6 @@ import storage.dao.StudenteDao;
 import storage.interfaces.AziendaInterface;
 import storage.interfaces.RichiestaDisponibilitaInterface;
 import storage.interfaces.StudenteInterface;
-import storage.interfaces.TirocinioInterface;
-import storage.interfaces.UtenteInterface;
 
 //TODO: Aggiungere retrieve free companies all'ODD
 // ho aggiunto il metodo retrieve free companies
@@ -237,7 +235,7 @@ public class HandleUserServlet extends HttpServlet {
   public static final String USERNAME_EMAIL = "uniship.info@gmail.com";
   public static final String PASSWORD_EMAIL = "uniship2020";
 
-  protected static AziendaInterface aziendaDao = new AziendaDao();
-  protected static RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
-  protected static StudenteInterface studenteDao = new StudenteDao();
+  private static AziendaInterface aziendaDao = new AziendaDao();
+  private static RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
+  private static StudenteInterface studenteDao = new StudenteDao();
 }

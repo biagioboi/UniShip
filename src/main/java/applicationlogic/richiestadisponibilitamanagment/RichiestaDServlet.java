@@ -247,8 +247,8 @@ public class RichiestaDServlet extends HttpServlet {
 
   }
 
-  protected static StudenteInterface studenteDao = new StudenteDao();
-  protected static AziendaInterface aziendaDao = new AziendaDao();
-  protected static UtenteInterface utenteDao = new UtenteDao();
-  protected static RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
+  private static StudenteInterface studenteDao = new StudenteDao();
+  private static AziendaInterface aziendaDao = new AziendaDao();
+  private static UtenteInterface utenteDao = new UtenteDao();
+  private static RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
 }

@@ -1,4 +1,4 @@
-package applicationlogic.Utility;
+package applicationlogic;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

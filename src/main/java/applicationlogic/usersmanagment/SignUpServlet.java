@@ -166,6 +166,6 @@ public class SignUpServlet extends HttpServlet {
     }
   }
 
-  protected static StudenteInterface studenteDao = new StudenteDao();
-  protected static UtenteInterface utenteDao = new UtenteDao();
+  private static StudenteInterface studenteDao = new StudenteDao();
+  private static UtenteInterface utenteDao = new UtenteDao();
 }

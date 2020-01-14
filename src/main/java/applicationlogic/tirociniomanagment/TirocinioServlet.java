@@ -242,9 +242,9 @@ public class TirocinioServlet extends HttpServlet {
     return false;
   }
 
-  protected static TirocinioInterface tirocinioDao = new TirocinioDao();
-  protected static StudenteInterface studenteDao = new StudenteDao();
-  protected static UtenteInterface utenteDao = new UtenteDao();
-  protected static AziendaInterface aziendaDao = new AziendaDao();
+  private static TirocinioInterface tirocinioDao = new TirocinioDao();
+  private static StudenteInterface studenteDao = new StudenteDao();
+  private static UtenteInterface utenteDao = new UtenteDao();
+  private static AziendaInterface aziendaDao = new AziendaDao();
 
 }

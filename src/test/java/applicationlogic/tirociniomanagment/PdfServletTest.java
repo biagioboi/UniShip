@@ -24,7 +24,7 @@ import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
-import applicationlogic.Utility.TestingUtility;
+import applicationlogic.TestingUtility;
 
 public class PdfServletTest extends Mockito {
 

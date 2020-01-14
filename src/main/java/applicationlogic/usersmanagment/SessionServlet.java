@@ -17,7 +17,6 @@ import storage.dao.StudenteDao;
 import storage.dao.UtenteDao;
 import storage.interfaces.AziendaInterface;
 import storage.interfaces.StudenteInterface;
-import storage.interfaces.TirocinioInterface;
 import storage.interfaces.UtenteInterface;
 
 @WebServlet("/SessionServlet")
@@ -129,7 +128,7 @@ public class SessionServlet extends HttpServlet {
     session.invalidate();
   }
 
-  protected static AziendaInterface aziendaDao = new AziendaDao();
-  protected static StudenteInterface studenteDao = new StudenteDao();
-  protected static UtenteInterface utenteDao = new UtenteDao();
+  private static AziendaInterface aziendaDao = new AziendaDao();
+  private static StudenteInterface studenteDao = new StudenteDao();
+  private static UtenteInterface utenteDao = new UtenteDao();
 }

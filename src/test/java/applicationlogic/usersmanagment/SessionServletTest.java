@@ -2,7 +2,7 @@ package applicationlogic.usersmanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import applicationlogic.Utility.TestingUtility;
+import applicationlogic.TestingUtility;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
