@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletResponse;
+import storage.beans.AttivitaRegistro;
 import storage.beans.Azienda;
 import storage.beans.Studente;
 import storage.beans.Tirocinio;
@@ -27,6 +28,7 @@ public class RegistroServletWhiteBoxTest extends Mockito {
   private static Utente studente;
   private static Utente fakeStudente;
   private static Utente azienda;
+  private static Utente fakeAzienda;
 
   private static Azienda realAzienda;
   private static Studente realStudente;
@@ -50,6 +52,14 @@ public class RegistroServletWhiteBoxTest extends Mockito {
       realAzienda = new Azienda("info@prova.it", "Prova", "password", "03944080652",
           "via prova 2", "pippo", "5485", 55);
       TestingUtility.createAzienda(realAzienda);
+
+
+      fakeAzienda = new Utente("info@prova.com", "Prova", "password", "azienda");
+      TestingUtility.createUtente(fakeAzienda);
+
+      Azienda secondAzienda = new Azienda("info@prova.com", "Prova", "password", "03944080680",
+          "via prova 2", "pippo", "5485", 55);
+      TestingUtility.createAzienda(secondAzienda);
 
       studente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password",
           "studente");
@@ -85,6 +95,7 @@ public class RegistroServletWhiteBoxTest extends Mockito {
       TestingUtility.deleteUtente(azienda.getEmail().toLowerCase());
       TestingUtility.deleteUtente(studente.getEmail().toLowerCase());
       TestingUtility.deleteUtente(fakeStudente.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(fakeAzienda.getEmail().toLowerCase());
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -152,6 +163,24 @@ public class RegistroServletWhiteBoxTest extends Mockito {
         response.getContentAsString().trim());
   }
 
+  @Test
+  public void addActivityLoggedWithException() throws ServletException, IOException, SQLException {
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(azienda);
+    when(session.getAttribute("login")).thenReturn("si");
+    when(request.getParameter("action")).thenReturn("addActivity");
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getParameter("oreSvolte")).thenReturn("06:00");
+    when(request.getParameter("data")).thenReturn("2020-01-15");
+    when(request.getParameter("attivita")).thenReturn("Inserimento collegamento al DB.");
+
+    doThrow(SQLException.class).when(dao).doSave(any(AttivitaRegistro.class));
+
+    servlet.doPost(request, response);
+
+    assertEquals(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, response.getStatus());
+  }
+
 
   @Test
   public void viewRegisterWithNullTirocinio() throws ServletException, IOException {
@@ -181,6 +210,44 @@ public class RegistroServletWhiteBoxTest extends Mockito {
     assertEquals(
         "{\"description\":\"Non puoi accedere a queste informazioni.\",\"status\":\"422\"}",
         response.getContentAsString().trim());
+  }
+
+  @Test
+  public void addActivityWithLoggedAziendaDifferentFromRealAzienda()
+      throws ServletException, IOException {
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(fakeAzienda);
+    when(session.getAttribute("login")).thenReturn("si");
+    when(request.getParameter("action")).thenReturn("addActivity");
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getParameter("oreSvolte")).thenReturn("06:00");
+    when(request.getParameter("data")).thenReturn("2020-01-15");
+    when(request.getParameter("attivita")).thenReturn("Inserimento collegamento al DB.");
+
+    servlet.doPost(request, response);
+
+    assertEquals(
+        "{\"description\":\"Non puoi aggiungere attivita a questo tirocinio.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void addActivityWithNullDate()
+      throws ServletException, IOException {
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(azienda);
+    when(session.getAttribute("login")).thenReturn("si");
+    when(request.getParameter("action")).thenReturn("addActivity");
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getParameter("oreSvolte")).thenReturn("06:00");
+    when(request.getParameter("data")).thenReturn(null);
+    when(request.getParameter("attivita")).thenReturn("Inserimento collegamento al DB.");
+
+    servlet.doPost(request, response);
+
+    assertEquals(
+        "{\"description\":\"La data non puo' essere vuota\",\"status\":\"422\"}",
+        response.getContentAsString().trim().replace("\\u0027", "'"));
   }
 
 
