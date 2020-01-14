@@ -365,7 +365,7 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
     ArrayList<Tirocinio> result = new ArrayList<>();
     result.add(tirocinio);
 
-    assertEquals(new Gson().toJson(result), response.getContentAsString().trim());
+    assertEquals(new Gson().toJson(result).trim(), response.getContentAsString().trim());
   }
 
   @Test
@@ -383,7 +383,7 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
     ArrayList<Tirocinio> result = new ArrayList<>();
     result.add(tirocinio);
 
-    assertEquals(new Gson().toJson(result), response.getContentAsString().trim());
+    assertEquals(new Gson().toJson(result).trim(), response.getContentAsString().trim());
   }
 
   @Test
@@ -401,7 +401,7 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
     ArrayList<Tirocinio> result = new ArrayList<>();
     result.add(tirocinio);
 
-    assertEquals(new Gson().toJson(result), response.getContentAsString().trim());
+    assertEquals(new Gson().toJson(result).trim(), response.getContentAsString().trim());
   }
 
   @Test
