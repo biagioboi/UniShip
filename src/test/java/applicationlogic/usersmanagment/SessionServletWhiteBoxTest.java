@@ -26,7 +26,7 @@ import storage.dao.StudenteDao;
 import storage.dao.UtenteDao;
 
 
-public class SessionServletTestWhiteBox extends Mockito {
+public class SessionServletWhiteBoxTest extends Mockito {
 
   private static Utente studente;
   private static Utente azienda;

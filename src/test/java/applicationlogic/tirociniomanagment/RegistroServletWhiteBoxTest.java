@@ -22,7 +22,7 @@ import storage.beans.Utente;
 import storage.dao.AttivitaRegistroDao;
 
 
-public class RegistroServletTestWhiteBox extends Mockito {
+public class RegistroServletWhiteBoxTest extends Mockito {
 
   private static Utente studente;
   private static Utente fakeStudente;

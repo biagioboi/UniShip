@@ -22,7 +22,7 @@ import storage.beans.Utente;
 import storage.dao.RichiestaDisponibilitaDao;
 
 
-public class RichiestaDServletTestWhiteBox extends Mockito {
+public class RichiestaDServletWhiteBoxTest extends Mockito {
 
   private static Utente ufficioCarriere;
   private static Utente admin;

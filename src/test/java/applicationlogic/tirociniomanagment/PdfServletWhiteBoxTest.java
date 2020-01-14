@@ -23,7 +23,7 @@ import storage.beans.Tirocinio;
 import storage.beans.Utente;
 import storage.dao.TirocinioDao;
 
-public class PdfServletTestWhiteBox extends Mockito {
+public class PdfServletWhiteBoxTest extends Mockito {
 
   private static Utente ufficioCarriere;
   private static Utente admin;

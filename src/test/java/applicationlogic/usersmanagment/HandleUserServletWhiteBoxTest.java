@@ -20,7 +20,7 @@ import storage.beans.Studente;
 import storage.beans.Utente;
 
 
-public class HandleUserServletTestWhiteBox extends Mockito {
+public class HandleUserServletWhiteBoxTest extends Mockito {
 
   private static Utente studente;
   private static Utente azienda;

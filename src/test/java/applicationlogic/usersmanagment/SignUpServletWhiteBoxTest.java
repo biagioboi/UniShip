@@ -21,7 +21,7 @@ import storage.dao.StudenteDao;
 import storage.dao.UtenteDao;
 
 
-public class SignUpServletTestWhiteBox extends Mockito {
+public class SignUpServletWhiteBoxTest extends Mockito {
 
   private HttpServletRequest request;
   private MockHttpServletResponse response;
