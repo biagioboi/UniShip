@@ -1,11 +1,9 @@
 package applicationlogic.Utility;
 
-import applicationlogic.tirociniomanagment.PdfServlet;
 import applicationlogic.usersmanagment.HandleUserServlet;
 import storage.interfaces.AziendaInterface;
 import storage.interfaces.RichiestaDisponibilitaInterface;
 import storage.interfaces.StudenteInterface;
-import storage.interfaces.TirocinioInterface;
 import storage.interfaces.UtenteInterface;
 
 public class HandleUserMockedDao extends HandleUserServlet {
