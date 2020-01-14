@@ -66,12 +66,13 @@ public class PdfServlet extends HttpServlet {
 
     Gson obj = new Gson();
     Map<String, String> result = new HashMap<>();
-
-    PrintWriter out = response.getWriter();
     response.setContentType("application/json");
+
+
 
     try {
       if (!showPdf(request, response)) {
+        PrintWriter out = response.getWriter();
         result.put("status", "400");
         result.put("description", "Errore generico.");
         out.println(obj.toJson(result));
@@ -79,7 +80,7 @@ public class PdfServlet extends HttpServlet {
     } catch (IllegalArgumentException e) {
       result.put("status", "422");
       result.put("description", e.getMessage());
-
+      PrintWriter out = response.getWriter();
       out.println(obj.toJson(result));
     }
   }
