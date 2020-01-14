@@ -146,7 +146,7 @@ public class TirocinioServletTestWhiteBox extends Mockito {
   public void viewInternshipByFilter1() throws ServletException, IOException {
     request.getSession().setAttribute("utente", firstStudente );
     request.getSession().setAttribute("login", "si");
-    request.setParameter("action","viewInternship");
+    request.setParameter("action","viewInternshipByFilter");
     servlet.doPost(request,response);
     assertEquals("{\"description\":\"Non puoi accedere a queste informazioni.\",\"status\":\"422\"}", response.getContentAsString().trim());
   }
