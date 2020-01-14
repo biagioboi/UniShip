@@ -22,7 +22,7 @@ import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
 
-public class TirocinioServletTestWhiteBox extends Mockito {
+public class TirocinioServletWhiteBoxTest extends Mockito {
 
   private MockHttpServletResponse response;
   private MockHttpServletRequest request;
