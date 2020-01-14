@@ -3,152 +3,278 @@ package applicationlogic.tirociniomanagment;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import applicationlogic.TestingUtility;
-import com.google.gson.Gson;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import javax.servlet.http.HttpSession;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.AssertThrows;
 import storage.beans.Azienda;
+import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
+import storage.dao.TirocinioDao;
 
 public class TirocinioServletTestWhiteBox extends Mockito {
 
+
+  private static Utente ufficioCarriere;
+  private static Utente admin;
+  private static Studente studente;
+  private static Azienda azienda;
+  private static Tirocinio tirocinio;
+  private HttpServletRequest request;
   private MockHttpServletResponse response;
-  private MockHttpServletRequest request;
-  private TirocinioServlet servlet;
-
-  private static Tirocinio firstTirocinio;
-  private static Tirocinio secondTirocinio;
-
-  private static Utente firstStudente;
-  private static Utente secondStudente;
-
-  private static Utente firstAzienda;
-
-  private static Utente carrierOffice;
-
-
-  @BeforeAll
-  static void setUp() {
-
-    try {
-      firstAzienda = new Utente("info@prova.it", "Prova", "password", "azienda");
-      TestingUtility.createUtente(firstAzienda);
-
-      Azienda prova = new Azienda("info@prova.it", "Prova", "password", "03944080652",
-          "via prova 2", "pippo", "5485", 55);
-      TestingUtility.createAzienda(prova);
-
-      firstStudente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password", "studente");
-      TestingUtility.createUtente(firstStudente);
-
-      Date d = Date.valueOf("1998-06-01");
-      Studente ruocco = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
-          "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
-      TestingUtility.createStudente(ruocco);
-
-      secondStudente = new Utente("m.rossi@studenti.unisa.it", "Mario", "password", "studente");
-      TestingUtility.createUtente(secondStudente);
-
-      d = Date.valueOf("1998-01-05");
-      Studente rossi = new Studente("m.rossi@studenti.unisa.it", "Mario", "password",
-          "MRORSS98A05H703Q", "1234567891", d, "Italia", "Rofrano", "3485813158", "Rossi");
-      TestingUtility.createStudente(rossi);
-
-      firstTirocinio = new Tirocinio(0, Tirocinio.NON_COMPLETO, 7000, "pippo", 0, "not extis",
-          ruocco, prova, "not extist");
-      TestingUtility.createTirocinio(firstTirocinio);
-
-      secondTirocinio = new Tirocinio(0, Tirocinio.IN_CORSO, 7000, "pippo", 500, "not extis", rossi,
-          prova, "not extist");
-      TestingUtility.createTirocinio(secondTirocinio);
-
-      carrierOffice = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", "password",
-          "ufficio_carriere");
-      TestingUtility.createUtente(carrierOffice);
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-
-  }
-
-  @AfterAll
-  static void delete() {
-    try {
-      TestingUtility.deleteUtente(firstAzienda.getEmail().toLowerCase());
-      TestingUtility.deleteUtente(firstStudente.getEmail().toLowerCase());
-      TestingUtility.deleteUtente(secondStudente.getEmail().toLowerCase());
-      TestingUtility.deleteTirocinio(firstTirocinio);
-      TestingUtility.deleteTirocinio(secondTirocinio);
-      TestingUtility.deleteUtente(carrierOffice.getEmail().toLowerCase());
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
+  private HttpSession session;
+  private static TirocinioServlet servlet = new TirocinioServlet();
+  private TirocinioDao dao;
 
   @BeforeEach
-  void carica() {
-    servlet = new TirocinioServlet();
-    request = new MockHttpServletRequest();
+  public void load() {
+
+    try {
+      Utente aziendaData = new Utente("info@prova.it", "Prova", "password", "azienda");
+      TestingUtility.createUtente(aziendaData);
+
+      azienda = new Azienda("info@prova.it", "Prova", "password", "03944080652",
+          "via prova 2", "pippo", "5485", 55);
+      TestingUtility.createAzienda(azienda);
+
+      Utente studenteData = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password",
+          "studente");
+      TestingUtility.createUtente(studenteData);
+
+      Date d = Date.valueOf("1998-06-01");
+      studente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
+          "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
+      TestingUtility.createStudente(studente);
+
+      ufficioCarriere = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", "password",
+          "ufficio_carriere");
+      TestingUtility.createUtente(ufficioCarriere);
+
+      admin = new Utente("admin@unisa.it", "Admin", "password",
+          "admin");
+      TestingUtility.createUtente(admin);
+
+      ClassLoader classLoader = getClass().getClassLoader();
+      URL resource = classLoader.getResource("prova.pdf");
+      tirocinio = new Tirocinio(999, Tirocinio.NON_COMPLETO, 7000, "pippo", 500, resource.getPath(),
+          studente, azienda, "not extist");
+      TestingUtility.createTirocinio(tirocinio);
+
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  @AfterEach
+  public void delete() {
+    try {
+      TestingUtility.deleteUtente(azienda.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(studente.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(admin.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(ufficioCarriere.getEmail().toLowerCase());
+      TestingUtility.deleteTirocinio(tirocinio);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+
+  @BeforeEach
+  public void setUp() throws Exception {
+    request = mock(HttpServletRequest.class);
+    session = mock(HttpSession.class);
+    dao = spy(TirocinioDao.class);
     response = new MockHttpServletResponse();
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("tirocinioDao"), dao);
+
   }
+
+  @AfterEach
+  public void clean() throws Exception {
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("tirocinioDao"),
+        new TirocinioDao());
+  }
+
+
   @Test
-  //branch !login.equals("si")
-  public void login1() throws Exception{
-    request.getSession().setAttribute("utente", null);
-    request.getSession().setAttribute("login", "");
-    servlet.doPost(request,response);
+  public void loginNull() throws ServletException, IOException {
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(null);
+    when(session.getAttribute("login")).thenReturn(null);
+    servlet.doPost(request, response);
     assertEquals(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, response.getStatus());
   }
 
-  //branch no user
   @Test
-  public void login2() throws Exception{
-    request.getSession().setAttribute("utente", null);
-    request.getSession().setAttribute("login", "si");
-    servlet.doPost(request,response);
+  public void loginNull2() throws ServletException, IOException {
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(null);
+    when(session.getAttribute("login")).thenReturn("si");
+    servlet.doPost(request, response);
     assertEquals(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, response.getStatus());
   }
 
-  //branch no action
   @Test
-  public void nullAction() throws Exception{
-    request.getSession().setAttribute("utente", carrierOffice);
-    request.getSession().setAttribute("login", "si");
-    servlet.doPost(request,response);
-    assertEquals("", response.getContentAsString().trim());
+  public void loginNull3() throws ServletException, IOException {
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(null);
+    when(session.getAttribute("login")).thenReturn("no");
+    servlet.doPost(request, response);
+    assertEquals(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, response.getStatus());
   }
 
   @Test
-  //branch !user.getTipo().equals(Utente.UFFICIO_CARRIERE) && !user.getTipo().equals(Utente.ADMIN)
-  public void validateInternship1() throws ServletException, IOException {
-    request.getSession().setAttribute("utente", firstStudente);
-    request.getSession().setAttribute("login", "si");
-    request.setParameter("action","validateInternship");
-    servlet.doPost(request,response);
-    assertEquals("{\"description\":\"Non puoi validare questo tirocinio.\",\"status\":\"422\"}", response.getContentAsString().trim());
+  public void loginNull4() throws ServletException, IOException {
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(studente);
+    when(session.getAttribute("login")).thenReturn("si");
+    servlet.doGet(request, response);
+    assertEquals("", response.getContentAsString());
   }
 
   @Test
-  //branch !user.getTipo().equals(Utente.UFFICIO_CARRIERE) && !user.getTipo().equals(Utente.ADMIN)
-  public void viewInternshipByFilter1() throws ServletException, IOException {
-    request.getSession().setAttribute("utente", firstStudente );
-    request.getSession().setAttribute("login", "si");
-    request.setParameter("action","viewInternship");
+  public void validateInternshipStudente() throws IOException, ServletException {
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(studente);
+    when(session.getAttribute("login")).thenReturn("si");
+    when(request.getParameter("action")).thenReturn("validateInternship");
+
     servlet.doPost(request,response);
-    assertEquals("{\"description\":\"Non puoi accedere a queste informazioni.\",\"status\":\"422\"}", response.getContentAsString().trim());
+
+    assertEquals("{\"description\":\"Non puoi validare questo tirocinio.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
   }
+
+  @Test
+  public void validateInternship() throws IOException, ServletException{
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(ufficioCarriere);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("action")).thenReturn("validateInternship");
+    when(request.getParameter("tirocinio")).thenReturn(null);
+    servlet.doPost(request,response);
+    assertEquals("{\"description\":\"id non valido.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+
+  }
+
+  @Test
+  public void validateInternship2() throws IOException,ServletException{
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(ufficioCarriere);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("action")).thenReturn("validateInternship");
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(-1));
+    servlet.doPost(request,response);
+    assertEquals("{\"description\":\"La risposta non puo' essere vuota\",\"status\":\"422\"}",
+        response.getContentAsString().trim().replace("\\u0027", "'"));
+
+  }
+
+  @Test
+  public void validateInternship3() throws IOException, ServletException{
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(ufficioCarriere);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getParameter("action")).thenReturn("validateInternship");
+
+    when(request.getParameter("risposta")).thenReturn(null);
+    servlet.doPost(request,response);
+
+    assertEquals("{\"description\":\"La risposta non puo' essere vuota\",\"status\":\"422\"}",
+        response.getContentAsString().trim().replace("\\u0027", "'"));
+  }
+
+  @Test
+  public void validateInternship4() throws IOException, ServletException{
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(ufficioCarriere);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getParameter("action")).thenReturn("validateInternship");
+
+    when(request.getParameter("risposta")).thenReturn("");
+    servlet.doPost(request,response);
+    assertEquals("{\"description\":\"La risposta non puo' essere vuota\",\"status\":\"422\"}",
+        response.getContentAsString().trim().replace("\\u0027", "'"));
+  }
+
+  @Test
+  public void validateInternship5() throws IOException, ServletException{
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(ufficioCarriere);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getParameter("action")).thenReturn("validateInternship");
+
+    when(request.getParameter("risposta")).thenReturn(RichiestaDisponibilita.ACCETTATA);
+    servlet.doPost(request,response);
+    assertEquals("{\"description\":\"Risposta inviata.\",\"status\":\"200\"}",
+        response.getContentAsString().trim().replace("\\u0027", "'"));
+  }
+
+  @Test
+  public void validateInternship6() throws IOException, ServletException{
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(admin);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getParameter("action")).thenReturn("validateInternship");
+
+    when(request.getParameter("risposta")).thenReturn(RichiestaDisponibilita.ACCETTATA);
+    servlet.doPost(request,response);
+    assertEquals("{\"description\":\"Risposta inviata.\",\"status\":\"200\"}",
+        response.getContentAsString().trim().replace("\\u0027", "'"));
+  }
+
+  @Test
+  public void validateInternship7() throws IOException, ServletException,SQLException{
+
+    TestingUtility.deleteTirocinio(tirocinio);
+    tirocinio.setOreSvolte(tirocinio.getOreTotali());
+    TestingUtility.createTirocinio(tirocinio);
+
+    when(request.getSession()).thenReturn(session);
+    when(session.getAttribute("utente")).thenReturn(admin);
+    when(session.getAttribute("login")).thenReturn("si");
+
+    when(request.getParameter("tirocinio")).thenReturn(String.valueOf(tirocinio.getId()));
+    when(request.getParameter("action")).thenReturn("validateInternship");
+
+    when(request.getParameter("risposta")).thenReturn(RichiestaDisponibilita.ACCETTATA);
+    servlet.doPost(request,response);
+    assertEquals("{\"description\":\"Risposta inviata.\",\"status\":\"200\"}",
+        response.getContentAsString().trim().replace("\\u0027", "'"));
+  }
+
+
+
 
 }
