@@ -20,7 +20,10 @@ import storage.beans.Utente;
 import storage.dao.AttivitaRegistroDao;
 import storage.dao.TirocinioDao;
 import storage.interfaces.AttivitaRegistroInterface;
+import storage.interfaces.AziendaInterface;
+import storage.interfaces.StudenteInterface;
 import storage.interfaces.TirocinioInterface;
+import storage.interfaces.UtenteInterface;
 
 @WebServlet("/RegistroServlet")
 public class RegistroServlet extends HttpServlet {
@@ -183,6 +186,6 @@ public class RegistroServlet extends HttpServlet {
     return false;
   }
 
-  AttivitaRegistroInterface attivitaDao = new AttivitaRegistroDao();
-  TirocinioInterface tirocinioDao = new TirocinioDao();
+  protected AttivitaRegistroInterface attivitaDao = new AttivitaRegistroDao();
+  protected TirocinioInterface tirocinioDao = new TirocinioDao();
 }

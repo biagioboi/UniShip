@@ -2,7 +2,7 @@ package applicationlogic.tirociniomanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import applicationlogic.TestingUtility;
+import applicationlogic.Utility.TestingUtility;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.sql.Date;

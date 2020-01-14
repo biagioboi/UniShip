@@ -1,7 +1,6 @@
 package applicationlogic.tirociniomanagment;
 
-import applicationlogic.TestingUtility;
-import applicationlogic.richiestadisponibilitamanagment.RichiestaDServlet;
+import applicationlogic.Utility.TestingUtility;
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +12,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import storage.beans.Azienda;
 import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
-import storage.beans.Tirocinio;
 import storage.beans.Utente;
-import storage.dao.RichiestaDisponibilitaDao;
 import storage.dao.TirocinioDao;
 
 public class PdfServletTestWhiteBox extends Mockito {

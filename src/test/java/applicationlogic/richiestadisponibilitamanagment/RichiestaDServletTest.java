@@ -2,7 +2,7 @@ package applicationlogic.richiestadisponibilitamanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import applicationlogic.TestingUtility;
+import applicationlogic.Utility.TestingUtility;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;

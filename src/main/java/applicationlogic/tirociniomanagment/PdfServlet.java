@@ -465,8 +465,8 @@ public class PdfServlet extends HttpServlet {
 
   private static final String UTF_8 = "UTF-8";
 
-  private static TirocinioInterface tirocinioDao = new TirocinioDao();
-  private static StudenteInterface studenteDao = new StudenteDao();
-  private static AziendaInterface aziendaDao = new AziendaDao();
-  private static UtenteInterface utenteDao = new UtenteDao();
+  protected static TirocinioInterface tirocinioDao = new TirocinioDao();
+  protected static StudenteInterface studenteDao = new StudenteDao();
+  protected static AziendaInterface aziendaDao = new AziendaDao();
+  protected static UtenteInterface utenteDao = new UtenteDao();
 }
