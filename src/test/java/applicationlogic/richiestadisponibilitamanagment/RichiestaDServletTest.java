@@ -12,43 +12,71 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.mockito.internal.matchers.Any;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import storage.beans.Azienda;
+import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
 import storage.beans.Utente;
+import storage.dao.AziendaDao;
+import storage.dao.RichiestaDisponibilitaDao;
+import storage.dao.StudenteDao;
+import storage.dao.UtenteDao;
+import storage.interfaces.AziendaInterface;
+import storage.interfaces.RichiestaDisponibilitaInterface;
+import storage.interfaces.StudenteInterface;
+import storage.interfaces.UtenteInterface;
 
 public class RichiestaDServletTest extends Mockito {
 
   private RichiestaDServlet servlet;
   private MockHttpServletRequest request;
   private MockHttpServletResponse response;
+  private static StudenteInterface studenteDao;
+  private static AziendaInterface aziendaDao;
+  private static UtenteInterface utenteDao;
+  private static RichiestaDisponibilitaInterface richiestaDao;
 
   private static Utente utente;
 
   @BeforeAll
   static void setUtente() {
-    try {
-      utente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password", "studente");
-      TestingUtility.createUtente(utente);
+    Date d = Date.valueOf("1998-06-01");
+    utente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
+        "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
+    //TestingUtility.createUtente(utente);
 
-      Date d = Date.valueOf("1998-06-01");
-      Studente studente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
-          "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
-      TestingUtility.createStudente(studente);
+    // TestingUtility.createStudente(studente);
 
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
   }
 
 
   @BeforeEach
-  void setUp() throws IOException {
+  void setUp() throws Exception {
     servlet = new RichiestaDServlet();
     request = new MockHttpServletRequest();
     response = new MockHttpServletResponse();
     request.getSession().setAttribute("utente", utente);
     request.getSession().setAttribute("login", "si");
+    response = new MockHttpServletResponse();
+    richiestaDao= mock(RichiestaDisponibilitaDao.class);
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("richiestaDao"), richiestaDao);
+    utenteDao= mock(UtenteDao.class);
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("utenteDao"), utenteDao);
+    aziendaDao= mock(AziendaDao.class);
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("aziendaDao"), aziendaDao);
+    studenteDao= mock(StudenteDao.class);
+    when(studenteDao.doRetrieveByKey(anyString())).thenReturn(null);
+    when(aziendaDao.doRetrieveByKey(anyString())).thenReturn(null);
+    when(studenteDao.doRetrieveByKey("f.ruocco@studenti.unisa.it")).thenReturn((Studente)utente);
+    when(aziendaDao.doRetrieveByKey("info@clarotech.it")).thenReturn(new Azienda("info@clarotech.it","Paquale Di Franco", "password", "02188520544","via cardinale,16", "Paquale Di Franco","46692",20 ));
+    when(utenteDao.doCheckRegister(anyString())).thenReturn(false);
+    when(utenteDao.doCheckRegister("info@clarotech.it")).thenReturn(true);
+    when(utenteDao.doCheckRegister("f.ruocco@studenti.unisa.it")).thenReturn(true);
+    when(richiestaDao.doSave(any(RichiestaDisponibilita.class))).thenReturn(true);
+
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("studenteDao"), studenteDao);
   }
 
   @AfterAll
