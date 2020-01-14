@@ -305,6 +305,21 @@ public class HandleUserServletTest extends Mockito {
     request.setParameter("indirizzo", "Via Napoli 10, Roma");
     request.setParameter("rappresentante", "Mario Verdi");
     request.setParameter("codAteco", "C.500.10");
+    request.setParameter("numeroDipendenti", "venti");
+    servlet.doPost(request, response);
+    assertEquals("{\"description\":\"Numero dipendenti non valido.\",\"status\":\"422\"}",
+        response.getContentAsString().trim());
+  }
+
+  @Test
+  public void TC_10_17() throws ServletException, IOException {
+    request.setParameter("action", "addCompany");
+    request.setParameter("email", "info@crazytech.com");
+    request.setParameter("nome", "Crazy Tech srl");
+    request.setParameter("piva", "03944080658");
+    request.setParameter("indirizzo", "Via Napoli 10, Roma");
+    request.setParameter("rappresentante", "Mario Verdi");
+    request.setParameter("codAteco", "C.500.10");
     request.setParameter("numeroDipendenti", "20");
     servlet.doPost(request, response);
     assertEquals("{\"status\":\"200\"}",

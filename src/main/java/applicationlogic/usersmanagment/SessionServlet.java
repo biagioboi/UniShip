@@ -124,7 +124,7 @@ public class SessionServlet extends HttpServlet {
   }
 
   private void logout(HttpServletRequest request, HttpServletResponse response) {
-    HttpSession session = request.getSession(true);
+    HttpSession session = request.getSession();
     session.invalidate();
   }
 

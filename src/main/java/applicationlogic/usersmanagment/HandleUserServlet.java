@@ -79,13 +79,6 @@ public class HandleUserServlet extends HttpServlet {
         } else {
           throw new RuntimeException();
         }
-      } else if (action.equals("changeCompanyData")) {
-        if (!user.getTipo().equals(Utente.UFFICIO_CARRIERE) && !user.getTipo()
-            .equals(Utente.ADMIN) && !user.getEmail().equals(request.getParameter("azienda"))) {
-          throw new AuthenticationException("Non autorizzato.");
-        } else {
-          throw new RuntimeException();
-        }
       } else {
         result.put("status", "400");
         result.put("description", "Richiesta invalida.");

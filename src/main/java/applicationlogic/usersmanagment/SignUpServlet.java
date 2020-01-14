@@ -32,7 +32,7 @@ public class SignUpServlet extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    HttpSession ses = request.getSession(true);
+    HttpSession ses = request.getSession();
     Utente user = (Utente) request.getSession().getAttribute("utente");
     Gson obj = new Gson();
     Map<String, String> result = new HashMap<>();
