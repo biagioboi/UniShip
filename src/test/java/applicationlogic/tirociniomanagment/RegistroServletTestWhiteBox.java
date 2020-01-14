@@ -1,4 +1,4 @@
-package applicationlogic.usersmanagment;
+package applicationlogic.tirociniomanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,7 @@ import storage.beans.Studente;
 import storage.beans.Utente;
 
 
-public class HandleUserServletTestWhiteBox extends Mockito {
+public class RegistroServletTestWhiteBox extends Mockito {
 
   private static Utente studente;
   private static Utente azienda;
@@ -32,7 +33,7 @@ public class HandleUserServletTestWhiteBox extends Mockito {
   private HttpServletRequest request;
   private MockHttpServletResponse response;
   private HttpSession session;
-  private static HandleUserServlet servlet = new HandleUserServlet();
+  private static RegistroServlet servlet = new RegistroServlet();
 
 
   @BeforeEach
@@ -87,29 +88,26 @@ public class HandleUserServletTestWhiteBox extends Mockito {
 
 
   @Test
-  public void addCompanyLoggedAsStudente() throws ServletException, IOException, SQLException {
+  public void requestWithoutLoggedUser() throws ServletException, IOException, SQLException {
     when(request.getSession()).thenReturn(session);
-    when(session.getAttribute("utente")).thenReturn(studente);
-    when(session.getAttribute("login")).thenReturn("si");
-    when(request.getParameter("action")).thenReturn("addCompany");
+    when(session.getAttribute("utente")).thenReturn(null);
+    when(session.getAttribute("login")).thenReturn(null);
 
     servlet.doPost(request, response);
 
-    assertEquals("{\"description\":\"Non autorizzato.\",\"status\":\"403\"}",
-        response.getContentAsString().trim());
+    assertEquals(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, response.getStatus());
   }
 
+
   @Test
-  public void requestWithoutAction() throws ServletException, IOException, SQLException {
+  public void addActivityNull() throws ServletException, IOException, SQLException {
     when(request.getSession()).thenReturn(session);
-    when(session.getAttribute("utente")).thenReturn(azienda);
-    when(session.getAttribute("login")).thenReturn("si");
-    when(request.getParameter("action")).thenReturn("");
+    when(session.getAttribute("utente")).thenReturn(null);
+    when(session.getAttribute("login")).thenReturn(null);
 
     servlet.doPost(request, response);
 
-    assertEquals("{\"description\":\"Richiesta invalida.\",\"status\":\"400\"}",
-        response.getContentAsString().trim());
+    assertEquals(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, response.getStatus());
   }
 
 
