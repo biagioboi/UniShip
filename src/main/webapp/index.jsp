@@ -1,6 +1,10 @@
+<%@ page import="storage.beans.Utente" %>
+<%@ page import="storage.beans.Studente" %>
+<%@ page import="storage.beans.Azienda" %>
 <%@include file="securety.jsp" %>
 <%
 String tipo = (String) session.getAttribute("tipo");
+Utente utente= (Utente) session.getAttribute("utente");
 %>
 <!doctype html>
 <html lang="en">
@@ -37,9 +41,21 @@ String tipo = (String) session.getAttribute("tipo");
       <!-- Content -->
       <div class="card-body">
         <!-- Name -->
-        <h4 id="nomeUtente" class="card-title text-center font-weight-bold">Mario Rossi</h4>
-        <p id="numeroMatricola" class="card-text text-center font-italic">0512106666</p>
+        <h4 id="nomeUtente" class="card-title text-center font-weight-bold"><%=utente.getNome()%></h4>
+        <% if (tipo.equals("studente")) { %>
+
+        <p id="numeroMatricola" class="card-text text-center font-italic"><%=((Studente)utente).getMatricola()%></p>
         <hr>
+        <% } else if (tipo.equals("azienda")) { %>
+        <p id="numeroMatricola" class="card-text text-center font-italic"><%=((Azienda)utente).getPartitaIva()%></p>
+        <% } else if (tipo.equals("admin")) { %>
+        <hr>
+        <p id="numeroMatricola" class="card-text text-center font-italic">Admin</p>
+        <% } else {%>
+        <hr>
+        <p id="numeroMatricola" class="card-text text-center font-italic">Ufficio Carriere</p>
+        <% }%>
+
         <!-- Some Text -->
         <p class="text-centr"></p>
       </div>
