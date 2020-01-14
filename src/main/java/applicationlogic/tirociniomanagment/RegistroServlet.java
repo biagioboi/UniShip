@@ -147,9 +147,14 @@ public class RegistroServlet extends HttpServlet {
       }
       Utente user = (Utente) request.getSession().getAttribute("utente");
 
+
       if (!tirocinio.getAzienda().getEmail().equals(user.getEmail()) && !tirocinio.getStudente()
           .getEmail().equals(user.getEmail())) {
         throw new IllegalArgumentException("Non puoi aggiungere attivita a questo tirocinio.");
+      }
+
+      if (!user.getTipo().equals(Utente.AZIENDA)) {
+        throw new IllegalArgumentException("Non hai permessi per aggiungere questa attivita.");
       }
 
       if (tirocinio.getOreSvolte() >= tirocinio.getOreTotali()) {
@@ -183,6 +188,6 @@ public class RegistroServlet extends HttpServlet {
     return false;
   }
 
-  AttivitaRegistroInterface attivitaDao = new AttivitaRegistroDao();
-  TirocinioInterface tirocinioDao = new TirocinioDao();
+  private static AttivitaRegistroInterface attivitaDao = new AttivitaRegistroDao();
+  private static TirocinioInterface tirocinioDao = new TirocinioDao();
 }
