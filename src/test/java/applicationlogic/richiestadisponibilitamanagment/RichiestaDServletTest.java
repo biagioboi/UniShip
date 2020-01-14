@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import storage.PasswordHash;
 import storage.beans.Studente;
 import storage.beans.Utente;
 
@@ -28,11 +29,11 @@ public class RichiestaDServletTest extends Mockito {
   @BeforeAll
   static void setUtente() {
     try {
-      utente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password", "studente");
+      utente = new Utente("f.ruocco@studenti.unisa.it", "Frank", PasswordHash.createHash("password"), "studente");
       TestingUtility.createUtente(utente);
 
       Date d = Date.valueOf("1998-06-01");
-      Studente studente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
+      Studente studente = new Studente("f.ruocco@studenti.unisa.it", "Frank", PasswordHash.createHash("password"),
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
       TestingUtility.createStudente(studente);
 
