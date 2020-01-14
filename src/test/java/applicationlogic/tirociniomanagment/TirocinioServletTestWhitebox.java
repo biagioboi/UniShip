@@ -143,8 +143,8 @@ public class TirocinioServletTestWhitebox extends Mockito {
 
   @Test
   //branch !user.getTipo().equals(Utente.UFFICIO_CARRIERE) && !user.getTipo().equals(Utente.ADMIN)
-  public void viewInternship1() throws ServletException, IOException {
-    request.getSession().setAttribute("utente", firstStudente);
+  public void viewInternshipByFilter1() throws ServletException, IOException {
+    request.getSession().setAttribute("utente", firstStudente );
     request.getSession().setAttribute("login", "si");
     request.setParameter("action","viewInternship");
     servlet.doPost(request,response);
