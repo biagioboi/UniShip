@@ -456,6 +456,7 @@ public class PdfServlet extends HttpServlet {
       tirocinioDao.doSave(tirocinio);
 
       //cancello la richiesta risponibilita relativa
+      RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
       richiestaDao.doDelete(richiestaDao.doRetrieveByKey(studente, azienda));
 
       return true;
@@ -485,6 +486,4 @@ public class PdfServlet extends HttpServlet {
   private static StudenteInterface studenteDao = new StudenteDao();
   private static AziendaInterface aziendaDao = new AziendaDao();
   private static UtenteInterface utenteDao = new UtenteDao();
-  private static RichiestaDisponibilitaInterface richiestaDao = new RichiestaDisponibilitaDao();
-
 }
