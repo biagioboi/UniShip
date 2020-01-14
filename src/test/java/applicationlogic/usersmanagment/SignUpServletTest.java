@@ -2,7 +2,7 @@ package applicationlogic.usersmanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import applicationlogic.DBOperation;
+import applicationlogic.TestingUtility;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
@@ -22,7 +22,7 @@ class SignUpServletTest extends Mockito {
   @AfterAll
   static void cancellaUtente() {
     try {
-      DBOperation.deleteUtente("m.rossi@studenti.unisa.it");
+      TestingUtility.deleteUtente("m.rossi@studenti.unisa.it");
     } catch (SQLException e) {
       e.printStackTrace();
     }

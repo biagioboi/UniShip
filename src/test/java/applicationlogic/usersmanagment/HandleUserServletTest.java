@@ -2,7 +2,7 @@ package applicationlogic.usersmanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import applicationlogic.DBOperation;
+import applicationlogic.TestingUtility;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
@@ -31,15 +31,15 @@ public class HandleUserServletTest extends Mockito {
 
     try {
       azienda = new Utente("info@crazytech.it", "Prova", "password", "azienda");
-      DBOperation.createUtente(azienda);
+      TestingUtility.createUtente(azienda);
 
       Azienda prova = new Azienda("info@crazytech.it", "Prova", "password", "03944080657",
           "via prova 2", "pippo", "5485", 55);
-      DBOperation.createAzienda(prova);
+      TestingUtility.createAzienda(prova);
 
       carrierOffice = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", "password",
           "ufficio_carriere");
-      DBOperation.createUtente(carrierOffice);
+      TestingUtility.createUtente(carrierOffice);
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -50,9 +50,9 @@ public class HandleUserServletTest extends Mockito {
   @AfterAll
   static void delete() {
     try {
-      DBOperation.deleteUtente(carrierOffice.getEmail().toLowerCase());
-      DBOperation.deleteUtente(azienda.getEmail().toLowerCase());
-      DBOperation.deleteUtente("info@crazytech.com");
+      TestingUtility.deleteUtente(carrierOffice.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(azienda.getEmail().toLowerCase());
+      TestingUtility.deleteUtente("info@crazytech.com");
     } catch (SQLException e) {
       e.printStackTrace();
     }

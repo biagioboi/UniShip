@@ -2,13 +2,11 @@ package applicationlogic.usersmanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import applicationlogic.DBOperation;
-import applicationlogic.tirociniomanagment.PdfServlet;
+import applicationlogic.TestingUtility;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
-import org.attoparser.dom.IDOMMarkupParser;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,9 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
-import storage.beans.Azienda;
 import storage.beans.Studente;
-import storage.beans.Tirocinio;
 import storage.beans.Utente;
 
 public class SessionServletTest extends Mockito {
@@ -41,12 +37,12 @@ public class SessionServletTest extends Mockito {
 
     try {
       studente = new Utente("m.rossi@studenti.unisa.it", "Mario", "password", "studente");
-      DBOperation.createUtente(studente);
+      TestingUtility.createUtente(studente);
 
       Date d = Date.valueOf("1998-06-01");
       Studente st = new Studente("m.rossi@studenti.unisa.it", "Mario", "password",
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Rossi");
-      DBOperation.createStudente(st);
+      TestingUtility.createStudente(st);
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -57,7 +53,7 @@ public class SessionServletTest extends Mockito {
   @AfterAll
   static void cancella() {
     try {
-      DBOperation.deleteUtente(studente.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(studente.getEmail().toLowerCase());
     } catch (SQLException e) {
       e.printStackTrace();
     }

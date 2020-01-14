@@ -2,7 +2,7 @@ package applicationlogic.tirociniomanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import applicationlogic.DBOperation;
+import applicationlogic.TestingUtility;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -36,23 +36,23 @@ class RegistroServletTest extends Mockito {
 
     try {
       azienda = new Utente("info@prova.it", "Prova", "password", "azienda");
-      DBOperation.createUtente(azienda);
+      TestingUtility.createUtente(azienda);
 
       Azienda prova = new Azienda("info@prova.it", "Prova", "password", "03944080652",
           "via prova 2", "pippo", "5485", 55);
-      DBOperation.createAzienda(prova);
+      TestingUtility.createAzienda(prova);
 
       studente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password", "studente");
-      DBOperation.createUtente(studente);
+      TestingUtility.createUtente(studente);
 
       Date d = Date.valueOf("1998-06-01");
       Studente ruocco = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
-      DBOperation.createStudente(ruocco);
+      TestingUtility.createStudente(ruocco);
 
       tirocinio = new Tirocinio(0, Tirocinio.NON_COMPLETO, 7000, "pippo", 0, "not extis",
           ruocco, prova, "not extist");
-      DBOperation.createTirocinio(tirocinio);
+      TestingUtility.createTirocinio(tirocinio);
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -64,9 +64,9 @@ class RegistroServletTest extends Mockito {
   @AfterAll
   static void delete() {
     try {
-      DBOperation.deleteUtente(azienda.getEmail().toLowerCase());
-      DBOperation.deleteUtente(studente.getEmail().toLowerCase());
-      DBOperation.deleteTirocinio(tirocinio);
+      TestingUtility.deleteUtente(azienda.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(studente.getEmail().toLowerCase());
+      TestingUtility.deleteTirocinio(tirocinio);
     } catch (SQLException e) {
       e.printStackTrace();
     }

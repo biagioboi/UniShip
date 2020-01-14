@@ -2,7 +2,7 @@ package applicationlogic.richiestadisponibilitamanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import applicationlogic.DBOperation;
+import applicationlogic.TestingUtility;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -29,12 +29,12 @@ public class RichiestaDServletTest extends Mockito {
   static void setUtente() {
     try {
       utente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password", "studente");
-      DBOperation.createUtente(utente);
+      TestingUtility.createUtente(utente);
 
       Date d = Date.valueOf("1998-06-01");
       Studente studente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
-      DBOperation.createStudente(studente);
+      TestingUtility.createStudente(studente);
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -54,7 +54,7 @@ public class RichiestaDServletTest extends Mockito {
   @AfterAll
   static void cancellaUtente() {
     try {
-      DBOperation.deleteUtente(utente.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(utente.getEmail().toLowerCase());
     } catch (SQLException e) {
       e.printStackTrace();
     }

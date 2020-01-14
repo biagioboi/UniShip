@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.Files;
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
@@ -25,7 +24,7 @@ import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
-import applicationlogic.DBOperation;
+import applicationlogic.TestingUtility;
 
 public class PdfServletTest extends Mockito {
 
@@ -48,34 +47,34 @@ public class PdfServletTest extends Mockito {
 
     try {
       azienda = new Utente("info@prova.it", "Prova", "password", "azienda");
-      DBOperation.createUtente(azienda);
+      TestingUtility.createUtente(azienda);
 
       Azienda az = new Azienda("info@prova.it", "Prova", "password", "03944080652", "via prova 2",
           "pippo", "5485", 55);
-      DBOperation.createAzienda(az);
+      TestingUtility.createAzienda(az);
 
       studente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password", "studente");
-      DBOperation.createUtente(studente);
+      TestingUtility.createUtente(studente);
 
       Date d = Date.valueOf("1998-06-01");
       Studente st = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
-      DBOperation.createStudente(st);
+      TestingUtility.createStudente(st);
 
       tirocinio = new Tirocinio(999, Tirocinio.NON_COMPLETO, 7000, "pippo", 500, "not extis", st,
           az, "not extist");
-      DBOperation.createTirocinio(tirocinio);
+      TestingUtility.createTirocinio(tirocinio);
 
       secondAzienda = new Utente("info@provaaa.it", "Prova", "password", "azienda");
-      DBOperation.createUtente(secondAzienda);
+      TestingUtility.createUtente(secondAzienda);
 
       Azienda azi = new Azienda("info@provaaa.it", "Prova", "password", "03944080650",
           "via prova 2",
           "pippo", "5485", 55);
-      DBOperation.createAzienda(azi);
+      TestingUtility.createAzienda(azi);
 
       ricDisp = new RichiestaDisponibilita("none", RichiestaDisponibilita.ACCETTATA, azi, st);
-      DBOperation.createRichiestaDisponibilita(ricDisp);
+      TestingUtility.createRichiestaDisponibilita(ricDisp);
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -86,11 +85,11 @@ public class PdfServletTest extends Mockito {
   @AfterAll
   static void delete() {
     try {
-      DBOperation.deleteUtente(azienda.getEmail().toLowerCase());
-      DBOperation.deleteUtente(studente.getEmail().toLowerCase());
-      DBOperation.deleteUtente(secondAzienda.getEmail().toLowerCase());
-      DBOperation.deleteTirocinio(tirocinio);
-      DBOperation.deleteRicDisp(ricDisp);
+      TestingUtility.deleteUtente(azienda.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(studente.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(secondAzienda.getEmail().toLowerCase());
+      TestingUtility.deleteTirocinio(tirocinio);
+      TestingUtility.deleteRicDisp(ricDisp);
     } catch (SQLException e) {
       e.printStackTrace();
     }

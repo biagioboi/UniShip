@@ -2,10 +2,8 @@ package applicationlogic.richiestadisponibilitamanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import applicationlogic.DBOperation;
+import applicationlogic.TestingUtility;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
@@ -43,28 +41,28 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
 
     try {
       Utente aziendaData = new Utente("info@prova.it", "Prova", "password", "azienda");
-      DBOperation.createUtente(aziendaData);
+      TestingUtility.createUtente(aziendaData);
 
       azienda = new Azienda("info@prova.it", "Prova", "password", "03944080652",
           "via prova 2", "pippo", "5485", 55);
-      DBOperation.createAzienda(azienda);
+      TestingUtility.createAzienda(azienda);
 
       Utente studenteData = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password",
           "studente");
-      DBOperation.createUtente(studenteData);
+      TestingUtility.createUtente(studenteData);
 
       Date d = Date.valueOf("1998-06-01");
       studente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
-      DBOperation.createStudente(studente);
+      TestingUtility.createStudente(studente);
 
       ufficioCarriere = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", "password",
           "ufficio_carriere");
-      DBOperation.createUtente(ufficioCarriere);
+      TestingUtility.createUtente(ufficioCarriere);
 
       admin = new Utente("admin@unisa.it", "Admin", "password",
           "admin");
-      DBOperation.createUtente(admin);
+      TestingUtility.createUtente(admin);
 
 
     } catch (SQLException e) {
@@ -76,10 +74,10 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
   @AfterEach
   public void delete() {
     try {
-      DBOperation.deleteUtente(azienda.getEmail().toLowerCase());
-      DBOperation.deleteUtente(studente.getEmail().toLowerCase());
-      DBOperation.deleteUtente(admin.getEmail().toLowerCase());
-      DBOperation.deleteUtente(ufficioCarriere.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(azienda.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(studente.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(admin.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(ufficioCarriere.getEmail().toLowerCase());
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -92,13 +90,13 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
     session = mock(HttpSession.class);
     dao = spy(RichiestaDisponibilitaDao.class);
     response = new MockHttpServletResponse();
-    setFinalStatic(servlet.getClass().getDeclaredField("richiestaDao"), dao);
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("richiestaDao"), dao);
 
   }
 
   @AfterEach
   public void clean() throws Exception {
-    setFinalStatic(servlet.getClass().getDeclaredField("richiestaDao"),
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("richiestaDao"),
         new RichiestaDisponibilitaDao());
   }
 
@@ -134,7 +132,7 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
 
     richiesta = new RichiestaDisponibilita("none", RichiestaDisponibilita.VALUTAZIONE, azienda,
         studente);
-    DBOperation.createRichiestaDisponibilita(richiesta);
+    TestingUtility.createRichiestaDisponibilita(richiesta);
 
     when(request.getSession()).thenReturn(session);
     when(session.getAttribute("utente")).thenReturn(studente);
@@ -148,7 +146,7 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
     assertEquals("{\"description\":\"E' gia' presente una richiesta.\",\"status\":\"422\"}",
         response.getContentAsString().trim().replace("\\u0027", "'"));
 
-    DBOperation.deleteRicDisp(richiesta);
+    TestingUtility.deleteRicDisp(richiesta);
   }
 
   @Test
@@ -313,7 +311,7 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
 
     richiesta = new RichiestaDisponibilita("none", RichiestaDisponibilita.VALUTAZIONE, azienda,
         studente);
-    DBOperation.createRichiestaDisponibilita(richiesta);
+    TestingUtility.createRichiestaDisponibilita(richiesta);
 
     when(request.getSession()).thenReturn(session);
 
@@ -328,7 +326,7 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
     assertEquals("{\"description\":\"Richiesta risposta.\",\"status\":\"200\"}",
         response.getContentAsString().trim());
 
-    DBOperation.deleteRicDisp(richiesta);
+    TestingUtility.deleteRicDisp(richiesta);
   }
 
   @Test
@@ -336,7 +334,7 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
 
     richiesta = new RichiestaDisponibilita("none", RichiestaDisponibilita.VALUTAZIONE, azienda,
         studente);
-    DBOperation.createRichiestaDisponibilita(richiesta);
+    TestingUtility.createRichiestaDisponibilita(richiesta);
 
     when(request.getSession()).thenReturn(session);
 
@@ -351,7 +349,7 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
     assertEquals("{\"description\":\"Richiesta risposta.\",\"status\":\"200\"}",
         response.getContentAsString().trim());
 
-    DBOperation.deleteRicDisp(richiesta);
+    TestingUtility.deleteRicDisp(richiesta);
   }
 
   @Test
@@ -359,7 +357,7 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
 
     richiesta = new RichiestaDisponibilita("none", RichiestaDisponibilita.VALUTAZIONE, azienda,
         studente);
-    DBOperation.createRichiestaDisponibilita(richiesta);
+    TestingUtility.createRichiestaDisponibilita(richiesta);
 
     when(request.getSession()).thenReturn(session);
 
@@ -375,7 +373,7 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
     servlet.doPost(request, response);
     assertEquals(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, response.getStatus());
 
-    DBOperation.deleteRicDisp(richiesta);
+    TestingUtility.deleteRicDisp(richiesta);
   }
 
   @Test
@@ -422,17 +420,6 @@ public class RichiestaDServletTestWhiteBox extends Mockito {
 
   }
 
-
-  static void setFinalStatic(Field field, Object newValue) throws Exception {
-    field.setAccessible(true);
-
-    // remove final modifier from field
-    Field modifiersField = Field.class.getDeclaredField("modifiers");
-    modifiersField.setAccessible(true);
-    modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-
-    field.set(null, newValue);
-  }
 
 
 }

@@ -1,22 +1,20 @@
 package applicationlogic;
 
-import com.mysql.cj.xdevapi.SqlDataResult;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import storage.DatabaseManager;
 import storage.beans.Azienda;
 import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
-import storage.dao.StudenteDao;
 
-public class DBOperation {
+public class TestingUtility {
 
   static Connection connection = null;
 
@@ -264,6 +262,17 @@ public class DBOperation {
       }
     }
 
+  }
+
+  public static void setFinalStatic(Field field, Object newValue) throws Exception {
+    field.setAccessible(true);
+
+    // remove final modifier from field
+    Field modifiersField = Field.class.getDeclaredField("modifiers");
+    modifiersField.setAccessible(true);
+    modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+
+    field.set(null, newValue);
   }
 
 }

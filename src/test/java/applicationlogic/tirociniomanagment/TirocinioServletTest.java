@@ -2,13 +2,11 @@ package applicationlogic.tirociniomanagment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import applicationlogic.DBOperation;
+import applicationlogic.TestingUtility;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.HashMap;
 import javax.servlet.ServletException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -44,39 +42,39 @@ public class TirocinioServletTest extends Mockito {
 
     try {
       firstAzienda = new Utente("info@prova.it", "Prova", "password", "azienda");
-      DBOperation.createUtente(firstAzienda);
+      TestingUtility.createUtente(firstAzienda);
 
       Azienda prova = new Azienda("info@prova.it", "Prova", "password", "03944080652",
           "via prova 2", "pippo", "5485", 55);
-      DBOperation.createAzienda(prova);
+      TestingUtility.createAzienda(prova);
 
       firstStudente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password", "studente");
-      DBOperation.createUtente(firstStudente);
+      TestingUtility.createUtente(firstStudente);
 
       Date d = Date.valueOf("1998-06-01");
       Studente ruocco = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
-      DBOperation.createStudente(ruocco);
+      TestingUtility.createStudente(ruocco);
 
       secondStudente = new Utente("m.rossi@studenti.unisa.it", "Mario", "password", "studente");
-      DBOperation.createUtente(secondStudente);
+      TestingUtility.createUtente(secondStudente);
 
       d = Date.valueOf("1998-01-05");
       Studente rossi = new Studente("m.rossi@studenti.unisa.it", "Mario", "password",
           "MRORSS98A05H703Q", "1234567891", d, "Italia", "Rofrano", "3485813158", "Rossi");
-      DBOperation.createStudente(rossi);
+      TestingUtility.createStudente(rossi);
 
       firstTirocinio = new Tirocinio(0, Tirocinio.NON_COMPLETO, 7000, "pippo", 0, "not extis",
           ruocco, prova, "not extist");
-      DBOperation.createTirocinio(firstTirocinio);
+      TestingUtility.createTirocinio(firstTirocinio);
 
       secondTirocinio = new Tirocinio(0, Tirocinio.IN_CORSO, 7000, "pippo", 500, "not extis", rossi,
           prova, "not extist");
-      DBOperation.createTirocinio(secondTirocinio);
+      TestingUtility.createTirocinio(secondTirocinio);
 
       carrierOffice = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", "password",
           "ufficio_carriere");
-      DBOperation.createUtente(carrierOffice);
+      TestingUtility.createUtente(carrierOffice);
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -87,12 +85,12 @@ public class TirocinioServletTest extends Mockito {
   @AfterAll
   static void delete() {
     try {
-      DBOperation.deleteUtente(firstAzienda.getEmail().toLowerCase());
-      DBOperation.deleteUtente(firstStudente.getEmail().toLowerCase());
-      DBOperation.deleteUtente(secondStudente.getEmail().toLowerCase());
-      DBOperation.deleteTirocinio(firstTirocinio);
-      DBOperation.deleteTirocinio(secondTirocinio);
-      DBOperation.deleteUtente(carrierOffice.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(firstAzienda.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(firstStudente.getEmail().toLowerCase());
+      TestingUtility.deleteUtente(secondStudente.getEmail().toLowerCase());
+      TestingUtility.deleteTirocinio(firstTirocinio);
+      TestingUtility.deleteTirocinio(secondTirocinio);
+      TestingUtility.deleteUtente(carrierOffice.getEmail().toLowerCase());
     } catch (SQLException e) {
       e.printStackTrace();
     }
