@@ -1,7 +1,5 @@
 package storage.beans;
 
-import com.google.gson.annotations.Expose;
-
 /*CAMBIAMENTO: INSERITE STRINGHE FINAL PER LO STATO*/
 public class Utente {
 

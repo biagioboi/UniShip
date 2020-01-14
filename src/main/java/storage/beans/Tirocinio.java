@@ -1,9 +1,5 @@
 package storage.beans;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.Objects;
-
 /*CAMBIAMENTO: INSERITE STRINGHE FINAL PER LO STATO*/
 
 public class Tirocinio {

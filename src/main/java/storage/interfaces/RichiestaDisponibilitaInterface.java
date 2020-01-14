@@ -22,7 +22,7 @@ public interface RichiestaDisponibilitaInterface {
    * @throws IllegalArgumentException nel caso in cui si passa azienda == null oppure studente
    *     == null.
    */
-  RichiestaDisponibilita doRetrieveByKey(Studente studente,Azienda azienda) throws SQLException;
+  RichiestaDisponibilita doRetrieveByKey(Studente studente, Azienda azienda) throws SQLException;
 
 
   /**
