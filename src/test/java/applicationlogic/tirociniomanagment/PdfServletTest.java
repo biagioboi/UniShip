@@ -25,6 +25,16 @@ import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
+import storage.dao.AziendaDao;
+import storage.dao.RichiestaDisponibilitaDao;
+import storage.dao.StudenteDao;
+import storage.dao.TirocinioDao;
+import storage.dao.UtenteDao;
+import storage.interfaces.AziendaInterface;
+import storage.interfaces.RichiestaDisponibilitaInterface;
+import storage.interfaces.StudenteInterface;
+import storage.interfaces.TirocinioInterface;
+import storage.interfaces.UtenteInterface;
 
 public class PdfServletTest extends Mockito {
 
@@ -41,44 +51,33 @@ public class PdfServletTest extends Mockito {
   private static Utente studente;
   private static Utente secondAzienda;
 
+  private static TirocinioInterface tirocinioDao;
+  private static StudenteInterface studenteDao;
+  private static AziendaInterface aziendaDao;
+  private static UtenteInterface utenteDao;
+  private static RichiestaDisponibilitaInterface richiestaDao;
 
   @BeforeAll
   static void setUp() {
 
-    try {
-      azienda = new Utente("info@prova.it", "Prova", "password", "azienda");
-      TestingUtility.createUtente(azienda);
+    azienda = new Azienda("info@prova.it", "Prova", "password", "03944080652", "via prova 2",
+        "pippo", "5485", 55);
 
-      Azienda az = new Azienda("info@prova.it", "Prova", "password", "03944080652", "via prova 2",
-          "pippo", "5485", 55);
-      TestingUtility.createAzienda(az);
+    Date d = Date.valueOf("1998-06-01");
+    studente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
+        "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
 
-      studente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password", "studente");
-      TestingUtility.createUtente(studente);
+    tirocinio = new Tirocinio(999, Tirocinio.NON_COMPLETO, 7000, "pippo", 500, "not extis", (Studente)studente,
+        (Azienda)azienda, "not extist");
+    //TestingUtility.createTirocinio(tirocinio);
 
-      Date d = Date.valueOf("1998-06-01");
-      Studente st = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
-          "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
-      TestingUtility.createStudente(st);
+    secondAzienda =  new Azienda("info@provaaa.it", "Prova", "password", "03944080650",
+        "via prova 2",
+        "pippo", "5485", 55);
 
-      tirocinio = new Tirocinio(999, Tirocinio.NON_COMPLETO, 7000, "pippo", 500, "not extis", st,
-          az, "not extist");
-      TestingUtility.createTirocinio(tirocinio);
+    ricDisp = new RichiestaDisponibilita("none", RichiestaDisponibilita.ACCETTATA, (Azienda)secondAzienda, (Studente)studente);
 
-      secondAzienda = new Utente("info@provaaa.it", "Prova", "password", "azienda");
-      TestingUtility.createUtente(secondAzienda);
-
-      Azienda azi = new Azienda("info@provaaa.it", "Prova", "password", "03944080650",
-          "via prova 2",
-          "pippo", "5485", 55);
-      TestingUtility.createAzienda(azi);
-
-      ricDisp = new RichiestaDisponibilita("none", RichiestaDisponibilita.ACCETTATA, azi, st);
-      TestingUtility.createRichiestaDisponibilita(ricDisp);
-
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    //TestingUtility.createRichiestaDisponibilita(ricDisp);
 
   }
 
@@ -96,7 +95,7 @@ public class PdfServletTest extends Mockito {
   }
 
   @BeforeEach
-  void carica() {
+  void carica() throws Exception {
     servlet = new PdfServlet();
     request = mock(HttpServletRequest.class, Mockito.CALLS_REAL_METHODS);
     session = mock(HttpSession.class, Mockito.CALLS_REAL_METHODS);
@@ -105,6 +104,36 @@ public class PdfServletTest extends Mockito {
     when(request.getSession()).thenReturn(session);
     when(request.getSession().getAttribute("utente")).thenReturn(studente);
     when(request.getSession().getAttribute("login")).thenReturn("si");
+
+    tirocinioDao = mock(TirocinioDao.class);
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("tirocinioDao"), tirocinioDao);
+    when(tirocinioDao.doRetrieveByKey(anyInt())).thenReturn(null);
+    when(tirocinioDao.doRetrieveByKey(tirocinio.getId())).thenReturn(tirocinio);
+    when(tirocinioDao.doSave(any(Tirocinio.class))).thenReturn(true);
+    when(tirocinioDao.doChange(any(Tirocinio.class))).thenReturn(true);
+
+    utenteDao = mock(UtenteDao.class);
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("utenteDao"), utenteDao);
+    when(utenteDao.doCheckRegister(anyString())).thenReturn(false);
+    when(utenteDao.doCheckRegister("f.ruocco@studenti.unisa.it")).thenReturn(true);
+    when(utenteDao.doCheckRegister("info@prova.it")).thenReturn(true);
+    when(utenteDao.doCheckRegister("info@provaaa.it")).thenReturn(true);
+
+
+    aziendaDao = mock(AziendaDao.class);
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("aziendaDao"), aziendaDao);
+    when(aziendaDao.doRetrieveByKey(anyString())).thenReturn(null);
+    when(aziendaDao.doRetrieveByKey("info@prova.it")).thenReturn((Azienda)azienda);
+    when(aziendaDao.doRetrieveByKey("info@provaaa.it")).thenReturn((Azienda)secondAzienda);
+
+    studenteDao = mock(StudenteDao.class);
+    when(studenteDao.doRetrieveByKey(anyString())).thenReturn(null);
+    when(studenteDao.doRetrieveByKey("f.ruocco@studenti.unisa.it")).thenReturn((Studente)studente);
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("studenteDao"), studenteDao);
+
+    richiestaDao = mock(RichiestaDisponibilitaDao.class);
+    when(richiestaDao.doDelete(ricDisp)).thenReturn(true);
+    TestingUtility.setFinalStatic(servlet.getClass().getDeclaredField("richiestaDao"), richiestaDao);
 
 
   }
