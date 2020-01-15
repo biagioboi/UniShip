@@ -80,7 +80,7 @@ public class AttivitaRegistroDaoWhiteBoxTest extends Mockito {
   }
 
   @Test
-  public void doSaveNull() throws SQLException{
+  public void doSaveNull(){
     assertThrows(IllegalArgumentException.class, () -> {
       dao.doSave(null);
     });
