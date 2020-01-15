@@ -9,21 +9,19 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import storage.beans.AttivitaRegistro;
 import storage.beans.Azienda;
+import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
 
-public class AttivitaRegistroDaoWhiteBoxTest extends Mockito {
-
-  private static AttivitaRegistroDao dao = new AttivitaRegistroDao();
+class RichiestaDisponibilitaDaoWhiteBoxTest {
 
   private Studente studente;
   private Azienda azienda;
-  private Tirocinio tirocinio;
-  private AttivitaRegistro attivita;
+  private RichiestaDisponibilita richiesta;
+  private static RichiestaDisponibilitaDao dao = new RichiestaDisponibilitaDao();
 
 
   @BeforeEach
@@ -45,14 +43,8 @@ public class AttivitaRegistroDaoWhiteBoxTest extends Mockito {
         "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
     TestingUtility.createStudente(studente);
 
-    ClassLoader classLoader = getClass().getClassLoader();
-    URL resource = classLoader.getResource("prova.pdf");
-    tirocinio = new Tirocinio(999, Tirocinio.NON_COMPLETO, 7000, "pippo", 500, resource.getPath(),
-        studente, azienda, "not extist");
-    TestingUtility.createTirocinio(tirocinio);
-
-    attivita = new AttivitaRegistro(999,tirocinio,new Date(126123),"nuova attivita",10);
-    TestingUtility.createAttivita(attivita);
+    richiesta = new RichiestaDisponibilita("none", RichiestaDisponibilita.ACCETTATA, azienda, studente);
+    TestingUtility.createRichiestaDisponibilita(richiesta);
 
   }
 
@@ -61,28 +53,70 @@ public class AttivitaRegistroDaoWhiteBoxTest extends Mockito {
     try {
       TestingUtility.deleteUtente(azienda.getEmail().toLowerCase());
       TestingUtility.deleteUtente(studente.getEmail().toLowerCase());
-      TestingUtility.deleteTirocinio(tirocinio);
     } catch (SQLException e) {
       e.printStackTrace();
     }
   }
 
+  @Test
+  void doRetrieveByKey() throws SQLException{
+
+    assertEquals(1,dao.doRetrieveByAzienda(azienda).size());
+  }
 
   @Test
-  public void doRetrieveByTirocinioTirocinioNull() {
+  void doRetrieveByKeyNull() {
     assertThrows(IllegalArgumentException.class, () -> {
-      dao.doRetrieveByTirocinio(null);
+      dao.doRetrieveByKey(null,null);
     });
   }
+
   @Test
-  public void doRetrieveByTirocinio() throws SQLException{
-    assertEquals(1,dao.doRetrieveByTirocinio(tirocinio).size());
+  void doRetrieveByKeyNull2() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      dao.doRetrieveByKey(studente,null);
+    });
   }
 
   @Test
-  public void doSaveNull() throws SQLException{
+  void doRetrieveByKeyNull3() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      dao.doRetrieveByKey(null,azienda);
+    });
+  }
+
+  @Test
+  void doRetrieveByAziendaNull() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      dao.doRetrieveByAzienda(null);
+    });
+  }
+
+  @Test
+  void doRetrieveByStudenteNull() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      dao.doRetrieveByStudente(null);
+    });
+  }
+
+  @Test
+  void doChangeNull() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      dao.doChange(null);
+    });
+  }
+
+  @Test
+  void doSaveNull() {
     assertThrows(IllegalArgumentException.class, () -> {
       dao.doSave(null);
+    });
+  }
+
+  @Test
+  void doDeleteNull() {
+    assertThrows(IllegalArgumentException.class, () -> {
+      dao.doDelete(null);
     });
   }
 }
