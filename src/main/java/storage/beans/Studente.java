@@ -92,15 +92,15 @@ public class Studente extends Utente {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
+  public boolean equals(Object obj) {
+    if (!(obj instanceof Studente)) {
       return false;
     }
-    Studente studente = (Studente) o;
-    return Objects.equals(codiceFiscale, studente.codiceFiscale);
+    Studente other = (Studente) obj;
+    if (this.codiceFiscale.equals(other.codiceFiscale)) {
+      return true;
+    }
+    return false;
   }
 
 
