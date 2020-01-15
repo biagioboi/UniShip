@@ -1,5 +1,4 @@
 package storage.dao;
-/* da aggiungere il metodo doretrivebykey alla documentazione e aggiungere la constante */
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
