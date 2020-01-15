@@ -15,7 +15,7 @@ import javax.crypto.spec.PBEKeySpec;
  * @see <a href="http://crackstation.net/hashing-security.htm">Original
  *     website</a>
  */
-public final class PasswordHash {
+public final class PasswordManager {
 
   /**
    * The Constant PBKDF2_ALGORITHM.
@@ -67,7 +67,7 @@ public final class PasswordHash {
    * This is an utility class. So no constructor should be used.
    */
 
-  private PasswordHash() {
+  private PasswordManager() {
   }
 
   /**

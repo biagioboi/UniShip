@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import storage.PasswordHash;
+import storage.PasswordManager;
 import storage.beans.Studente;
 import storage.beans.Utente;
 import storage.dao.StudenteDao;
@@ -88,7 +88,7 @@ public class SignUpServlet extends HttpServlet {
         throw new IllegalArgumentException("Password non valida.");
       }
 
-      password = PasswordHash.createHash(password);
+      password = PasswordManager.createHash(password);
 
       String nome = request.getParameter("nome");
       if (nome.length() == 0) {

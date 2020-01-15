@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import storage.DatabaseManager;
-import storage.PasswordHash;
+import storage.PasswordManager;
 import storage.beans.Utente;
 import storage.interfaces.UtenteInterface;
 
@@ -48,7 +48,7 @@ public class UtenteDao implements UtenteInterface {
       ResultSet rs = preparedStatement.executeQuery();
 
       while (rs.next()) {
-        if (rs.getString("password").equals(password) || PasswordHash
+        if (rs.getString("password").equals(password) || PasswordManager
             .validatePassword(password, rs.getString("password"))) {
           result = true;
         } else {

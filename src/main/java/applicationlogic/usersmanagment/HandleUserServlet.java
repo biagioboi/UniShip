@@ -22,7 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import storage.PasswordHash;
+import storage.PasswordManager;
 import storage.beans.Azienda;
 import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
@@ -176,7 +176,7 @@ public class HandleUserServlet extends HttpServlet {
         Message.RecipientType.TO,
         InternetAddress.parse(email)
     );
-    String newPassword = PasswordHash.generatePassword();
+    String newPassword = PasswordManager.generatePassword();
     message.setSubject("Registrazione UniShip");
     message.setText("La registrazione alla piattaforma UniShip e' andata a buon fine."
         + "\n\nLe vostre credenziali sono : \nEmail: l'email fornita all'ufficio carriere\n"
@@ -185,7 +185,7 @@ public class HandleUserServlet extends HttpServlet {
 
     Transport.send(message);
 
-    String password = PasswordHash.createHash(newPassword);
+    String password = PasswordManager.createHash(newPassword);
     Azienda azienda = new Azienda(email, nome, password, piva, indirizzo, rappresentante, codAteco,
         Integer.parseInt(numeroDipendenti));
 

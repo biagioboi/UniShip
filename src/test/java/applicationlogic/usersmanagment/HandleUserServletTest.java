@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import storage.PasswordHash;
+import storage.PasswordManager;
 import storage.beans.Azienda;
 import storage.beans.Utente;
 
@@ -31,14 +31,14 @@ public class HandleUserServletTest extends Mockito {
   static void setUp() {
 
     try {
-      azienda = new Utente("info@crazytech.it", "Prova", PasswordHash.createHash("password"), "azienda");
+      azienda = new Utente("info@crazytech.it", "Prova", PasswordManager.createHash("password"), "azienda");
       TestingUtility.createUtente(azienda);
 
-      Azienda prova = new Azienda("info@crazytech.it", "Prova", PasswordHash.createHash("password"), "03944080657",
+      Azienda prova = new Azienda("info@crazytech.it", "Prova", PasswordManager.createHash("password"), "03944080657",
           "via prova 2", "pippo", "5485", 55);
       TestingUtility.createAzienda(prova);
 
-      carrierOffice = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", PasswordHash.createHash("password"),
+      carrierOffice = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", PasswordManager.createHash("password"),
           "ufficio_carriere");
       TestingUtility.createUtente(carrierOffice);
 

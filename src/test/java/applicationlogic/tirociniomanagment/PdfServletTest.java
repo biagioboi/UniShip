@@ -20,7 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.mock.web.MockHttpServletResponse;
-import storage.PasswordHash;
+import storage.PasswordManager;
 import storage.beans.Azienda;
 import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
@@ -47,18 +47,18 @@ public class PdfServletTest extends Mockito {
   static void setUp() {
 
     try {
-      azienda = new Utente("info@prova.it", "Prova", PasswordHash.createHash("password"), "azienda");
+      azienda = new Utente("info@prova.it", "Prova", PasswordManager.createHash("password"), "azienda");
       TestingUtility.createUtente(azienda);
 
-      Azienda az = new Azienda("info@prova.it", "Prova", PasswordHash.createHash("password"), "03944080652", "via prova 2",
+      Azienda az = new Azienda("info@prova.it", "Prova", PasswordManager.createHash("password"), "03944080652", "via prova 2",
           "pippo", "5485", 55);
       TestingUtility.createAzienda(az);
 
-      studente = new Utente("f.ruocco@studenti.unisa.it", "Frank", PasswordHash.createHash("password"), "studente");
+      studente = new Utente("f.ruocco@studenti.unisa.it", "Frank", PasswordManager.createHash("password"), "studente");
       TestingUtility.createUtente(studente);
 
       Date d = Date.valueOf("1998-06-01");
-      Studente st = new Studente("f.ruocco@studenti.unisa.it", "Frank", PasswordHash.createHash("password"),
+      Studente st = new Studente("f.ruocco@studenti.unisa.it", "Frank", PasswordManager.createHash("password"),
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
       TestingUtility.createStudente(st);
 
@@ -66,10 +66,10 @@ public class PdfServletTest extends Mockito {
           az, "not extist");
       TestingUtility.createTirocinio(tirocinio);
 
-      secondAzienda = new Utente("info@provaaa.it", "Prova", PasswordHash.createHash("password"), "azienda");
+      secondAzienda = new Utente("info@provaaa.it", "Prova", PasswordManager.createHash("password"), "azienda");
       TestingUtility.createUtente(secondAzienda);
 
-      Azienda azi = new Azienda("info@provaaa.it", "Prova", PasswordHash.createHash("password"), "03944080650",
+      Azienda azi = new Azienda("info@provaaa.it", "Prova", PasswordManager.createHash("password"), "03944080650",
           "via prova 2",
           "pippo", "5485", 55);
       TestingUtility.createAzienda(azi);
