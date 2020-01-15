@@ -1,9 +1,8 @@
 $(function () {
 
-
   //toggle sidebar
   $("#toggle-sidebar").click(function () {
-    $(".page-wrapper").toggleClass("toggled");
+    $(".page-wrapper").toggleClass("toggled").trigger('pageToggled');
     $("#toggle-sidebar").toggleClass("toggled");
   });
 
@@ -13,14 +12,13 @@ $(function () {
     $("#toggle-sidebar").toggleClass("toggled");
   });
 
-
   restyleBadge();
 
   checkForLogin();
 
 });
 
-function restyleBadge(){
+function restyleBadge() {
   $(".addbadge").each(function () {
     var html = $(this).html();
 
@@ -28,7 +26,7 @@ function restyleBadge(){
       $(this).addClass("badge-info");
     } else if (html == "Accettata") {
       $(this).addClass("badge-success");
-    } else if (html =="Rifiutata"){
+    } else if (html == "Rifiutata") {
       $(this).addClass("badge-danger");
     } else {
       $(this).addClass("badge-warning");
@@ -42,7 +40,6 @@ function percentageToDegrees(percentage) {
 
 }
 
-
 function checkForLogin() {
   $.ajax({
     url: 'SessionServlet',
@@ -52,7 +49,7 @@ function checkForLogin() {
     },
     success: (response) => {
       response = JSON.parse(response);
-      if (response!=null) {
+      if (response != null) {
         if (!response.tipo.localeCompare("studente")) {
           let nome = response.nome;
           let cognome = response.cognome;
@@ -60,7 +57,7 @@ function checkForLogin() {
 
           $("#numeroMatricola").html(matricola);
           $("#nomeUtente").html(`${nome} ${cognome}`);
-        }else if (!response.tipo.localeCompare("azienda")){
+        } else if (!response.tipo.localeCompare("azienda")) {
           let nome = response.nome;
           let partitaIva = response.partitaIva;
 
@@ -99,7 +96,7 @@ function timeConvert(n) {
   let rhours = Math.floor(hours);
   let minutes = (hours - rhours) * 60;
   let rminutes = Math.round(minutes);
-  return rhours +":"+ rminutes;
+  return rhours + ":" + rminutes;
 }
 
 function updateValueSpinner() {
@@ -110,7 +107,7 @@ function updateValueSpinner() {
     let right = $(this).find('.progress-right .progress-bar');
     $("#percentoTotale").html(value);
 
-    if(value > 100){
+    if (value > 100) {
       value = 100;
     }
 

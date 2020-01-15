@@ -42,26 +42,26 @@ public class TirocinioServletTest extends Mockito {
   static void setUp() {
 
     try {
-      firstAzienda = new Utente("info@prova.it", "Prova", PasswordManager.createHash("password"), "azienda");
+      firstAzienda = new Utente("info@prova.it", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "azienda");
       TestingUtility.createUtente(firstAzienda);
 
-      Azienda prova = new Azienda("info@prova.it", "Prova", PasswordManager.createHash("password"), "03944080652",
+      Azienda prova = new Azienda("info@prova.it", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "03944080652",
           "via prova 2", "pippo", "5485", 55);
       TestingUtility.createAzienda(prova);
 
-      firstStudente = new Utente("f.ruocco@studenti.unisa.it", "Frank", PasswordManager.createHash("password"), "studente");
+      firstStudente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "studente");
       TestingUtility.createUtente(firstStudente);
 
       Date d = Date.valueOf("1998-06-01");
-      Studente ruocco = new Studente("f.ruocco@studenti.unisa.it", "Frank", PasswordManager.createHash("password"),
+      Studente ruocco = new Studente("f.ruocco@studenti.unisa.it", "Frank", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
       TestingUtility.createStudente(ruocco);
 
-      secondStudente = new Utente("m.rossi@studenti.unisa.it", "Mario", PasswordManager.createHash("password"), "studente");
+      secondStudente = new Utente("m.rossi@studenti.unisa.it", "Mario", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "studente");
       TestingUtility.createUtente(secondStudente);
 
       d = Date.valueOf("1998-01-05");
-      Studente rossi = new Studente("m.rossi@studenti.unisa.it", "Mario", PasswordManager.createHash("password"),
+      Studente rossi = new Studente("m.rossi@studenti.unisa.it", "Mario", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "MRORSS98A05H703Q", "1234567891", d, "Italia", "Rofrano", "3485813158", "Rossi");
       TestingUtility.createStudente(rossi);
 
@@ -73,7 +73,7 @@ public class TirocinioServletTest extends Mockito {
           prova, "not extist");
       TestingUtility.createTirocinio(secondTirocinio);
 
-      carrierOffice = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", PasswordManager.createHash("password"),
+      carrierOffice = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "ufficio_carriere");
       TestingUtility.createUtente(carrierOffice);
 

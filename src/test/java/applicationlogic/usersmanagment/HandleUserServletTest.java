@@ -31,14 +31,14 @@ public class HandleUserServletTest extends Mockito {
   static void setUp() {
 
     try {
-      azienda = new Utente("info@crazytech.it", "Prova", PasswordManager.createHash("password"), "azienda");
+      azienda = new Utente("info@crazytech.it", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "azienda");
       TestingUtility.createUtente(azienda);
 
-      Azienda prova = new Azienda("info@crazytech.it", "Prova", PasswordManager.createHash("password"), "03944080657",
+      Azienda prova = new Azienda("info@crazytech.it", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "03944080657",
           "via prova 2", "pippo", "5485", 55);
       TestingUtility.createAzienda(prova);
 
-      carrierOffice = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", PasswordManager.createHash("password"),
+      carrierOffice = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "ufficio_carriere");
       TestingUtility.createUtente(carrierOffice);
 

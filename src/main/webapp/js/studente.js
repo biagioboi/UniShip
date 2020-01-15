@@ -41,6 +41,10 @@ $(() => {
 
   chargeAvailabilityRequest();
 
+  $('.page-wrapper').on('pageToggled', function () {
+    updateValueSpinner()
+  });
+
   $("#caricaScaricaPDFModal").on('show.bs.modal', (e) => {
     var tirocinio = $(e.relatedTarget).data('idtirocinio');
     $("#linkPDF").attr("href", "PdfServlet?tirocinio=" + tirocinio);
@@ -100,7 +104,7 @@ function checkIfExistTirocinio() {
         let oreSvolte = x.oreSvolte;
         let percentage = parseInt(oreSvolte / oreTotali * 100);
         $("#percentoOreSvolte").attr("data-value", percentage);
-        updateValueSpinner();
+        //updateValueSpinner();
         $("#oreFatte").html(timeConvert(oreSvolte));
         $("#oreTotali").html(timeConvert(oreTotali));
         let email = x.azienda.email;

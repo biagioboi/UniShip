@@ -45,8 +45,7 @@ public class UtenteDao implements UtenteInterface {
       ResultSet rs = preparedStatement.executeQuery();
 
       while (rs.next()) {
-        if (rs.getString("password").equals(password) || PasswordManager
-            .validatePassword(password, rs.getString("password"))) {
+        if (PasswordManager.validatePassword(password, rs.getString("password"))) {
           result = true;
         } else {
           result = false;

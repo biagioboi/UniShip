@@ -23,10 +23,10 @@ class AziendaDaoTest {
   @BeforeEach
   public void setUp() throws SQLException {
 
-    Utente aziendaData = new Utente("info@prova.it", "Prova", "password", "azienda");
+    Utente aziendaData = new Utente("info@prova.it", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "azienda");
     TestingUtility.createUtente(aziendaData);
 
-    azienda = new Azienda("info@prova.it", "Prova", "password", "03944080652",
+    azienda = new Azienda("info@prova.it", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "03944080652",
         "via prova 2", "pippo", "5485", 55);
     TestingUtility.createAzienda(azienda);
 

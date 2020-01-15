@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 class TirocinioTest {
 
-  Studente stu = new Studente("b.boi@studenti.unisa.it", "Biagio", "password", "BOIBGI99A05H703C", "0512105125",
+  Studente stu = new Studente("b.boi@studenti.unisa.it", "Biagio", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "BOIBGI99A05H703C", "0512105125",
       Date.valueOf("2020-01-15"), "Italia", "Casal Velino", "3485813155", "Boi");
-  Azienda az = new Azienda("info@prova.it", "Prova srl", "password", "03944080658", "Casal Velino", "Biagio Boi", "58524", 20);
+  Azienda az = new Azienda("info@prova.it", "Prova srl", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "03944080658", "Casal Velino", "Biagio Boi", "58524", 20);
 
   @Test
   void getId() {
@@ -98,7 +98,7 @@ class TirocinioTest {
   @Test
   void setStudente() {
     Tirocinio tir = new Tirocinio(5, Tirocinio.NON_COMPLETO, 100, "Biagio Boi", 50, "c:qualcosa", stu, az, "None");
-    Studente y = new Studente("b.boi@studenti.unisa.it", "Biagio", "password", "BOIBGI99A05H703X", "0512105125",
+    Studente y = new Studente("b.boi@studenti.unisa.it", "Biagio", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "BOIBGI99A05H703X", "0512105125",
         Date.valueOf("2020-01-15"), "Italia", "Casal Velino", "3485813155", "Boi");
     tir.setStudente(y);
     assertEquals(y, tir.getStudente());
@@ -113,7 +113,7 @@ class TirocinioTest {
   @Test
   void setAzienda() {
     Tirocinio tir = new Tirocinio(5, Tirocinio.NON_COMPLETO, 100, "Biagio Boi", 50, "c:qualcosa", stu, az, "None");
-    Azienda y = new Azienda("info@prova.it", "Prova srl", "password", "03944080650", "Casal Velino", "Biagio Boi", "58524", 20);
+    Azienda y = new Azienda("info@prova.it", "Prova srl", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "03944080650", "Casal Velino", "Biagio Boi", "58524", 20);
     tir.setAzienda(y);
     assertEquals(y, tir.getAzienda());
   }

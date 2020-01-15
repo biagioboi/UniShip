@@ -43,27 +43,27 @@ public class TirocinioServletWhiteBoxTest extends Mockito {
   public void load() {
 
     try {
-      Utente aziendaData = new Utente("info@prova.it", "Prova", "password", "azienda");
+      Utente aziendaData = new Utente("info@prova.it", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "azienda");
       TestingUtility.createUtente(aziendaData);
 
-      azienda = new Azienda("info@prova.it", "Prova", "password", "03944080652",
+      azienda = new Azienda("info@prova.it", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "03944080652",
           "via prova 2", "pippo", "5485", 55);
       TestingUtility.createAzienda(azienda);
 
-      Utente studenteData = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password",
+      Utente studenteData = new Utente("f.ruocco@studenti.unisa.it", "Frank", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "studente");
       TestingUtility.createUtente(studenteData);
 
       Date d = Date.valueOf("1998-06-01");
-      studente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
+      studente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
       TestingUtility.createStudente(studente);
 
-      ufficioCarriere = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", "password",
+      ufficioCarriere = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "ufficio_carriere");
       TestingUtility.createUtente(ufficioCarriere);
 
-      admin = new Utente("admin@unisa.it", "Admin", "password",
+      admin = new Utente("admin@unisa.it", "Admin", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "admin");
       TestingUtility.createUtente(admin);
 

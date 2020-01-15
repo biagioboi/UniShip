@@ -39,23 +39,23 @@ public class HandleUserServletWhiteBoxTest extends Mockito {
   public void load() {
 
     try {
-      azienda = new Utente("info@prova.it", "Prova", "password", "azienda");
+      azienda = new Utente("info@prova.it", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "azienda");
       TestingUtility.createUtente(azienda);
 
-      realAzienda = new Azienda("info@prova.it", "Prova", "password", "03944080652",
+      realAzienda = new Azienda("info@prova.it", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "03944080652",
           "via prova 2", "pippo", "5485", 55);
       TestingUtility.createAzienda(realAzienda);
 
-      studente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password",
+      studente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "studente");
       TestingUtility.createUtente(studente);
 
       Date d = Date.valueOf("1998-06-01");
-      realStudente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
+      realStudente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
       TestingUtility.createStudente(realStudente);
 
-      ufficioCarriere = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", "password",
+      ufficioCarriere = new Utente("carrieroffice@unisa.it", "Ufficio Carriere", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "ufficio_carriere");
       TestingUtility.createUtente(ufficioCarriere);
 

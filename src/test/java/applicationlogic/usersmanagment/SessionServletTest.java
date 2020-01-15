@@ -37,11 +37,11 @@ public class SessionServletTest extends Mockito {
   static void setUp() {
 
     try {
-      studente = new Utente("m.rossi@studenti.unisa.it", "Mario", PasswordManager.createHash("password"), "studente");
+      studente = new Utente("m.rossi@studenti.unisa.it", "Mario", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "studente");
       TestingUtility.createUtente(studente);
 
       Date d = Date.valueOf("1998-06-01");
-      Studente st = new Studente("m.rossi@studenti.unisa.it", "Mario", PasswordManager.createHash("password"),
+      Studente st = new Studente("m.rossi@studenti.unisa.it", "Mario", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Rossi");
       TestingUtility.createStudente(st);
 

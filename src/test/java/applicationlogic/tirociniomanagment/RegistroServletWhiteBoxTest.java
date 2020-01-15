@@ -46,36 +46,36 @@ public class RegistroServletWhiteBoxTest extends Mockito {
   public void load() {
 
     try {
-      azienda = new Utente("info@prova.it", "Prova", "password", "azienda");
+      azienda = new Utente("info@prova.it", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "azienda");
       TestingUtility.createUtente(azienda);
 
-      realAzienda = new Azienda("info@prova.it", "Prova", "password", "03944080652",
+      realAzienda = new Azienda("info@prova.it", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "03944080652",
           "via prova 2", "pippo", "5485", 55);
       TestingUtility.createAzienda(realAzienda);
 
 
-      fakeAzienda = new Utente("info@prova.com", "Prova", "password", "azienda");
+      fakeAzienda = new Utente("info@prova.com", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "azienda");
       TestingUtility.createUtente(fakeAzienda);
 
-      Azienda secondAzienda = new Azienda("info@prova.com", "Prova", "password", "03944080680",
+      Azienda secondAzienda = new Azienda("info@prova.com", "Prova", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184", "03944080680",
           "via prova 2", "pippo", "5485", 55);
       TestingUtility.createAzienda(secondAzienda);
 
-      studente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "password",
+      studente = new Utente("f.ruocco@studenti.unisa.it", "Frank", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "studente");
       TestingUtility.createUtente(studente);
 
       Date d = Date.valueOf("1998-06-01");
-      realStudente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "password",
+      realStudente = new Studente("f.ruocco@studenti.unisa.it", "Frank", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "RCCFNC98H01H501E", "1234567891", d, "Italia", "Vallo", "3485813158", "Ruocco");
       TestingUtility.createStudente(realStudente);
 
-      fakeStudente = new Utente("f.ruocco1@studenti.unisa.it", "Frank", "password",
+      fakeStudente = new Utente("f.ruocco1@studenti.unisa.it", "Frank", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "studente");
       TestingUtility.createUtente(fakeStudente);
 
       d = Date.valueOf("1998-06-01");
-      Studente secondStudente = new Studente("f.ruocco1@studenti.unisa.it", "Frank", "password",
+      Studente secondStudente = new Studente("f.ruocco1@studenti.unisa.it", "Frank", "2:02:44e9f86136f9b41ce62a1d2605e79ac4be5d5793dac00302553500d1dff4af65d2baa89503990c2114a9b95184",
           "RCCFNC98H01H501R", "1234567890", d, "Italia", "Vallo", "3485813158", "Ruocco");
       TestingUtility.createStudente(secondStudente);
 
