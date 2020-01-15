@@ -1,5 +1,4 @@
 package storage.dao;
-/* nome classe cambiato */
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,8 +9,6 @@ import storage.DatabaseManager;
 import storage.PasswordManager;
 import storage.beans.Utente;
 import storage.interfaces.UtenteInterface;
-
-/*nome classe cambiato*/
 
 public class UtenteDao implements UtenteInterface {
 

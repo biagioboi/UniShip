@@ -1,7 +1,6 @@
 package storage.beans;
 
 import java.sql.Date;
-import java.util.Objects;
 
 public class Studente extends Utente {
 

@@ -118,7 +118,7 @@ public class SessionServletWhiteBoxTest extends Mockito {
     when(session.getAttribute("login")).thenReturn("si");
     when(request.getParameter("action")).thenReturn("retrieveUserLogged");
     doReturn(realAzienda).when(aziendaDao).doRetrieveByKey(anyString());
-    servlet.doPost(request, response);
+    servlet.doGet(request, response);
     Gson obj = new Gson();
     assertEquals(obj.toJson(realAzienda), response.getContentAsString().trim());
   }

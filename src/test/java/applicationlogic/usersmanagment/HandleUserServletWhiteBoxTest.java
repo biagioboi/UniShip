@@ -106,7 +106,7 @@ public class HandleUserServletWhiteBoxTest extends Mockito {
     when(session.getAttribute("login")).thenReturn("si");
     when(request.getParameter("action")).thenReturn("");
 
-    servlet.doPost(request, response);
+    servlet.doGet(request, response);
 
     assertEquals("{\"description\":\"Richiesta invalida.\",\"status\":\"400\"}",
         response.getContentAsString().trim());

@@ -1,6 +1,5 @@
 package storage.beans;
 
-/*CAMBIAMENTO: INSERITE STRINGHE FINAL PER LO STATO*/
 public class Utente {
 
 
