@@ -14,7 +14,7 @@ import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
 
-class AziendaDaoWhiteBoxTest {
+class AziendaDaoTest {
 
   private Azienda azienda;
   private static AziendaDao dao = new AziendaDao();

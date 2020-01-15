@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class TirocinioDaoWhiteBoxTest {
+class TirocinioDaoTest {
 
   private static TirocinioDao dao = new TirocinioDao();
 

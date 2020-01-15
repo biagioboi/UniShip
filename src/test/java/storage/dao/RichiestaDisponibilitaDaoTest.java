@@ -16,7 +16,7 @@ import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
 
-class RichiestaDisponibilitaDaoWhiteBoxTest {
+class RichiestaDisponibilitaDaoTest {
 
   private Studente studente;
   private Azienda azienda;

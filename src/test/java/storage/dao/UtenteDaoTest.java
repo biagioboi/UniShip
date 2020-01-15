@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
-class UtenteDaoWhiteBoxTest {
+class UtenteDaoTest {
 
   private static UtenteDao dao = new UtenteDao();
 

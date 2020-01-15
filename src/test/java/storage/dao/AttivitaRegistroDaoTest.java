@@ -16,7 +16,7 @@ import storage.beans.Studente;
 import storage.beans.Tirocinio;
 import storage.beans.Utente;
 
-public class AttivitaRegistroDaoWhiteBoxTest extends Mockito {
+public class AttivitaRegistroDaoTest extends Mockito {
 
   private static AttivitaRegistroDao dao = new AttivitaRegistroDao();
 
