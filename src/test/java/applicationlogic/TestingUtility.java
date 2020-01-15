@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import storage.DatabaseManager;
+import storage.beans.AttivitaRegistro;
 import storage.beans.Azienda;
 import storage.beans.RichiestaDisponibilita;
 import storage.beans.Studente;
@@ -107,6 +108,44 @@ public class TestingUtility {
       try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
         if (generatedKeys.next()) {
           tirocinio.setId(generatedKeys.getInt(1));
+        } else {
+          throw new SQLException("Creating user failed, no ID obtained.");
+        }
+      }
+
+    } finally {
+      try {
+        if (preparedStatement != null) {
+          preparedStatement.close();
+        }
+      } finally {
+        if (connection != null) {
+          connection.close();
+        }
+      }
+    }
+  }
+
+  public static void createAttivita(AttivitaRegistro attivita) throws SQLException {
+    PreparedStatement preparedStatement = null;
+    int rs;
+
+    try {
+      connection = DatabaseManager.getConnection();
+      preparedStatement = connection
+          .prepareStatement(
+              "INSERT INTO attivitaregistro (tirocinio, data, attivita, ore_svolte) "
+                  + "VALUES (?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS);
+      preparedStatement.setInt(1, attivita.getTirocinio().getId());
+      preparedStatement.setDate(2, attivita.getData());
+      preparedStatement.setString(3, attivita.getAttivita());
+      preparedStatement.setDouble(4, attivita.getOreSvolte());
+
+      rs = preparedStatement.executeUpdate();
+
+      try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+        if (generatedKeys.next()) {
+          attivita.setId(generatedKeys.getInt(1));
         } else {
           throw new SQLException("Creating user failed, no ID obtained.");
         }

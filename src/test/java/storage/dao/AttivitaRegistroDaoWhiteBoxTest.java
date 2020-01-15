@@ -24,6 +24,7 @@ public class AttivitaRegistroDaoWhiteBoxTest extends Mockito {
   private Studente studente;
   private Azienda azienda;
   private Tirocinio tirocinio;
+  private AttivitaRegistro attivita;
 
 
   @BeforeEach
@@ -50,6 +51,10 @@ public class AttivitaRegistroDaoWhiteBoxTest extends Mockito {
     tirocinio = new Tirocinio(999, Tirocinio.NON_COMPLETO, 7000, "pippo", 500, resource.getPath(),
         studente, azienda, "not extist");
     TestingUtility.createTirocinio(tirocinio);
+
+    attivita = new AttivitaRegistro(999,tirocinio,new Date(126123),"nuova attivita",10);
+    TestingUtility.createAttivita(attivita);
+
   }
 
   @AfterEach
@@ -72,7 +77,13 @@ public class AttivitaRegistroDaoWhiteBoxTest extends Mockito {
   }
   @Test
   public void doRetrieveByTirocinio() throws SQLException{
-    assertEquals(new ArrayList<AttivitaRegistro>(),dao.doRetrieveByTirocinio(tirocinio));
+    assertEquals(1,dao.doRetrieveByTirocinio(tirocinio).size());
   }
 
+  @Test
+  public void doSaveNull() throws SQLException{
+    assertThrows(IllegalArgumentException.class, () -> {
+      dao.doSave(null);
+    });
+  }
 }

@@ -216,6 +216,6 @@ public class AziendaDao implements AziendaInterface {
       "INSERT INTO azienda (email, partita_iva, indirizzo, rappresentante,codice_ateco,"
           + "numero_dipendenti) VALUES (?,?,?,?,?,?)";
   public static final String CHANGE =
-      "UPDATE azienda SET partita_iva = ?, indirizzo = ?, rappresentante = ?, codice_ateco = ?"
+      "UPDATE azienda SET partita_iva = ?, indirizzo = ?, rappresentante = ?, codice_ateco = ?,"
           + "numero_dipendenti = ? WHERE email = ?";
 }
