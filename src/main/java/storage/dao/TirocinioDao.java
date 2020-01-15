@@ -184,9 +184,14 @@ public class TirocinioDao implements TirocinioInterface {
    * @return il tirocinio che ha come id quello specificato nel parametro se esite nel Database,
    *     null altrimenti.
    * @throws SQLException nel caso in cui non si riesce ad eseguire la query.
+   * @throws IllegalArgumentException nel cui l'id passato per parametro e' minore di 0.
    */
   @Override
   public Tirocinio doRetrieveByKey(int id) throws SQLException {
+
+    if (id < 0) {
+      throw new IllegalArgumentException();
+    }
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
