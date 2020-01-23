@@ -91,8 +91,7 @@ public class RichiestaDServletTest extends Mockito {
   public void TC_3_03() throws ServletException, IOException {
     request.setParameter("action", "sendRequest");
     request.setParameter("azienda", "info@clarotech.it");
-    request.setParameter("messaggio",
-        "");
+    request.setParameter("messaggio", "");
 
     servlet.doPost(request, response);
     assertEquals(
